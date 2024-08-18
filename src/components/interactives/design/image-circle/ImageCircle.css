@@ -1,0 +1,18 @@
+.image-circle-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 70px;
+    gap: 5vw;
+}
+
+.color-buttons{
+    background-color: rgba(245, 252, 255);
+    border: solid 1.5px black;
+    border-radius: 5px;
+    font-size: 2vw;
+}
+
+.picker{
+    position: absolute;
+    margin-top: 310px;
+}

@@ -1,0 +1,100 @@
+.sketch-draw-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sketch-controls {
+  font-family: "Array", sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 5vh;
+  width: 100%;
+  font-weight: bold;
+}
+
+.shapeSize {
+  -webkit-appearance: none;
+  width: 80%;
+  height: 10px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.shapeSize:hover {
+  opacity: 1;
+}
+
+.shapeSize::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #000000;
+  cursor: pointer;
+}
+
+.sketch-buttons {
+  display: flex;
+  flex-direction: column;
+  font-family: "Array", sans-serif;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: bold;
+}
+
+.sketch-buttons button {
+  color: rgb(0, 0, 0);
+  border: none;
+  font-family: "Array", sans-serif;
+  font-weight: bold;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  width: 120px;
+  height: 45px;
+  margin-bottom: 15px;
+  border: solid 2px black;
+  font-size: 1.3vw;
+  cursor: pointer;
+}
+
+.lineThickness {
+  background-color: red;
+  color: white;
+  border: 1px solid transparent;
+}
+
+.sketch-controls input[type="text"] {
+  font-family: "array", sans-serif;
+
+  width: 80%;
+}
+
+.color-buttons {
+  cursor: pointer;
+  font-family: "Array", sans-serif;
+  border: none;
+  background-color: rgb(255, 255, 255);
+}
+
+.color-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5vh;
+}
+
+.button-full-screan {
+  color: rgb(0, 0, 0);
+  border: none;
+  font-family: "Array", sans-serif;
+  font-weight: bold;
+}

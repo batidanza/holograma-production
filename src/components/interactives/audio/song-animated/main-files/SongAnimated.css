@@ -1,0 +1,35 @@
+.song-animated{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.sketch-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+    margin-top: 5vh;
+}
+
+.button-sketch{
+    font-family: "Array", sans-serif;
+    font-weight: bold;
+    font-size: 2vw;
+    border: solid 1.5px black;
+    border-radius: 5px;
+    background-color: rgba(245, 252, 255);
+    cursor: pointer;
+}
+
+.button-permisson {
+    font-family: "Array", sans-serif;
+    font-weight: bold;
+    font-size: 4vw;
+    border: solid 2px black;
+    border-radius: 5px;
+    background-color: rgba(245, 252, 255);
+    cursor: pointer;
+}

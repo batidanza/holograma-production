@@ -1,0 +1,36 @@
+.magazine {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.animated {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 15vh;
+}
+.text-animation {
+  width: 500px;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.particle {
+  display: flex;
+  justify-content: center;
+  margin-top: 3vw;
+}
+
+@media only screen and (max-width: 768px) {
+  .animated {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .text-animation {
+    width: 300px;
+    align-items: center;
+  }
+}

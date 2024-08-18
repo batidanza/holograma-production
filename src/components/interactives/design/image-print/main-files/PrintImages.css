@@ -1,0 +1,161 @@
+.draw-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Array", sans-serif;
+  font-weight: bold;
+  font-size: 2vw;
+  margin-left: 5vw;
+}
+
+.canvas-images-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  gap: 5vw;
+}
+
+.image-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.our-image {
+  margin-bottom: 10px;
+  cursor: pointer;
+  border: solid 2px black;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  overflow: hidden;
+}
+
+.our-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.control-button {
+  border: solid 2px rgb(0, 0, 0);
+  border-radius: 5px;
+  color: black; 
+  background-color: rgba(245, 252, 255);
+  font-family: "Array", sans-serif;
+  font-weight: bold;
+  font-size: 1vw;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.control-button.selected {
+  opacity: 0.6;
+  background-color: rgb(255, 215, 235);
+}
+
+.our-image.selected {
+  opacity: 0.6;
+  background-color: rgb(255, 215, 235);
+}
+
+.control-text {
+  border: solid 2px rgb(0, 0, 0);
+  border-radius: 5px;
+  color: black; 
+  background-color: rgba(245, 252, 255);
+  font-family: "Array", sans-serif;
+  font-weight: bold;
+  width: 60px;
+  height: 60px;
+  font-size: 1vw;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controls-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.instructions-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 72%;
+  font-size: 1.5vw;
+}
+
+.image-sizes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.image-size-title {
+  font-family: "Array", sans-serif;
+  color: #000000;
+  font-size: 1.5vw;
+  align-items: center;
+  font-weight: bold;
+  text-decoration: none;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+
+@media (min-width: 300px) and (max-width: 1000px) {
+  .canvas-images-container {
+    gap: 2vw;
+    margin-top: 3vh;
+  }
+
+  .our-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .control-button {
+    font-size: 5vw;
+    border: solid 1px rgb(0, 0, 0);
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    width: 7vw;
+    height: auto;
+  }
+
+  .control-text {
+    border: solid 1px rgb(0, 0, 0);
+    border-radius: 1px;
+    font-size: 2.9vw;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    margin-left: 2px;
+    width: 5vw;
+    height: auto;
+  }
+
+  .image-sizes {
+    align-items: center;
+  }
+
+  .image-size-title {
+    font-size: 5vw;
+  }
+}
