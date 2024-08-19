@@ -1,5 +1,5 @@
 import React from "react";
-import dolphines from "../../../assets/dolphines.png";
+import rainbow from "../../../assets/red-arrow.png";
 
 function NavbarLanguage({
   isClosed,
@@ -17,7 +17,7 @@ function NavbarLanguage({
           }`}
           onClick={() => changeLanguage("en")}
         >
-          ENGLISH
+          EN
         </button>
         <span className="language-separator"></span>
         <button
@@ -26,19 +26,23 @@ function NavbarLanguage({
           }`}
           onClick={() => changeLanguage("es")}
         >
-          SPANISH
+          ES
         </button>
       </div>
       {!isClosed && (
-        <button className="close-button" onClick={toggleNavbarAndOptions}>
-          <img lassName="image-button" src={dolphines}></img>
-        </button>
+        <img
+          className="image-button-open"
+          onClick={toggleNavbarAndOptions}
+          src={rainbow}
+        ></img>
       )}
 
       {isClosed && (
-        <button className="open-button" onClick={openNavbar}>
-          <img className="image-button" src={dolphines}></img>
-        </button>
+        <img
+          className="image-button"
+          onClick={openNavbar}
+          src={rainbow}
+        ></img>
       )}
     </div>
   );

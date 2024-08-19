@@ -1,72 +1,141 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import "../../management/FormManagementStyles.css";
+import CustomTextInput from "../../management/FormComponents/CustomTextInput";
+
 
 const RegisterForm = ({ formData, isLoading, handleChange, handleSubmit }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [preview, setPreview] = useState(null);
 
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-    handleChange(event); // Propaga el evento para manejar el archivo seleccionado en el componente padre
+  const handleFileChange = (e) => {
+    const { files } = e.target;
+    if (files) {
+      const file = files[0];
+      handleChange({ target: { name: "Image", value: file } });
+      setPreview(URL.createObjectURL(file)); // Set preview URL
+    }
   };
 
+  const handleRemoveImage = (e) => {
+    e.stopPropagation(); // Prevent click event from bubbling up
+    handleChange({ target: { name: "Image", value: null } });
+    setPreview(null);
+  };
+
+  
+
   return (
-    <div className="my-container-register">
-     <div className="my-form-items">
-        {isLoading && <div className='loading-form'>LOADING...</div>}
-        <form className='my-form'  onSubmit={handleSubmit} encType="multipart/form-data">
-          <div className="my-input-container-form">
+    <div className="form-view-container">
+      <div className="my-container-form">
+        {isLoading && <div className="loading-form">LOADING...</div>}
+        <h3 className="form-title">REGISTER</h3>
+        <form
+          className="my-form-form"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+        >
+          <div className="my-form-group-form">
             <label className="my-label-form" htmlFor="Username">
               USERNAME
             </label>
-            <input
-              type="text"
-              className="my-input-form"
-              name="Username"
+            <CustomTextInput
               value={formData.Username}
-              onChange={handleChange}
+              onChange={(value) =>
+                handleChange({ target: { name: "Username", value } })
+              }
+              placeholder="Enter your username"
+              required
             />
           </div>
-          <div className="my-input-container-form">
+
+          <div className="my-form-group-form">
             <label className="my-label-form" htmlFor="Password">
               PASSWORD
             </label>
-            <input
+            <CustomTextInput
               type="password"
-              className="my-input-form"
-              name="Password"
               value={formData.Password}
-              onChange={handleChange}
+              onChange={(value) =>
+                handleChange({ target: { name: "Password", value } })
+              }
+              placeholder="Enter your password"
+              required
             />
           </div>
-          <div className="my-input-container-form">
+
+          <div className="my-form-group-form">
             <label className="my-label-form" htmlFor="Email">
               EMAIL
             </label>
-            <input
+            <CustomTextInput
               type="email"
-              className="my-input-form"
-              name="Email"
               value={formData.Email}
-              onChange={handleChange}
+              onChange={(value) =>
+                handleChange({ target: { name: "Email", value } })
+              }
+              placeholder="Enter your email"
+              required
             />
           </div>
-          <div className="my-input-container-form">
+
+          <div className="my-form-group-form">
             <label className="my-label-form" htmlFor="Image">
               PROFILE IMAGE
             </label>
-            <div className="custom-file-container">
+            <div
+              className="drop-zone"
+              onClick={() => document.querySelector('input[name="Image"]').click()}
+            >
               <input
                 type="file"
-                className="custom-file-input"
-                id="inputGroupFile01"
+                className="my-input-form"
                 name="Image"
+                accept="image/*"
                 onChange={handleFileChange}
+                style={{ display: "none" }}
               />
-              <label className="custom-file-label" htmlFor="inputGroupFile01">
-                {selectedFile ? selectedFile.name : "Choose file"}
-              </label>
+              {preview ? (
+                <div style={{ position: "relative" }}>
+                  <img
+                    src={preview}
+                    alt="Preview"
+                    style={{
+                      width: "100px",
+                      height: "auto",
+                      margin: "5px",
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={handleRemoveImage}
+                    style={{
+                      position: "absolute",
+                      top: "0",
+                      right: "0",
+                      background: "rgba(255, 0, 0, 0.8)",
+                      border: "none",
+                      color: "white",
+                      cursor: "pointer",
+                      borderRadius: "50%", // Round button
+                      width: "24px",
+                      height: "24px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "14px",
+                    }}
+                  >
+                    X
+                  </button>
+                </div>
+              ) : (
+                <p>Drop an Image or click to select it</p>
+              )}
             </div>
           </div>
-          <input type="submit" value="Enviar" className="my-button-form" />
+
+          <button type="submit" className="my-button-form">
+            REGISTER
+          </button>
         </form>
       </div>
     </div>
@@ -74,4 +143,3 @@ const RegisterForm = ({ formData, isLoading, handleChange, handleSubmit }) => {
 };
 
 export default RegisterForm;
-

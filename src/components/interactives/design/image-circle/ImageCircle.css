@@ -7,7 +7,7 @@
 
 .color-buttons{
     background-color: rgba(245, 252, 255);
-    border: solid 1.5px black;
+      border: 1px solid #ff0000;
     border-radius: 5px;
     font-size: 2vw;
 }

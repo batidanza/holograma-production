@@ -29,26 +29,41 @@ const Navbar = () => {
 
   const handleOptionClick = (view) => {
     setSelectedView(view);
-    setIsClosed(true);  // Cerrar la barra de navegación después de seleccionar una opción
+    setIsClosed(true); // Cerrar la barra de navegación después de seleccionar una opción
   };
 
   return (
     <div className={`sidebar ${isClosed ? "navbar-closed" : ""}`}>
       <div className={`logo-class ${isClosed ? "logo-class-closed" : ""}`}>
-        <Link to="/" className="navbar-brand" onClick={() => handleOptionClick("/")}>
-          {isClosed ? (
-            <p className="vertical-logo">HOLOGRAMA</p>
-          ) : (
-            <p className="text-logo">HOLOGRAMA</p>
-          )}
-        </Link>
+        <div className={`logo-class ${isClosed ? "logo-class-closed" : ""}`}>
+          <Link
+            to="/"
+            className="navbar-brand"
+            onClick={() => handleOptionClick("/")}
+          >
+            {isClosed ? (
+              <p className="vertical-logo">
+                  Holograma
+              </p>
+            ) : (
+              <p className="text-logo">
+                Holograma
+              </p>
+            )}
+          </Link>
+        </div>
       </div>
-      <div className={`art-options ${isClosed ? "art-options-closed" : ""}`} id="artOptions">
+      <div
+        className={`art-options ${isClosed ? "art-options-closed" : ""}`}
+        id="artOptions"
+      >
         {!isLoggedIn() && (
           <>
             <Link
               to="/login"
-              className={`nav-link ${selectedView === "/login" ? "selected" : ""}`}
+              className={`nav-link ${
+                selectedView === "/login" ? "selected" : ""
+              }`}
               onClick={() => handleOptionClick("/login")}
             >
               {t("signIn")}
@@ -57,21 +72,27 @@ const Navbar = () => {
         )}
         <Link
           to="/magazine"
-          className={`nav-link ${selectedView === "/magazine" ? "selected" : ""}`}
+          className={`nav-link ${
+            selectedView === "/magazine" ? "selected" : ""
+          }`}
           onClick={() => handleOptionClick("/magazine")}
         >
           {t("magazine")}
         </Link>
         <Link
           to="/creatives"
-          className={`nav-link ${selectedView === "/creatives" ? "selected" : ""}`}
+          className={`nav-link ${
+            selectedView === "/creatives" ? "selected" : ""
+          }`}
           onClick={() => handleOptionClick("/creatives")}
         >
           {t("creatives")}
         </Link>
         <Link
           to="/interactives-list"
-          className={`nav-link ${selectedView === "/interactives-list" ? "selected" : ""}`}
+          className={`nav-link ${
+            selectedView === "/interactives-list" ? "selected" : ""
+          }`}
           onClick={() => handleOptionClick("/interactives-list")}
         >
           {t("SketchList")}
@@ -79,7 +100,9 @@ const Navbar = () => {
         {isLoggedIn() && (
           <Link
             to="/profile"
-            className={`nav-link ${selectedView === "/profile" ? "selected" : ""}`}
+            className={`nav-link ${
+              selectedView === "/profile" ? "selected" : ""
+            }`}
             onClick={() => handleOptionClick("/profile")}
           >
             {t("profile")}

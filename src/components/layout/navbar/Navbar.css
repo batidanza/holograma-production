@@ -7,8 +7,8 @@
   bottom: 0;
   width: 21%;
   max-width: 300px; 
-  background-color: rgb(245, 252, 255);
-  border-right: 1.5px solid black;
+  background-color: rgb(208, 248, 255);
+  border-right: 1.5px solid rgb(255, 0, 0);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -18,7 +18,7 @@
 
 .vertical-logo {
   font-family: "Array", sans-serif;
-  color: #000000;
+  color: #ff0000;
   font-size: 2.5vw;
   align-items: center;
   font-weight: bold;
@@ -28,11 +28,21 @@
   margin-top: 3vw;
 }
 
-.image-button{
-  width: 50px;
+.image-button {
+  width: 40px;
   height: auto;
+  margin-bottom: 15px;
+  cursor: pointer;
 }
 
+.image-button-open {
+  width: 60px;
+  cursor: pointer;
+  height: auto;
+  margin-bottom: 15px;
+  transform: rotate(180deg); /* Rotar 90 grados */
+  transition: transform 0.3s ease-in-out; /* Animación suave de la rotación */
+}
 .navbar-closed {
   width: 5%; 
   max-width: 400px; 
@@ -41,7 +51,7 @@
 .art-options {
   font-size: 2.5vw; 
   font-weight: bold;
-  color: #000000;
+  color: #ff0000;
   align-items: center;
   position: relative;
   display: flex;
@@ -51,20 +61,20 @@
 
 .nav-link {
   text-decoration: none;
-  color: #000000;
+  color: #ff0000;
   font-weight: bold;
 }
 
 .art-options-closed {
   font-size: 0px;
   font-weight: bold;
-  color: #000000;
+  color: #ff0000;
   margin-top: 2vw;
 }
 
 .nav-lang {
   font-weight: bold;
-  color: #000000;
+  color: #ff0000;
   font-size: 1.1vw;
   margin-bottom: 5vh;
 }
@@ -80,7 +90,7 @@
   background: none;
   border: none;
   font-family: "Array", sans-serif !important;
-  color: #000000;
+  color: #ff0000;
   cursor: pointer;
   font-weight: bold;
   font-size: 1.2vw;
@@ -88,7 +98,7 @@
 
 .text-logo {
   font-family: "Array", sans-serif;
-  color: #000000;
+  color: #ff0000;
   font-size: 2.5vw;
   align-items: center;
   font-weight: bold;
@@ -115,7 +125,7 @@
   border: none;
   background: none;
   font-family: "Array", sans-serif;
-  color: #000000;
+  color: #ff0000;
   margin-bottom: 1vw;
   cursor: pointer;
   font-weight: bold;
@@ -126,27 +136,26 @@
   border: none;
   background: none;
   font-family: "Array", sans-serif;
-  color: #000000;
+  color: #ff0000;
   margin-bottom: 1vw;
   cursor: pointer;
   font-weight: bold;
-  transform: rotate(90deg);
 }
 
 .language-button.selected {
-  color: #4d4d4d;
+  color: #ff0000;
   font-weight: bold;
 }
 
 .nav-link.selected {
-  color: #505050;
+  color: #f15252;
   font-weight: bold;
 }
 
 .language-separator {
   width: 100%;
   height: 2px;
-  background-color: #000000;
+  background-color: #ff0000;
   margin: 1vw 0;
   display: block;
 }
@@ -170,7 +179,7 @@
     justify-content: space-around;
     align-items: center;
     border-right: none;
-    border-bottom: 1.5px solid black;
+    border-bottom: 1.5px solid rgb(255, 0, 0);
     flex-direction: row;
   }
 
@@ -194,7 +203,7 @@
   .language-separator {
     width: 85%;
     height: 2px;
-    background-color: #000000;
+    background-color: #ff0000;
     margin: 1vw 0;
     display: block;
   }

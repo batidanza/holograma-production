@@ -1,45 +1,51 @@
 import React from "react";
-import "./FormStyles.css";
 import { Link } from "react-router-dom";
-
+import "../../management/FormManagementStyles.css";
+import CustomTextInput from "../../management/FormComponents/CustomTextInput.jsx";
 const LoginForm = ({ credentials, handleChange, handleSubmit, errors }) => {
   return (
-    <div className="my-container-login">
-      <div className="my-form-items">
-        <form className="my-form" onSubmit={handleSubmit}>
-          <div className="my-input-container-form">
-            <label className="my-label-form">Username</label>
-            <input
-              type="text"
-              className="my-input-form"
-              name="Username"
+    <div className="form-view-container">
+      <div className="my-container-form">
+        <h3 className="form-title">SIGN IN</h3>
+        <form className="my-form-form" onSubmit={handleSubmit}>
+          <div className="my-form-group-form">
+            <label htmlFor="Username" className="my-label-form">
+              Username
+            </label>
+            <CustomTextInput
               value={credentials.Username}
-              onChange={handleChange}
+              onChange={(value) => handleChange({ target: { name: "Username", value } })}
+              placeholder="Enter your username"
+              required
             />
             {errors.Username && <div className="error">{errors.Username}</div>}
           </div>
-          <div className="my-input-container-form">
-            <label className="my-label-form">Password</label>
-            <input
-              className="my-input-form"
+
+          <div className="my-form-group-form">
+            <label htmlFor="Password" className="my-label-form">
+              Password
+            </label>
+            <CustomTextInput
               type="password"
-              name="Password"
               value={credentials.Password}
-              onChange={handleChange}
+              onChange={(value) => handleChange({ target: { name: "Password", value } })}
+              placeholder="Enter your password"
+              required
             />
             {errors.Password && <div className="error">{errors.Password}</div>}
           </div>
+
           {errors.general && <div className="error">{errors.general}</div>}
-          <div className="my-input-container-form">
-            <button className="my-button-form" type="submit">
-              Sign in
-            </button>
-          </div>
-          <div className="my-input-container-form">
-            <Link className="my-link-form" to="/Register">
+
+          <button type="submit" className="my-button-form">
+            Sign in
+            
+          </button>
+          <Link className="my-button-form" to="/Register">
               Sign up
             </Link>
-          </div>
+      
+ 
         </form>
       </div>
     </div>

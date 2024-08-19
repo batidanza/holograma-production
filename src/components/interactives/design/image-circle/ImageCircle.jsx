@@ -84,7 +84,7 @@ const ImageCircle = () => {
     canvas.style("margin", "auto");
     canvas.style("user-select", "none");
     canvas.style("touch-action", "none");
-    canvas.style("border", "2px solid black"); 
+    canvas.style("border", "2px solid red"); 
     canvas.style("border-radius", "10px"); 
     p5.textFont("Array");
   

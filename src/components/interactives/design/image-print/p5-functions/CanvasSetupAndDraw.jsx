@@ -17,7 +17,7 @@ export const setup = (p5, canvasParentRef) => {
   canvas.style("margin", "auto");
   canvas.style("user-select", "none");
   canvas.style("touch-action", "none");
-  canvas.style("border", "2px solid black"); 
+  canvas.style("border", "2px solid red"); 
   canvas.style("border-radius", "10px"); 
   p5.textFont("Array");
 
@@ -65,6 +65,7 @@ export const draw = (
       const instructionTextSize = p5.width < 600 ? 20 : 35;
       p5.textSize(instructionTextSize);
       p5.textFont("Array");
+      p5.fill(255, 0, 0);
       const instructionText = "PRESS U TO LOAD IMAGES";
       p5.text(
         instructionText,

@@ -16,6 +16,8 @@ import ImageCircle from "../components/interactives/design/image-circle/ImageCir
 import Register from "../components/user/signin/Register";
 import Creatives from "../components/user/creatives/Creatives";
 import CreativeDetail from "../components/user/creatives/CreativeDetail";
+import CreateArchive from "../components/management/archive/CreateArchive";
+import UploadArchivePhotos from "../components/management/archive/UploadArchivePhotos";
 
 const AppRoutes = () => {
   return (
@@ -33,9 +35,14 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/image-circle" element={<ImageCircle />} />
-      <Route path="/Register" element={<Register/>} />
-      <Route path="/creatives" element={<Creatives/>} />
-      <Route path="/creatives/:userId" element={<CreativeDetail/>} />
+      <Route path="/Register" element={<Register />} />
+      <Route path="/creatives" element={<Creatives />} />
+      <Route path="/creatives/:userId" element={<CreativeDetail />} />
+      <Route path="/collection-archive-create" element={<CreateArchive />} />
+      <Route
+        path="/collection-archive-photos-upload"
+        element={<UploadArchivePhotos />}
+      />
     </Routes>
   );
 };

@@ -1,64 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Sketch from "react-p5";
+import myImage from "../../../assets/horse.png"; 
 
 export default () => {
-  const [x, setX] = useState(3);
-  const [y, setY] = useState(3);
+  const [x, setX] = useState(0.4);
+  const [y, setY] = useState(0.4);
   const [dragging, setDragging] = useState(false);
+  let img;
 
-  useEffect(() => {
-    const preventDefault = (e) => {
-      if (dragging) {
-        e.preventDefault();
-      }
-    };
-
-    window.addEventListener("touchmove", preventDefault, { passive: false });
-
-    return () => {
-      window.removeEventListener("touchmove", preventDefault, { passive: false });
-    };
-  }, [dragging]);
+  const preload = (p5) => {
+    img = p5.loadImage(myImage);
+  };
 
   const setup = (p5, canvasParentRef) => {
-    const canvas = p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
-
-    canvas.style("position", "fixed");
-    canvas.style("top", "0");
-    canvas.style("left", "0");
-    canvas.style("z-index", "200");
-    p5.clear();
+    p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
     p5.angleMode(p5.DEGREES);
     p5.rectMode(p5.CENTER);
   };
 
   const draw = (p5) => {
-    p5.background(208, 248, 255);
+    p5.background(250, 250, 250);
     p5.noFill();
 
     p5.translate(p5.width / 2, p5.height / 2);
 
-    for (let i = 0; i < 85; i++) {
+    for (let i = 0; i < 2167; i++) {
       p5.push();
-      p5.rotate(p5.sin(p5.frameCount + i) * 1200);
+      p5.rotate(p5.sin(p5.frameCount + i) * 11115551);
 
       const britishGreen = {
-        r: 255,
-        g: 0,    
+        r: 0,
+        g: 0,
         b: 0,
       };
 
       p5.stroke(britishGreen.r, britishGreen.g, britishGreen.b);
-
-      p5.line(x, y, 250 - i * 3, 250 - i / 3, 250 - i);
-
+      p5.triangle(x, y, 1500 - i * 3, 1500 - i / 3, 1500 - i);
       p5.pop();
     }
+
+    // Dibuja la imagen en el centro
+    p5.image(img, -img.width / 2, -img.height / 2); // La imagen se dibuja centrada
   };
 
   const mousePressed = (p5) => {
     const distance = p5.dist(p5.width / 2, p5.height / 2, p5.mouseX, p5.mouseY);
-    if (distance < 250) {
+    if (distance < 750) {
       setDragging(true);
     }
   };
@@ -76,6 +63,7 @@ export default () => {
 
   return (
     <Sketch
+      preload={preload}
       setup={setup}
       draw={draw}
       mousePressed={mousePressed}
