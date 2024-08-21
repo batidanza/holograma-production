@@ -1,7 +1,6 @@
 import React from "react";
 import "./Magazine.css";
 import AnimatedCollectionVisual from "../animated-collection/AnimatedCollectionVisual.jsx";
-import DragAndDrop from "../animated-collection/DragAndDropCollection.jsx";
 
 const Magazine = () => {
   return (
@@ -41,9 +40,10 @@ const Magazine = () => {
         </div>
         <AnimatedCollectionVisual />
       </div>
-      <DragAndDrop/>
+
     </>
   );
 };
+
 
 export default Magazine;

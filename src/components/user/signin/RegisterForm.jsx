@@ -1,32 +1,31 @@
 import React, { useState } from "react";
 import "../../management/FormManagementStyles.css";
 import CustomTextInput from "../../management/FormComponents/CustomTextInput";
+import LoadingSketch from "../../layout/Loading/LoadingSketch";
 
-
-const RegisterForm = ({ formData, isLoading, handleChange, handleSubmit }) => {
+const RegisterForm = ({ formData, isLoading, handleChange, handleSubmit, error, redirectToLogin }) => {
   const [preview, setPreview] = useState(null);
 
   const handleFileChange = (e) => {
     const { files } = e.target;
-    if (files) {
+    if (files && files[0]) { 
       const file = files[0];
-      handleChange({ target: { name: "Image", value: file } });
-      setPreview(URL.createObjectURL(file)); // Set preview URL
+      handleChange({ target: { name: "Image", files } }); 
+      setPreview(URL.createObjectURL(file));
     }
   };
 
   const handleRemoveImage = (e) => {
-    e.stopPropagation(); // Prevent click event from bubbling up
-    handleChange({ target: { name: "Image", value: null } });
+    e.stopPropagation(); 
+    handleChange({ target: { name: "Image", files: [] } }); 
     setPreview(null);
   };
-
-  
 
   return (
     <div className="form-view-container">
       <div className="my-container-form">
-        {isLoading && <div className="loading-form">LOADING...</div>}
+        {isLoading && <LoadingSketch/> }
+        {error && <div className="error-message">{error}</div>} 
         <h3 className="form-title">REGISTER</h3>
         <form
           className="my-form-form"
@@ -115,7 +114,7 @@ const RegisterForm = ({ formData, isLoading, handleChange, handleSubmit }) => {
                       border: "none",
                       color: "white",
                       cursor: "pointer",
-                      borderRadius: "50%", // Round button
+                      borderRadius: "50%",
                       width: "24px",
                       height: "24px",
                       display: "flex",

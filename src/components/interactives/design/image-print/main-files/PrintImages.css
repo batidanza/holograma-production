@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: "Array", sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
   font-weight: bold;
   font-size: 2vw;
   margin-left: 5vw;
@@ -48,8 +48,7 @@
   border: solid 1.5px rgb(255, 0, 0);
   border-radius: 5px;
   color: red;
-  background-color:  rgb(208, 248, 255);
-  font-family: "Array", sans-serif;
+  background-color:  rgb(205, 225, 235);
   font-weight: bold;
   font-size: 1vw;
   width: 45px;
@@ -74,10 +73,9 @@
   border: solid 1.5px rgb(255, 0, 0);
   border-radius: 5px;
   color: red;
-  background-color:  rgb(208, 248, 255);
-  font-family: "Array", sans-serif;
+  background-color:  rgb(205, 225, 235);
   font-weight: bold;
-  width: 60px;
+  width: 80px;
   height: 60px;
   font-size: 1vw;
   cursor: pointer;
@@ -98,7 +96,9 @@
   flex-direction: column;
   justify-content: center;
   width: 72%;
-  font-size: 1.5vw;
+  color: red;
+  font-size: 1vw;
+
 }
 
 .image-sizes {
@@ -109,7 +109,6 @@
 }
 
 .image-size-title {
-  font-family: "Array", sans-serif;
   color: rgb(255, 0, 0);
   font-size: 1.5vw;
   align-items: center;

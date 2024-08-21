@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(208, 248, 255) !important;
+  background-color: rgb(205, 225, 235) !important;
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -7,14 +7,14 @@ body {
 
 .title {
   font-family: "Array", sans-serif;
-  font-size: 2vw;
+  font-size: 2rem;
   margin-top: 10vh;
   margin-bottom: 2;
   color: red;
 }
 
 .content {
-  flex: 1; /* Esto permite que el contenido crezca y ocupe el espacio disponible */
+  flex: 1;
 }
 .sketch-container {
   display: flex;
@@ -30,5 +30,5 @@ body {
   margin-top: 40vh;
   margin-bottom: 60vh;
   animation: opacityAnimation 1s ease infinite alternate,
-    colorAnimation 2s ease infinite alternate; /* Agrega una animación de opacidad */
+    colorAnimation 2s ease infinite alternate;
 }

@@ -43,11 +43,11 @@ const Navbar = () => {
           >
             {isClosed ? (
               <p className="vertical-logo">
-                  Holograma
+                  HOLOGRAMA
               </p>
             ) : (
               <p className="text-logo">
-                Holograma
+                HOLOGRAMA
               </p>
             )}
           </Link>

@@ -3,11 +3,6 @@ import Sketch from "react-p5";
 import { getPhotoByArchive } from "../../../services/ArchiveAPI";
 import { useNavigate } from "react-router-dom";
 
-// Importar la imagen de fondo desde tus assets
-import backgroundImage from "../../../assets/rainbow.png";
-// Importar el archivo de audio
-import backgroundAudio from "../../../assets/psy-sketch-audio.wav";
-
 class ImageDisplay {
   constructor(img, p5, x, y) {
     this.img = img;
@@ -30,31 +25,15 @@ const RapidPrintPhoto = () => {
   const [isAnimationStopped, setIsAnimationStopped] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Cargar y reproducir el audio en loop
-    const audio = new Audio(backgroundAudio);
-    audio.loop = true;
-    audio.play().catch((error) => console.error("Error playing audio:", error));
-
-    return () => {
-      // Detener el audio cuando el componente se desmonta
-      audio.pause();
-      audio.currentTime = 0;
-    };
-  }, []);
-
   const setup = async (p5, canvasParentRef) => {
     let canvasWidth = window.innerWidth;
     let canvasHeight = window.innerHeight;
 
     const canvas = p5.createCanvas(canvasWidth, canvasHeight);
     canvas.parent(canvasParentRef);
-
+    p5.background(205, 225, 235);
     canvas.style("user-select", "none");
     canvas.style("touch-action", "none");
-
-    // Cargar y mostrar la imagen de fondo
-    p5.background(p5.loadImage(backgroundImage));
 
     try {
       const collection = await getPhotoByArchive("Holograma");
@@ -71,7 +50,6 @@ const RapidPrintPhoto = () => {
 
       setImageDisplays(imageDisplays);
 
-      // Configurar la animación para mostrar imágenes rápidamente
       let intervalId = setInterval(() => {
         if (!isAnimationStopped) {
           setCurrentIndex((prevIndex) => {
@@ -82,7 +60,7 @@ const RapidPrintPhoto = () => {
             return nextIndex;
           });
         }
-      }, 100); // Cambiar este valor para ajustar la velocidad de la animación
+      }, 100);
 
       return () => clearInterval(intervalId);
     } catch (error) {
@@ -93,8 +71,8 @@ const RapidPrintPhoto = () => {
   const loadImages = async (collection, p5) => {
     const imageUrls = collection.map((item) => item.Image);
 
-    const isMobile = window.innerWidth <= 768; // Detectar si es un dispositivo móvil
-    const imgWidth = isMobile ? 100 : 180; // Ajustar el tamaño de la imagen
+    const isMobile = window.innerWidth <= 768;
+    const imgWidth = isMobile ? 100 : 180;
 
     const loadedImages = await Promise.all(
       imageUrls.map(
@@ -112,7 +90,7 @@ const RapidPrintPhoto = () => {
   };
 
   const draw = (p5) => {
-    p5.background(p5.loadImage(backgroundImage)); // Fondo de la imagen
+    p5.background(205, 225, 235); 
     for (let i = 0; i <= currentIndex; i++) {
       imageDisplays[i]?.display();
     }

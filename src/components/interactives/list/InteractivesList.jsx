@@ -1,66 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./SketchList.css";
 
-import drawImagesVideo from "../../../assets/sketch-ellipses-video.mp4";
-import soloBrillabaSketchVideo from "../../../assets/sketch-ellipses-video.mp4";
-import audioParticlesSketchVideo from "../../../assets/sketch-ellipses-video.mp4";
-import sphereImageVideo from "../../../assets/sketch-ellipses-video.mp4";
-import drawShapes from "../../../assets/sketch-ellipses-video.mp4";
-import audioPatch from "../../../assets/sketch-ellipses-video.mp4";
-import fanVideo from "../../../assets/sketch-ellipses-video.mp4";
-import horseVideo from "../../../assets/sketch-ellipses-video.mp4";
+import sketchImage1 from "../../../assets/interactiveList/sketch-image-color-photo.png";
+import sketchImage2 from "../../../assets/interactiveList/sketch-image-color-photo.png";
+import sketchImage3 from "../../../assets/interactiveList/sketch-image-color-photo.png";
+import sketchImage4 from "../../../assets/interactiveList/sketch-image-color-photo.png";
+import sketchImage5 from "../../../assets/interactiveList/sketch-image-color-photo.png";
+import sketchImage6 from "../../../assets/interactiveList/sketch-image-color-photo.png";
+import sketchImage7 from "../../../assets/interactiveList/sketch-image-color-photo.png";
+import sketchImage8 from "../../../assets/interactiveList/sketch-image-color-photo.png";
 
 const InteractivesList = () => {
-  const videosData = [
-    { id: 1, src: drawImagesVideo, title: "PRINT IMAGES", path: "print-images" },
-    { id: 2, src: soloBrillabaSketchVideo, title: "SOLO BRILLABA", path: "particle-component" },
-    { id: 3, src: drawShapes, title: "DRAW SHAPE", path: "draw-shape" },
-    { id: 4, src: audioParticlesSketchVideo, title: "FLUID SKETCH", path: "fluid-component" },
-    { id: 5, src: sphereImageVideo, title: "SPHERE IMAGES", path: "image-circle" },
-    { id: 6, src: fanVideo, title: "FAN SKETCH", path: "fan-sketch" },
-    { id: 7, src: horseVideo, title: "IMAGE PARTICLE", path: "image-particle" },
-    { id: 8, src: audioPatch, title: "AUDIO & IMAGES PATCH", path: "audio-visualizer" },
+  const imagesData = [
+    { id: 1, src: sketchImage1, title: "PRINT IMAGES", path: "print-images" },
+    { id: 2, src: sketchImage2, title: "SOLO BRILLABA", path: "particle-component" },
+    { id: 3, src: sketchImage3, title: "DRAW SHAPE", path: "draw-shape" },
+    { id: 4, src: sketchImage4, title: "FLUID SKETCH", path: "fluid-component" },
+    { id: 5, src: sketchImage5, title: "SPHERE IMAGES", path: "image-circle" },
+    { id: 6, src: sketchImage6, title: "FAN SKETCH", path: "fan-sketch" },
+    { id: 7, src: sketchImage7, title: "IMAGE PARTICLE", path: "image-particle" },
+    { id: 8, src: sketchImage8, title: "AUDIO & IMAGES PATCH", path: "audio-visualizer" },
   ];
 
-  const [videoLoading, setVideoLoading] = useState(videosData.reduce((acc, video) => {
-    acc[video.id] = true;
-    return acc;
-  }, {}));
-
-  const handleVideoLoaded = (id) => {
-    setVideoLoading((prevState) => ({ ...prevState, [id]: false }));
-  };
-
-  const handleVideoError = (id, error) => {
-    console.error(`Error loading video ${id}:`, error);
-    setVideoLoading((prevState) => ({ ...prevState, [id]: false }));
-  };
-
   return (
-    <div className="sketch-video-list">
+    <div className="sketch-image-list">
       <h4 className="title"> INTERACTIVE SKETCHES </h4>
       <div className="sketch-containers">
-        {videosData.map((video) => (
-          <div key={video.id} className="sketch-video-container">
-            <Link to={`/${video.path}`}>
-              {videoLoading[video.id] && (
-                <div className="video-loading">Loading...</div>
-              )}
-              <video
-                src={video.src}
-                autoPlay
-                loop
-                muted
-                controls={false}
-                disablePictureInPicture
-                controlsList="nodownload nofullscreen noremoteplayback"
-                style={{ display: videoLoading[video.id] ? "none" : "block" }}
-                onCanPlayThrough={() => handleVideoLoaded(video.id)}
-                onError={(e) => handleVideoError(video.id, e)}
+        {imagesData.map((image) => (
+          <div key={image.id} className="sketch-image-container">
+            <Link to={`/${image.path}`}>
+              <img
+                src={image.src}
+                alt={image.title}
+                className="sketch-image"
               />
             </Link>
-            <div className="video-title">{video.title}</div>
+            <div className="image-title">{image.title}</div>
           </div>
         ))}
       </div>

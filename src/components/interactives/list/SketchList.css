@@ -1,4 +1,4 @@
-.sketch-video-list {
+.sketch-image-list {
   width: 100%;
   text-align: center;
   display: flex;
@@ -8,7 +8,7 @@
   color: red;
 }
 
-.video-loading {
+.image-loading {
   top: 0;
   left: 0;
   width: 100%;
@@ -25,19 +25,19 @@
     255,
     255,
     0.8
-  ); /* Optional for better visibility */
+  );
   border-radius: 8px;
 }
 
 .sketch-containers {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Centrar los contenedores horizontalmente */
-  align-items: center; /* Centrar los contenedores verticalmente */
+  justify-content: center; 
+  align-items: center; 
 }
 
-.sketch-video-container {
-  flex: 0 0 calc(28.28% - 40px); /* Ancho de 1/3 con margen */
+.sketch-image-container {
+  flex: 0 0 calc(28.28% - 40px); 
   margin: 20px;
   position: relative;
   border: solid 1.5px rgb(255, 0, 0);
@@ -47,28 +47,28 @@
   box-sizing: border-box;
 }
 
-.sketch-video-container:hover {
+.sketch-image-container:hover {
   background-color: rgb(255, 0, 0);
   color: rgb(208, 248, 255);
   cursor: pointer;
   border-color: rgb(255, 0, 0);
 }
 
-.sketch-video-container video {
+.sketch-image-container img {
   width: 100%;
   height: auto;
   display: block;
   pointer-events: none;
 }
 
-.video-title {
+.image-title {
   margin-top: 10px;
   text-align: center;
   font-family: "Array", sans-serif;
   font-size: 1.5vw;
 }
 
-.video-loading {
+.image-loading {
   font-family: "Array", sans-serif;
   display: flex;
   justify-content: center;
@@ -79,17 +79,17 @@
 }
 
 @media screen and (max-width: 1224px) {
-  .sketch-video-container {
+  .sketch-image-container {
     width: 70%;
     height: auto;
     margin: 20px auto;
   }
 
-  .video-title {
+  .image-title {
     font-size: 4vw;
   }
 
-  .sketch-video-list-title {
+  .sketch-image-list-title {
     font-size: 3vw;
   }
 }

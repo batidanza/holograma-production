@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom"; 
 import { fetchUsers } from "../../../services/user/userDataService";
 import "./Creatives.css";
+import LoadingSketch from "../../layout/Loading/LoadingSketch";
 
 const Creatives = () => {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const getUsers = async () => {
@@ -15,7 +16,7 @@ const Creatives = () => {
       } catch (error) {
         console.error("Error al obtener usuarios:", error);
       } finally {
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false); 
       }
     };
 
@@ -25,14 +26,13 @@ const Creatives = () => {
   return (
     <div className="creatives-container">
       <h1 className="title">CREATIIVES</h1>
-      {loading ? ( // Conditional rendering based on loading state
-        <div className="loading">Loading...</div>
+      {loading ? (
+          <LoadingSketch/>
       ) : (
         <div className="card-containers">
           {users.map((user) => (
-            <div className="user-container" key={user.ID}> {/* Move key prop here */}
+            <div className="user-container" key={user.ID}>
               <Link className="creative-link" to={`/creatives/${user.ID}`}>
-                {/* Wrap each card with Link */}
                 <div className="user-card">
                   <img
                     src={user.Image}

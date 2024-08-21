@@ -20,7 +20,7 @@
     font-size: 2vw;
       border: 1px solid #ff0000;
     border-radius: 5px;
-    background-color: rgba(245, 252, 255);
+    background-color: rgb(205, 225, 235);
     cursor: pointer;
 }
 
@@ -30,6 +30,6 @@
     font-size: 4vw;
     border: solid 2px black;
     border-radius: 5px;
-    background-color: rgba(245, 252, 255);
+    background-color: rgb(205, 225, 235);
     cursor: pointer;
 }
