@@ -1,0 +1,59 @@
+.instructions-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+  
+  .instructions-content {
+    background: rgb(205, 225, 235);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1s ease-out;
+    font-family: "Array", sans-serif; /* Fuente especificada */
+  }
+  
+  .instructions-content h1 {
+    margin-bottom: 20px;
+    color: red; /* Color especificado */
+    font-size: 2rem; /* Tamaño de fuente especificado */
+  }
+  
+  .instructions-content ul {
+    list-style: none;
+    padding: 0;
+    color: red;
+  }
+  
+  .instructions-content li {
+    margin: 10px 0;
+    color: red;
+  }
+  
+  .instructions-content button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: red; /* Color especificado */
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Array", sans-serif; /* Fuente especificada */
+  }
+  
+  .instructions-content button:hover {
+    background-color: #70a7b3; /* Color especificado */
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }

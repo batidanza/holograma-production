@@ -1,0 +1,57 @@
+.sketch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+  }
+  
+  .sketch-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+  }
+  
+  .sketch-title {
+    font-family: 'Array', sans-serif;
+    font-size: 35px;
+    font-weight: 10;
+    color: #27343a;
+    text-align: center;
+    width: 40vw;
+  }
+  
+  .sketch-stars {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center ;
+  }
+  
+  .stars-buttons {
+    font-family: 'Array', sans-serif;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+  }
+  
+  .button-permission{
+    margin-left: 35%;
+    margin-top: 20%;
+    margin-bottom: 20vw;
+    font-size: 5vw; /* Tamaño de fuente relativo */
+    border: none;
+    background: none;
+    font-family: 'Array', sans-serif !important;
+    color: #000000;
+  }
+  
+  .color-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

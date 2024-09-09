@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sketch from "react-p5";
 import "p5/lib/addons/p5.sound";
-import harmImage from "../../../../assets/harm.jpg";
+import harmImage from "../../../../assets/pad/harm.jpg";
 import audio1 from "../../../../assets/psy-sketch-audio.wav";
 
 let sound;
