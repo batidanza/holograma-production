@@ -12,8 +12,8 @@
 }
 .text-animation {
   width: 500px;
-color: red;
-font-family: "IBM Plex Sans", sans-serif;
+  color: red;
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
 .particle {
@@ -22,7 +22,7 @@ font-family: "IBM Plex Sans", sans-serif;
   margin-top: 3vw;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1268px) {
   .animated {
     display: flex;
     flex-direction: column;
@@ -30,7 +30,14 @@ font-family: "IBM Plex Sans", sans-serif;
     justify-content: center;
   }
   .text-animation {
-    width: 300px;
+    width: 80%;
     align-items: center;
   }
+}
+
+@media only screen and (max-width: 568px) {
+.text-animation {
+  width: 90%;
+  align-items: center;
+}
 }

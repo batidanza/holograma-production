@@ -2,19 +2,23 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 70px;
+  justify-content: center;
+  gap: 50px;
 }
 
 .sketch-controls {
   font-family: "Array", sans-serif;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
   gap: 5vh;
-  width: 100%;
   font-weight: bold;
+  color: red;
 }
 
 .shapeSize {
@@ -52,16 +56,16 @@
 }
 
 .sketch-buttons button {
-  color: rgb(0, 0, 0);
+  color: rgb(255, 0, 0);
   border: none;
   font-family: "Array", sans-serif;
   font-weight: bold;
-  background-color: rgb(205, 225, 235);
+  background-color: transparent;
   border-radius: 5px;
   width: 120px;
   height: 45px;
   margin-bottom: 15px;
-  border: solid 2px black;
+  border: solid 2px rgb(255, 0, 0);
   font-size: 1.3vw;
   cursor: pointer;
 }
@@ -82,7 +86,7 @@
   cursor: pointer;
   font-family: "Array", sans-serif;
   border: none;
-  background-color: rgb(205, 225, 235);
+  background-color: rgb(4, 18, 37);
 }
 
 .color-button-container {
@@ -93,8 +97,17 @@
 }
 
 .button-full-screan {
-  color: rgb(0, 0, 0);
+  background-color: transparent;
   border: none;
-  font-family: "Array", sans-serif;
-  font-weight: bold;
+}
+
+.sketch-button-icon {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
 }

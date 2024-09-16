@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(205, 225, 235) !important;
+  background-color: rgb(4, 18, 37) !important;
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -16,10 +16,32 @@ body {
 .content {
   flex: 1;
 }
+
 .sketch-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  width: 100vw;
+  height: 100vh;
+  pad: 40px;
+  gap: 100px;
+}
+
+.shape-button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+}
+
+.color-button {
+  background-color: transparent;
+  border: solid 1px rgb(255, 0, 0);
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .loading {
@@ -31,4 +53,13 @@ body {
   margin-bottom: 60vh;
   animation: opacityAnimation 1s ease infinite alternate,
     colorAnimation 2s ease infinite alternate;
+}
+
+@media screen and (max-width: 824px) {
+.sketch-container {
+  gap: 20px;
+}
+.sketch-container {
+  margin-top: 30px;
+}
 }

@@ -18,6 +18,7 @@ import Creatives from "../components/user/creatives/Creatives";
 import CreativeDetail from "../components/user/creatives/CreativeDetail";
 import CreateArchive from "../components/management/archive/CreateArchive";
 import UploadArchivePhotos from "../components/management/archive/UploadArchivePhotos";
+import Pad2 from "../components/interactives/audio/audio-visualizer/Pad2";
 
 const AppRoutes = () => {
   return (
@@ -31,10 +32,11 @@ const AppRoutes = () => {
       <Route path="/fluid-component" element={<FluidComponent />} />
       <Route path="/fan-sketch" element={<Fan />} />
       <Route path="/image-particle" element={<BackgroundSketch />} />
+      <Route path="/september" element={<Pad2 />} />
+      <Route path="/image-circle" element={<ImageCircle />} />
 
       <Route path="/login" element={<Login />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/image-circle" element={<ImageCircle />} />
       <Route path="/Register" element={<Register />} />
       <Route path="/creatives" element={<Creatives />} />
       <Route path="/creatives/:userId" element={<CreativeDetail />} />

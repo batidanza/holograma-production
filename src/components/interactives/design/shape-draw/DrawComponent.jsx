@@ -2,41 +2,51 @@ import React, { useState } from "react";
 import Sketch from "react-p5";
 import "./DrawComponent.css";
 import { setup } from "../image-print/p5-functions/CanvasSetupAndDraw";
+import chooseImageIcon from "../../../../assets/icons/choose_image.svg"; // Ruta a tu ícono
+import downloadIcon from "../../../../assets/icons/download_icon.svg";
 
 const DrawComponent = () => {
   const [isMouseOverCanvas, setIsMouseOverCanvas] = useState(false);
-  const [drawnShapes] = useState([]);
-  const [currentShape, setCurrentShape] = useState("ellipse");
   const [currentDrawing, setCurrentDrawing] = useState([]);
   const [lineStart, setLineStart] = useState(null);
   const [backgroundColor, setBackgroundColor] = useState("#242424");
   const [shapeColor, setShapeColor] = useState("#14DCEB");
-  const [shapeSize, setShapeSize] = useState(1); // Cambiado de lineThickness a shapeSize
-  const [textToPrint, setTextToPrint] = useState("");
+  const [uploadedImage, setUploadedImage] = useState(null); 
+
+  let p5Instance = null;
 
   const draw = (p5) => {
+    p5Instance = p5;
     p5.background(backgroundColor);
 
+    if (uploadedImage) {
+      const imgRatio = uploadedImage.width / uploadedImage.height;
+      const canvasRatio = p5.width / p5.height;
+
+      let imgWidth, imgHeight;
+
+      if (imgRatio > canvasRatio) {
+        imgWidth = p5.width;
+        imgHeight = p5.width / imgRatio;
+      } else {
+        imgHeight = p5.height;
+        imgWidth = p5.height * imgRatio;
+      }
+
+      const imgX = (p5.width - imgWidth) / 2;
+      const imgY = (p5.height - imgHeight) / 2;
+
+      p5.image(uploadedImage, imgX, imgY, imgWidth, imgHeight);
+    }
+
     setIsMouseOverCanvas(
-      p5.mouseX > 0 &&
-        p5.mouseX < p5.width &&
-        p5.mouseY > 0 &&
-        p5.mouseY < p5.height
+      p5.mouseX > 0 && p5.mouseX < p5.width && p5.mouseY > 0 && p5.mouseY < p5.height
     );
 
     if (p5.mouseIsPressed && isMouseOverCanvas) {
-      if (currentShape === "ellipse") {
-        const ellipseShape = {
-          type: "ellipse",
-          x: p5.mouseX,
-          y: p5.mouseY,
-          size: shapeSize, // Usar shapeSize en lugar de tamaño fijo
-          color: shapeColor,
-        };
-        setCurrentDrawing([...currentDrawing, ellipseShape]);
-      } else if (currentShape === "line" && !lineStart) {
+      if (!lineStart) {
         setLineStart({ x: p5.mouseX, y: p5.mouseY });
-      } else if (currentShape === "line" && lineStart) {
+      } else {
         const lineShape = {
           type: "line",
           startX: lineStart.x,
@@ -44,61 +54,18 @@ const DrawComponent = () => {
           endX: p5.mouseX,
           endY: p5.mouseY,
           color: shapeColor,
-          thickness: shapeSize, // Usar shapeSize para el grosor de la línea
         };
         setCurrentDrawing([...currentDrawing, lineShape]);
-      } else if (currentShape === "text") {
-        const textShape = {
-          type: "text",
-          x: p5.mouseX,
-          y: p5.mouseY,
-          color: shapeColor,
-          size: shapeSize, // Usar shapeSize para el tamaño del texto
-        };
-        setCurrentDrawing([...currentDrawing, textShape]);
-      }
-    }
-
-    for (const shapes of drawnShapes) {
-      for (const shape of shapes) {
-        p5.stroke(shape.color);
-        if (shape.type === "ellipse") {
-          p5.ellipse(shape.x, shape.y, shape.size, shape.size);
-        } else if (shape.type === "line") {
-          p5.strokeWeight(shape.thickness); // Usar el grosor de la línea del objeto shape
-          p5.line(shape.startX, shape.startY, shape.endX, shape.endY);
-        } else if (shape.type === "text") {
-          p5.textSize(shape.size); // Ajustar el tamaño del texto
-          p5.text("*", shape.x, shape.y);
-        }
       }
     }
 
     for (const shape of currentDrawing) {
-      p5.stroke(shape.color);
-      if (shape.type === "ellipse") {
-        p5.ellipse(shape.x, shape.y, shape.size, shape.size);
-      } else if (shape.type === "line") {
-        p5.strokeWeight(shape.thickness); 
+      if (shape.type === "line") {
+        p5.stroke(shape.color);
+        p5.strokeWeight(1);
         p5.line(shape.startX, shape.startY, shape.endX, shape.endY);
-      } else if (shape.type === "text") {
-        p5.textFont("Array");
-        p5.textSize(shape.size);
-        p5.text(textToPrint, shape.x, shape.y);
       }
     }
-  };
-
-  const handleEllipseClick = () => {
-    setCurrentShape("ellipse");
-  };
-
-  const handleLineClick = () => {
-    setCurrentShape("line");
-  };
-
-  const handleTextClick = () => {
-    setCurrentShape("text");
   };
 
   const handleBackgroundColorChange = (event) => {
@@ -109,55 +76,52 @@ const DrawComponent = () => {
     setShapeColor(event.target.value);
   };
 
-  const handleShapeSizeChange = (event) => {
-    setShapeSize(parseInt(event.target.value));
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const img = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+        setUploadedImage(p5Instance.loadImage(img.src)); 
+      };
+    }
   };
 
-  const handleTextChange = (event) => {
-    setTextToPrint(event.target.value);
+  const saveSketch = () => {
+    if (p5Instance) {
+      p5Instance.saveCanvas("my-drawing", "png");
+    }
   };
 
   return (
     <div className="sketch-draw-container">
-      <div>
-        <div className="sketch-buttons">
-          <button onClick={handleEllipseClick}>DRAW CIRCLE</button>
-          <button onClick={handleLineClick}>DRAW LINE</button>
-          <button onClick={handleTextClick}>PRINT TEXT</button>
-        </div>
-        <div className="sketch-controls">
-          <label htmlFor="backgroundColor">BACKGROUND COLOR</label>
-          <input
-            type="color"
-            id="backgroundColor"
-            value={backgroundColor}
-            onChange={handleBackgroundColorChange}
-          />
-          <label htmlFor="shapeColor">SHAPE COLOR</label>
-          <input
-            type="color"
-            id="shapeColor"
-            value={shapeColor}
-            onChange={handleShapeColorChange}
-          />
-          <label htmlFor="shapeSize">SHAPE SIZE</label>
-          <input
-            className="shapeSize"
-            type="range"
-            id="shapeSize"
-            min="1"
-            max="100"
-            value={shapeSize}
-            onChange={handleShapeSizeChange}
-          />
-          <label htmlFor="textToPrint">TEXT TO PRINT</label>
-          <input
-            type="text"
-            id="textToPrint"
-            value={textToPrint}
-            onChange={handleTextChange}
-          />
-        </div>
+      <div className="sketch-controls">
+        <input
+          type="color"
+          id="backgroundColor"
+          value={backgroundColor}
+          onChange={handleBackgroundColorChange}
+        />
+        <input
+          type="color"
+          id="shapeColor"
+          value={shapeColor}
+          onChange={handleShapeColorChange}
+        />
+        <button className="sketch-button-icon" onClick={saveSketch}>
+          <img src={downloadIcon} alt="Download" />
+        </button>
+
+        <label htmlFor="imageUpload" className="image-upload-button">
+          <img src={chooseImageIcon} alt="Choose" />
+        </label>
+        <input
+          id="imageUpload"
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          style={{ display: "none" }} 
+        />
       </div>
       <div>
         <Sketch setup={setup} draw={draw} />

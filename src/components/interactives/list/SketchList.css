@@ -29,11 +29,13 @@
   border-radius: 8px;
 }
 
+
 .sketch-containers {
   display: flex;
   flex-wrap: wrap;
   justify-content: center; 
   align-items: center; 
+  flex-direction: row;
 }
 
 .sketch-image-container {
@@ -92,4 +94,10 @@
   .sketch-image-list-title {
     font-size: 3vw;
   }
+}
+
+@media screen and (max-width: 1024px) {
+.sketch-containers {
+  flex-direction: column;
+}
 }

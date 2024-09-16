@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     padding-top: 50px;
+    user-select: none;
   }
   
   .sketch-content{
@@ -11,6 +12,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 100px;
+    cursor: none;
   }
   
   .sketch-title {
@@ -43,11 +45,11 @@
     margin-left: 35%;
     margin-top: 20%;
     margin-bottom: 20vw;
-    font-size: 5vw; /* Tamaño de fuente relativo */
+    font-size: 5vw;
     border: none;
     background: none;
     font-family: 'Array', sans-serif !important;
-    color: #000000;
+    color: #ff0000;
   }
   
   .color-button {

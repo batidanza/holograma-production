@@ -13,16 +13,23 @@
   margin: auto;
 }
 
-.animated-artwork-image {
-  width: 60px;
+.animated-media-image {
+  width: 40px;
   height: auto;
-  margin-bottom: 10px;
 }
 
 .images-content {
-  width: 100px;
-  height: 1000px;
+  width: 500px;
+  height: 700px;
   position: relative;
   overflow: hidden;
-  margin: auto;
+}
+
+@media only screen and (max-width: 568px) {
+  .images-content {
+    width: 90%;
+    height: 700px;
+    position: relative;
+    overflow: hidden;
+  }
 }

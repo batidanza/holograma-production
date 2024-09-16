@@ -6,7 +6,17 @@ import image2 from "../../../../../assets/flan.png";
 import image3 from "../../../../../assets/feel.png";
 import image4 from "../../../../../assets/stars.png";
 import image5 from "../../../../../assets/dolphines.png";
-import './PrintImages.css';
+
+import extraSmallSizeIcon from "../../../../../assets/icons/extra_small.svg";
+import smallSizeIcon from "../../../../../assets/icons/picture_small.svg";
+import mediumSizeIcon from "../../../../../assets/icons/picture_medium.svg";
+import largeSizeIcon from "../../../../../assets/icons/picture_large.svg";
+import backgroundSizeIcon from "../../../../../assets/icons/wallpaper.svg";
+
+import chooseImage from "../../../../../assets/icons/choose_image.svg";
+import fullScreanIcon from "../../../../../assets/icons/full_screan.svg";
+import undoIcon from "../../../../../assets/icons/undo.svg";
+import "./PrintImages.css";
 
 const PrintImagesJsx = ({
   drawImage,
@@ -56,32 +66,42 @@ const PrintImagesJsx = ({
     );
   };
 
+  const sizeIconMap = {
+    
+    50: extraSmallSizeIcon,
+    150: smallSizeIcon,
+    250: mediumSizeIcon,
+    500: largeSizeIcon,
+    1050: backgroundSizeIcon
+  };
+
   return (
     <div className="draw-images">
-      <h4 className="title"> PRINT IMAGES </h4>
+      <h4 className="title"> IMAGE EXPERIMENTATION</h4>
       <div className="canvas-images-container">
         <div className="image-sizes">
-          <p className="image-size-title"> SIZE </p>
           {[50, 150, 250, 500, 1050].map((s) => (
             <button
               key={s}
-              className={`control-button ${selectedSize === s ? 'selected' : ''}`}
+              className={`control-button ${
+                selectedSize === s ? "selected" : ""
+              }`}
               onClick={() => handleSizeChangeButton(s)}
             >
-              {s / 50}
+              <img src={sizeIconMap[s]} alt={`Size ${s}`} />
             </button>
           ))}
           <button className="control-text" onClick={openFullscreen}>
-            FULL SCREEN
+            <img src={fullScreanIcon} />
           </button>
           <button className="control-text" onClick={handleButtonClick}>
-            LOAD PHOTO
+          <img src={chooseImage}/>
           </button>
           <button
             className="control-text"
             onClick={() => handleUndo(imagesHistory, setDrawImage, drawImage)}
           >
-            UNDO
+            <img src={undoIcon}/>
           </button>
         </div>
         <div className="canvas-content">
@@ -133,7 +153,9 @@ const PrintImagesJsx = ({
               key={image}
               src={image}
               alt="our-image"
-              className={`our-image ${selectedImage === image ? 'selected' : ''}`}
+              className={`our-image ${
+                selectedImage === image ? "selected" : ""
+              }`}
               onClick={() => handleImageSelect(image)}
             />
           ))}
@@ -160,7 +182,8 @@ const PrintImagesJsx = ({
       </div>
       <div className="instructions-container">
         <p>
-          <br /><br />
+          <br />
+          <br />
           Welcome to our interactive image collage platform! How It Works
           <br />
           For guidance on using the platform, follow the on-screen instructions.

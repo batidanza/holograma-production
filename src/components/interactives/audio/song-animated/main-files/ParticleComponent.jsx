@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Sketch from "react-p5";
 import audio from "../../../../../assets/psy-sketch-audio.wav";
-import { playAudio, stopAudio, requestAudioPermission } from '../helpers/AudioControls';
+import {
+  playAudio,
+  stopAudio,
+  requestAudioPermission,
+} from "../helpers/AudioControls";
 import { openFullscreen } from "../../../design/image-print/helpers/HandleImageUpload";
-import Star from '../helpers/Star';
-import './SongAnimated.css'
+import Star from "../helpers/Star";
+import "./SongAnimated.css";
+import fullScreanIcon from "../../../../../assets/icons/full_screan.svg";
 
 let sound;
 
 const ParticleComponent = () => {
   const [audioPermission, setAudioPermission] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
-  const [cursorVisible, setCursorVisible] = useState(true); 
-  const [stars, setStars] = useState([]); 
+  const [cursorVisible, setCursorVisible] = useState(true);
+  const [stars, setStars] = useState([]);
 
   useEffect(() => {
     sound = new Audio(audio);
@@ -21,33 +26,32 @@ const ParticleComponent = () => {
   }, []);
 
   const handleRequestAudioPermission = () => {
-    requestAudioPermission(sound, setAudioPermission, () => stopAudio(sound, setAudioPlaying, setCursorVisible));
+    requestAudioPermission(sound, setAudioPermission, () =>
+      stopAudio(sound, setAudioPlaying, setCursorVisible)
+    );
   };
 
   const setup = (p5, canvasParentRef) => {
-  // Calculate canvas dimensions
-  let canvasWidth = Math.min(window.innerWidth * 0.8, 1024); // 80% of the window width or 1024px, whichever is smaller
-  let canvasHeight = canvasWidth * (1.9 / 3);
+    let canvasWidth = Math.min(window.innerWidth * 0.8, 1024);
+    let canvasHeight = canvasWidth * (1.9 / 3);
 
-  if (window.innerWidth < 780) {
-    canvasWidth = window.innerWidth * 0.65; 
-    canvasHeight = window.innerHeight * 0.9; 
-  }
+    if (window.innerWidth < 780) {
+      canvasWidth = window.innerWidth * 0.65;
+      canvasHeight = window.innerHeight * 0.9;
+    }
 
-  // Create canvas and set parent
-  const canvas = p5.createCanvas(canvasWidth, canvasHeight);
-  canvas.parent(canvasParentRef);
+    const canvas = p5.createCanvas(canvasWidth, canvasHeight);
+    canvas.parent(canvasParentRef);
 
-  // Apply CSS styles to canvas
-  canvas.style("display", "block");
-  canvas.style("margin", "auto");
-  canvas.style("user-select", "none");
-  canvas.style("touch-action", "none");
-  canvas.style("border", "2px solid black"); 
-  canvas.style("border-radius", "10px"); 
+    canvas.style("display", "block");
+    canvas.style("margin", "auto");
+    canvas.style("user-select", "none");
+    canvas.style("touch-action", "none");
+    canvas.style("border", "2px solid black");
+    canvas.style("border-radius", "10px");
     p5.frameRate(60);
 
-
+    p5.noCursor();
   };
 
   const draw = (p5) => {
@@ -59,11 +63,11 @@ const ParticleComponent = () => {
     }
 
     if (!audioPlaying) {
-      p5.stroke(255); 
-      p5.strokeWeight(1); 
-      p5.line(p5.width / 2, p5.height / 2, p5.mouseX, p5.mouseY); 
+      p5.stroke(255);
+      p5.strokeWeight(1);
+      p5.line(p5.width / 2, p5.height / 2, p5.mouseX, p5.mouseY);
 
-      if (p5.frameCount % 5 === 0) { 
+      if (p5.frameCount % 5 === 0) {
         let newStar = new Star(p5.mouseX, p5.mouseY);
         setStars([...stars, newStar]);
       }
@@ -81,35 +85,44 @@ const ParticleComponent = () => {
         const x = centerX + lineLength * p5.cos(angle);
         const y = centerY + lineLength * p5.sin(angle);
         p5.stroke(p5.random(255), p5.random(255), p5.random(255));
-        p5.strokeWeight(p5.random(1, 3)); // Grosor aleatorio
+        p5.strokeWeight(p5.random(1, 3));
         p5.line(centerX, centerY, x, y);
       }
     }
 
-    if (!audioPlaying && p5.dist(p5.width / 2, p5.height / 2, p5.mouseX, p5.mouseY) < 50) {
+    if (
+      !audioPlaying &&
+      p5.dist(p5.width / 2, p5.height / 2, p5.mouseX, p5.mouseY) < 50
+    ) {
       playAudio(sound, setAudioPlaying, setCursorVisible);
-    } else if (audioPlaying && p5.dist(p5.width / 2, p5.height / 2, p5.mouseX, p5.mouseY) >= 50) {
+    } else if (
+      audioPlaying &&
+      p5.dist(p5.width / 2, p5.height / 2, p5.mouseX, p5.mouseY) >= 50
+    ) {
       stopAudio(sound, setAudioPlaying, setCursorVisible);
     }
   };
 
   return (
-    <div className="song-animated">
+    <div className="sketch">
       <div className="sketch-content">
         {audioPermission ? (
           <>
             <div>
-              <button className="button-sketch" onClick={openFullscreen}>FULLSCREEN</button>
+              <button className="button-full-screan" onClick={openFullscreen}>
+                <img src={fullScreanIcon} />
+              </button>
             </div>
 
-            <Sketch
-              setup={setup}
-              draw={draw}
-              className="fluid-sketch"
-            />
+            <Sketch setup={setup} draw={draw} className="fluid-sketch" />
           </>
         ) : (
-          <button className="button-permisson" onClick={handleRequestAudioPermission}>ALLOW AUDIO</button>
+          <button
+            className="button-permisson"
+            onClick={handleRequestAudioPermission}
+          >
+            ALLOW AUDIO
+          </button>
         )}
       </div>
     </div>

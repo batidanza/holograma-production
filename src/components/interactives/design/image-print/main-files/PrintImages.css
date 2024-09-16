@@ -15,7 +15,7 @@
   align-items: center;
   width: 100%;
   justify-content: center;
-  gap: 5vw;
+  gap: 10px;
 }
 
 .image-column {
@@ -48,7 +48,7 @@
   border: solid 1.5px rgb(255, 0, 0);
   border-radius: 5px;
   color: red;
-  background-color:  rgb(205, 225, 235);
+  background-color:  rgb(4, 18, 37) ;
   font-weight: bold;
   font-size: 1vw;
   width: 45px;
@@ -73,7 +73,7 @@
   border: solid 1.5px rgb(255, 0, 0);
   border-radius: 5px;
   color: red;
-  background-color:  rgb(205, 225, 235);
+  background-color:  rgb(4, 18, 37) ;
   font-weight: bold;
   width: 80px;
   height: 60px;

@@ -6,28 +6,34 @@
   bottom: 0;
   width: 21%;
   max-width: 300px;
-  background-color: rgb(205, 225, 235);
+  background-color: rgb(4, 18, 37);
   border-right: 1.5px solid rgb(255, 0, 0);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 1000;
- font-family: "IBM Plex Sans", sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
   font-weight: 700;
   font-style: normal;
+}
+
+.navbar-logo-container {
+  display: flex;
+  align-items: center;
+  width: 20px;
 }
 
 .vertical-logo {
   font-family: "Array", sans-serif;
   color: #ff0000;
-  font-size: 2.5vw;
+  font-size: 32px;
   align-items: center;
   font-weight: bold;
   text-decoration: none;
   writing-mode: vertical-rl;
   text-orientation: upright;
-  margin-top: 3vw;
   font-style: normal;
+  margin-top: 25px;
 }
 
 .image-button {
@@ -42,7 +48,7 @@
   cursor: pointer;
   height: auto;
   margin-bottom: 15px;
-  transform: rotate(180deg); 
+  transform: rotate(180deg);
   transition: transform 0.3s ease-in-out;
 }
 .navbar-closed {
@@ -101,7 +107,7 @@
   cursor: pointer;
   font-weight: bold;
   font-size: 1.2vw;
- font-family: "IBM Plex Sans", sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
 .text-logo {
@@ -167,7 +173,7 @@
     width: 100%;
     max-width: none;
     height: 100vh;
-    background-color: rgb(205, 225, 235);
+    background-color: rgb(4, 18, 37);
   }
 
   .navbar-closed {

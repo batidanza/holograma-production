@@ -1,7 +1,7 @@
 import React from "react";
 import Sketch from "react-p5";
 import "p5/lib/addons/p5.sound";
-import videoFile from "../../../../assets/pad/suns-soleil.mp4";
+import videoFile from "../../../../assets/pad/suns-soleil2.mp4";
 import audio from "../../../../assets/pad/beat.wav";
 import audio1 from "../../../../assets/pad/ojo.wav";
 import audio2 from "../../../../assets/pad/soho.wav";

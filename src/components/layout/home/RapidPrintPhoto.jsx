@@ -31,7 +31,7 @@ const RapidPrintPhoto = () => {
 
     const canvas = p5.createCanvas(canvasWidth, canvasHeight);
     canvas.parent(canvasParentRef);
-    p5.background(205, 225, 235);
+    p5.background(4, 18, 37) ;
     canvas.style("user-select", "none");
     canvas.style("touch-action", "none");
 
@@ -90,7 +90,7 @@ const RapidPrintPhoto = () => {
   };
 
   const draw = (p5) => {
-    p5.background(205, 225, 235); 
+    p5.background(4, 18, 37) ; 
     for (let i = 0; i <= currentIndex; i++) {
       imageDisplays[i]?.display();
     }

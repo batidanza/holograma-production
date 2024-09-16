@@ -20,16 +20,18 @@
     font-size: 2vw;
       border: 1px solid #ff0000;
     border-radius: 5px;
-    background-color: rgb(205, 225, 235);
+    background-color: rgb(4, 18, 37) ;
     cursor: pointer;
 }
 
 .button-permisson {
     font-family: "Array", sans-serif;
     font-weight: bold;
-    font-size: 4vw;
-    border: solid 2px black;
+    padding: 5px;
+    font-size: 3vw;
+    border: solid 2px rgb(255, 0, 0);
     border-radius: 5px;
-    background-color: rgb(205, 225, 235);
+    background-color: rgb(4, 18, 37) ;
     cursor: pointer;
+    color: #ff0000;
 }

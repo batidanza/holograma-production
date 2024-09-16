@@ -1,6 +1,7 @@
 import React from "react";
 import { animated } from "react-spring";
 import { Link } from "react-router-dom";
+import "./AnimatedCollection.css"
 
 import AnimatedCollectionLogic from "./AnimatedCollectionLogic";
 import LoadingSketch from "../../layout/Loading/LoadingSketch";
@@ -8,6 +9,7 @@ import LoadingSketch from "../../layout/Loading/LoadingSketch";
 const AnimatedCollectionVisual = () => {
   const { props, positions, currentIndex, media, loading } = AnimatedCollectionLogic();
 
+  const isMobile = window.innerWidth <= 768;
   const handleClick = (userId) => {
     console.log(`Clic en la imagen del usuario con ID: ${userId}`);
   };
@@ -15,12 +17,6 @@ const AnimatedCollectionVisual = () => {
   return (
     <div
       className="images-content"
-      style={{
-        width: "500px",
-        height: "700px",
-        position: "relative",
-        overflow: "hidden",
-      }}
     >
       {loading ? (
         <LoadingSketch />
@@ -36,7 +32,7 @@ const AnimatedCollectionVisual = () => {
                     position: "absolute",
                     left: position && position.left,
                     top: position && position.top,
-                    width: "200px",
+                    width: isMobile ? "140px" : "200px", 
                   }}
                 >
                   {media[i] && (
