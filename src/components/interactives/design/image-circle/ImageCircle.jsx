@@ -79,7 +79,7 @@ const ImageCircle = () => {
     canvas.style("margin", "auto");
     canvas.style("user-select", "none");
     canvas.style("touch-action", "none");
-    canvas.style("border", "2px solid red");
+    canvas.style("border", "2px solid rgb(255, 255, 255); ;  ;");
     canvas.style("border-radius", "10px");
     p5.textFont("Array");
 
@@ -114,11 +114,11 @@ const ImageCircle = () => {
         alpha = p5.lerp(255, 0, fadeOutPosition / fadeOutDuration);
       }
 
-      p5.fill(255, 0, 0, alpha);
+      p5.fill(0, 0, 0, alpha);
 
-      const textLine1 = "UPLOAD A PHOTO WITH THE FIRST ICON";
+      const textLine1 = "CHOSE YOUR IMAGE";
       const textLine2 =
-        "CLICK INSIDE THE CANVAS TO DRAW YOUR IMAGE WITH DIFFERENT SHAPES";
+        "START INTERACTING WITH THE DIFERENT FEATURES";
 
       if (p5.frameCount < 230) {
         if (p5.frameCount % 60 < 15) {

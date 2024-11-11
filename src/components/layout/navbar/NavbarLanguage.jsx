@@ -1,5 +1,5 @@
 import React from "react";
-import rainbow from "../../../assets/red-arrow.png";
+import { RiExpandRightLine } from "../../../../node_modules/react-icons/ri";
 
 function NavbarLanguage({
   isClosed,
@@ -30,19 +30,18 @@ function NavbarLanguage({
         </button>
       </div>
       {!isClosed && (
-        <img
-          className="image-button-open"
+        <button
+          style={{ marginBottom: "20px", transform: "rotate(180deg)" }}
           onClick={toggleNavbarAndOptions}
-          src={rainbow}
-        ></img>
+        >
+          <RiExpandRightLine color="white" size={35} />
+        </button>
       )}
 
       {isClosed && (
-        <img
-          className="image-button"
-          onClick={openNavbar}
-          src={rainbow}
-        ></img>
+        <button style={{ marginBottom: "20px" }} onClick={openNavbar}>
+          <RiExpandRightLine color="white" size={35} />
+        </button>
       )}
     </div>
   );

@@ -18,7 +18,7 @@
   justify-content: center;
   gap: 5vh;
   font-weight: bold;
-  color: red;
+  color:  rgb(255, 255, 255); ;  ;; 
 }
 
 .shapeSize {
@@ -55,7 +55,7 @@
 }
 
 .sketch-buttons button {
-  color: rgb(255, 0, 0);
+  color:  rgb(255, 255, 255); ;  ;; ;
   border: none;
   font-family: "Array", sans-serif;
   font-weight: bold;
@@ -64,7 +64,7 @@
   width: 120px;
   height: 45px;
   margin-bottom: 15px;
-  border: solid 2px rgb(255, 0, 0);
+  border: solid 2px  rgb(255, 255, 255); ;  ;; ;
   font-size: 1.3vw;
   cursor: pointer;
 }
@@ -85,7 +85,7 @@
   cursor: pointer;
   font-family: "Array", sans-serif;
   border: none;
-  background-color: rgb(4, 18, 37);
+  background-color: rgb(255, 255, 255); ;  ;; 
 }
 
 .color-button-container {

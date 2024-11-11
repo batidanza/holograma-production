@@ -12,7 +12,7 @@
   }
   
   .instructions-content {
-    background: rgb(4, 18, 37) ;
+    background: rgb(254, 118, 137) ;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -23,19 +23,19 @@
   
   .instructions-content h1 {
     margin-bottom: 20px;
-    color: red; /* Color especificado */
+    color:  rgb(255, 255, 255); ;  ;;  /* Color especificado */
     font-size: 2rem; /* Tamaño de fuente especificado */
   }
   
   .instructions-content ul {
     list-style: none;
     padding: 0;
-    color: red;
+    color:  rgb(255, 255, 255); ;  ;; 
   }
   
   .instructions-content li {
     margin: 10px 0;
-    color: red;
+    color:  rgb(255, 255, 255); ;  ;; 
   }
   
   .instructions-content button {

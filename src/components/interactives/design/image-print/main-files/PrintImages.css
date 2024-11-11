@@ -6,16 +6,28 @@
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: bold;
   font-size: 2vw;
-  margin-left: 5vw;
 }
 
 .canvas-images-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   width: 100%;
   justify-content: center;
   gap: 10px;
+  margin-top: 10px;
+}
+
+.canvas-controls-desktop-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.image-row {
+  display: flex;
+  flex-direction: row;
 }
 
 .image-column {
@@ -26,15 +38,13 @@
 .our-image {
   margin-bottom: 10px;
   cursor: pointer;
-  border: solid 1.5px rgb(255, 0, 0);
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 70px;
-  height: 70px;
   object-fit: contain;
+  background-color:  rgb(255, 255, 255);
   overflow: hidden;
 }
 
@@ -45,10 +55,9 @@
 }
 
 .control-button {
-  border: solid 1.5px rgb(255, 0, 0);
   border-radius: 5px;
-  color: red;
-  background-color:  rgb(4, 18, 37) ;
+  color:rgb(77, 52, 65);
+  background-color:  transparent;
   font-weight: bold;
   font-size: 1vw;
   width: 45px;
@@ -57,31 +66,38 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  background-color: rgba(147, 196, 253, 0.442);
 }
 
 .control-button.selected {
   opacity: 0.6;
-  background-color: rgb(255, 215, 235);
+  background-color: rgb(40, 3, 22);
+}
+
+.control-button-add-photo {
+  margin-bottom: 10px;
+  cursor: pointer;
+  border: solid 1.5px  rgb(255, 255, 255);
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: contain;
+  background-color:  rgb(255, 255, 255);;
+  overflow: hidden;
+  height: 70px;
 }
 
 .our-image.selected {
   opacity: 0.6;
-  background-color: rgb(255, 215, 235);
+  background-color: rgb(255, 255, 255);
 }
 
-.control-text {
-  border: solid 1.5px rgb(255, 0, 0);
-  border-radius: 5px;
-  color: red;
-  background-color:  rgb(4, 18, 37) ;
-  font-weight: bold;
-  width: 80px;
-  height: 60px;
-  font-size: 1vw;
-  cursor: pointer;
+.button-row {
   display: flex;
-  align-items: center;
   justify-content: center;
+  gap: 10px;
 }
 
 .controls-container {
@@ -96,9 +112,8 @@
   flex-direction: column;
   justify-content: center;
   width: 72%;
-  color: red;
+  color:  rgb(255, 255, 255); ;  ;; 
   font-size: 1vw;
-
 }
 
 .image-sizes {
@@ -109,7 +124,7 @@
 }
 
 .image-size-title {
-  color: rgb(255, 0, 0);
+  color:  rgb(255, 255, 255); ;  ;; 
   font-size: 1.5vw;
   align-items: center;
   font-weight: bold;
@@ -118,42 +133,102 @@
   text-orientation: upright;
 }
 
+.button-section-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: absolute;
+}
+
 @media (min-width: 300px) and (max-width: 1000px) {
   .canvas-images-container {
     gap: 2vw;
     margin-top: 3vh;
+    flex-direction: column;
   }
 
-  .our-image {
-    width: 50px;
-    height: 50px;
+  .image-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+.image-row {
+  gap: 20px;
+}
+
+.our-image {
+  width: 70px;
+  height: 70px;
+}
+
+.all-images-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+  width: 80vw;
+}
+
+.image-sizes {
+  align-items: center;
+  flex-direction: row;
+}
+
+.image-size-title {
+  font-size: 5vw;
+}
+
+@media (min-width: 200px) and (max-width: 1000px) {
+  .canvas-images-container {
+    gap: 2vw;
+    margin-top: 3vh;
+    flex-direction: column;
   }
 
   .control-button {
     font-size: 5vw;
-    border: solid 1px rgb(255, 0, 0);
+    border: solid 1px  rgb(255, 255, 255); ;  ;; 
     writing-mode: vertical-rl;
     text-orientation: upright;
-    width: 7vw;
+    width: 50px;
     height: auto;
   }
 
-  .control-text {
-    border: solid 1px rgb(255, 0, 0);
-    border-radius: 1px;
-    font-size: 2.9vw;
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-    margin-left: 2px;
-    width: 5vw;
-    height: auto;
-  }
-
-  .image-sizes {
+  .image-row {
+    display: flex;
+    flex-direction: row;
     align-items: center;
   }
+}
 
-  .image-size-title {
-    font-size: 5vw;
+@media (min-width: 200px) and (max-width: 500px) {
+  .canvas-images-container {
+    gap: 2vw;
+    margin-top: 3vh;
+    flex-direction: column;
+  }
+
+  .icon-image {
+    width: 20px;
+    height: auto;
+  }
+
+  .control-button {
+    border: solid 1px  rgb(255, 255, 255); ;  ;; 
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    width: 35px;
+    height: auto;
+  }
+
+  .image-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 }

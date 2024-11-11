@@ -23,7 +23,7 @@
 
 .my-button-form .my-link-form {
   text-decoration: none;
-  color: rgb(255, 0, 0);
+  color:  rgb(255, 255, 255); ;  ;; ;
   font-size: 2vw;
   display: block;
   border: solid 1.5px;
@@ -34,18 +34,18 @@
 }
 
 .error-message {
-  color: red;
+  color:  rgb(255, 255, 255); ;  ;; 
   font-weight: bold;
 }
 
 .my-link-form:hover {
-  color: rgb(255, 0, 0);
+  color:  rgb(255, 255, 255); ;  ;; ;
 }
 
 .my-label-form {
   display: block;
   margin-bottom: 15px;
-  color: rgb(255, 0, 0);
+  color:  rgb(255, 255, 255); ;  ;; ;
   font-size: 2.5vw;
   font-weight: bold;
 }
@@ -63,7 +63,7 @@
 }
 
 .error {
-  color: red;
+  color:  rgb(255, 255, 255); ;  ;; 
   margin-top: 5px;
 }
 
@@ -72,7 +72,7 @@
   font-size: 2vw;
   cursor: pointer;
   margin-top: 3vw;
-  color: rgb(255, 0, 0);
+  color:  rgb(255, 255, 255); ;  ;; ;
   background-color: rgba(245, 252, 255);
   border: 1.5px solid #000000;
   text-decoration: none;
@@ -124,7 +124,7 @@
 }
 
 .form-title {
-  color: rgb(255, 0, 0);
+  color:  rgb(255, 255, 255); ;  ;; ;
   font-size: 2.5vw;
 }
 

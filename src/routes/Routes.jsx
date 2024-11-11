@@ -19,11 +19,12 @@ import CreativeDetail from "../components/user/creatives/CreativeDetail";
 import CreateArchive from "../components/management/archive/CreateArchive";
 import UploadArchivePhotos from "../components/management/archive/UploadArchivePhotos";
 import Pad2 from "../components/interactives/audio/audio-visualizer/Pad2";
+import Pad from "../components/interactives/audio/audio-visualizer/Pad";
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home/>} />
       <Route path="/magazine" element={<Magazine />} />
       <Route path="/interactives-list" element={<InteractivesList />} />
       <Route path="/draw-shape" element={<DrawComponent />} />
@@ -33,6 +34,7 @@ const AppRoutes = () => {
       <Route path="/fan-sketch" element={<Fan />} />
       <Route path="/image-particle" element={<BackgroundSketch />} />
       <Route path="/september" element={<Pad2 />} />
+      <Route path="/pad" element={<Pad/>} />
       <Route path="/image-circle" element={<ImageCircle />} />
 
       <Route path="/login" element={<Login />} />

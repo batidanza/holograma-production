@@ -34,4 +34,4 @@ export const handleImageUpload = (p5, e, setUserImage, setShowInstructions, setD
       console.error("Error requesting fullscreen:", error);
     }
   };
-  
+

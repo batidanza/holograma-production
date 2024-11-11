@@ -29,11 +29,11 @@ const Navbar = () => {
 
   const handleOptionClick = (view) => {
     setSelectedView(view);
-    setIsClosed(true); // Cerrar la barra de navegación después de seleccionar una opción
+    setIsClosed(true);
   };
 
   return (
-    <div className={`sidebar ${isClosed ? "navbar-closed" : ""}`}>
+    <div className={`sidebar ${isClosed ? "navbar-closed" : "navbar-open"}`}>
       <div className={`logo-class ${isClosed ? "logo-class-closed" : ""}`}>
         <div className={`logo-class ${isClosed ? "logo-class-closed" : ""}`}>
           <Link

@@ -1,0 +1,128 @@
+.japan-home-container {
+    display: flex;
+    height: 100vh;
+    background-color: rgba(24, 2, 2, 0.951);
+    overflow: hidden;
+  }
+  
+
+  .japan-home-background {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(24, 2, 2, 0.951);
+    height: 100vh;
+  }
+
+  .ticket-container {
+    flex: 1;
+    padding: 2rem;
+    overflow: auto;
+    position: relative;
+  }
+  
+  .ticket-background {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+  }
+  
+  .ticket-content {
+    position: relative;
+    font-family: sans-serif;
+    color: #2a4365;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .ticket-title-english {
+    color: #e53e3e;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  
+  .ticket-title-japanese {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    position: relative;
+  }
+  
+  .ticket-label {
+    position: absolute;
+    right: -1.5rem;
+    top: 0;
+    color: #e53e3e;
+    font-size: 0.875rem;
+    writing-mode: horizontal-tb;
+    transform: rotate(180deg);
+  }
+  
+  .ticket-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    gap: 2rem;
+  }
+  
+  .departure, .arrival {
+    font-size: 2.5rem;
+    font-weight: bold;
+    position: relative;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  
+  .arrow-separator {
+    font-size: 2.5rem;
+    font-weight: bold;
+    transform: rotate(-90deg);
+  }
+  
+  .ticket-time-info {
+    display: flex;
+    justify-content: flex-end;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  .month-day, .departure-time, .arrival-time {
+    font-size: 1.5rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  
+  .train-info {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .train-number, .car-number, .seat-number, .smoking {
+    font-size: 1.25rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  
+  .ticket-id {
+    margin-top: 3rem;
+    font-size: 0.875rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  
+  .icono-flecha {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .japan-home-container {
+    background-image: linear-gradient(to bottom right, #ebf8ff, #f0fdf4, #dbeafe);
+  }
+  

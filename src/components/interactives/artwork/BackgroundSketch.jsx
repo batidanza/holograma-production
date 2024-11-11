@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Sketch from "react-p5";
-import particleImage from "../../../assets/horse.png";
+import particleImage from "../../../assets/print-images/stars.png";
 
 const BackgroundSketch = () => {
   const [particles, setParticles] = useState([]);
@@ -28,7 +28,7 @@ const BackgroundSketch = () => {
   };
 
   const draw = (p5) => {
-    p5.background(250);
+    p5.background(19, 26, 36); 
     p5.noFill();
 
     for (let i = particles.length - 1; i >= 0; i--) {
@@ -42,7 +42,7 @@ const BackgroundSketch = () => {
     }
 
     if (prevMouseX !== p5.mouseX || prevMouseY !== p5.mouseY) {
-      if (particles.length < 50) {
+      if (particles.length < 350) {
         const particle = new Particle(p5, p5.mouseX, p5.mouseY);
         particles.push(particle);
       }
@@ -56,10 +56,10 @@ const BackgroundSketch = () => {
       this.position = p5.createVector(x, y);
       this.velocity = p5.createVector(p5.random(-1, 1), p5.random(-1, 1));
       this.acceleration = p5.createVector();
-      this.maxSpeed = 3;
+      this.maxSpeed = 1;
       this.maxForce = 0.05;
       this.particleImg = particleImg;
-      this.radius = p5.random(4, 10);
+      this.radius = p5.random(10);
       this.alpha = 255;
 
       this.particleImg = p5.loadImage(particleImage);
@@ -78,7 +78,7 @@ const BackgroundSketch = () => {
 
     display(p5) {
       const aspectRatio = this.particleImg.width / this.particleImg.height;
-      const width = this.radius * 10;
+      const width = this.radius * 80;
       const height = width / aspectRatio;
 
       p5.tint(255, this.alpha);

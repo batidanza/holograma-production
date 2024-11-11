@@ -21,17 +21,12 @@ function App() {
 
   return (
     <I18nextProvider i18n={i18n}>
-    <UserProvider>
-      <Router>
-        <div>
+      <UserProvider>
+        <Router>
           <Navbar isLoggedIn={isLoggedIn} />
-          <div className="content">
-            <AppRoutes isLoggedIn={isLoggedIn} />
-            <Footer />
-          </div>
-        </div>
-      </Router>
-    </UserProvider>
+          <AppRoutes isLoggedIn={isLoggedIn} />
+        </Router>
+      </UserProvider>
     </I18nextProvider>
   );
 }

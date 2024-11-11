@@ -1,39 +1,32 @@
-export const setup = (p5, canvasParentRef) => {
-  // Calculate canvas dimensions
-  let canvasWidth = Math.min(window.innerWidth * 0.8, 1024); // 80% of the window width or 1024px, whichever is smaller
-  let canvasHeight = canvasWidth * (1.9 / 3);
+export const setup = (p5, canvasParentRef) => {   
+  const canvasWidth = window.innerWidth * 0.8;
+    const canvasHeight = window.innerHeight * 0.8;    
 
-  if (window.innerWidth < 780) {
-    canvasWidth = window.innerWidth * 0.65; 
-    canvasHeight = window.innerHeight * 0.9; 
-  }
+  const canvas = p5.createCanvas(canvasWidth, canvasHeight);   
+  canvas.parent(canvasParentRef);    
 
-  // Create canvas and set parent
-  const canvas = p5.createCanvas(canvasWidth, canvasHeight);
-  canvas.parent(canvasParentRef);
+  canvas.style("display", "block");   
+  canvas.style("margin", "auto");   
+  canvas.style("user-select", "none");   
+  canvas.style("touch-action", "none");   
+  canvas.style("border-radius", "8px");  
 
-  // Apply CSS styles to canvas
-  canvas.style("display", "block");
-  canvas.style("margin", "auto");
-  canvas.style("user-select", "none");
-  canvas.style("touch-action", "none");
-  canvas.style("border", "2px solid red"); 
-  canvas.style("border-radius", "10px"); 
-  p5.textFont("Array");
+  p5.textFont("Array");    
 
-  // Add touch event listener
-  canvas.elt.addEventListener(
-    "touchstart",
-    (e) => {
-      e.preventDefault();
-    },
-    { passive: false }
-  );
+  canvas.elt.addEventListener(     
+    "touchstart",     
+    (e) => {       
+      e.preventDefault();     
+    },     
+    { passive: false }   
+  );    
 
-  // Set canvas background and frame rate
-  p5.background(255, 215, 235);
-  p5.frameRate(60);
-};
+  p5.background(255, 255, 255);    
+  p5.frameRate(60); 
+};  
+
+let p5Instance = null;
+
 
 export const draw = (
   p5,
@@ -46,18 +39,18 @@ export const draw = (
   setShowSecondInstruction,
   setPrintedFirstImage,
   size,
-  eraserMode // Added: Eraser mode
+  eraserMode 
 ) => {
-  p5.background(255);
+  p5.background(255, 255, 255)
 
-  // Set cursor style based on eraser mode
+  p5Instance = p5;
+
   if (eraserMode) {
     p5.cursor("crosshair");
   } else {
     p5.cursor("default");
   }
 
-  // Display instructions if needed
   if (showInstructions) {
     if (p5.frameCount % 30 < 15) {
       p5.fill(0);
@@ -65,7 +58,7 @@ export const draw = (
       const instructionTextSize = p5.width < 600 ? 20 : 35;
       p5.textSize(instructionTextSize);
       p5.textFont("Array");
-      p5.fill(255, 0, 0);
+      p5.fill(0)
       const instructionText = "PRESS U TO LOAD IMAGES";
       p5.text(
         instructionText,
@@ -74,7 +67,6 @@ export const draw = (
       );
     }
   } else {
-    // Display secondary instruction if needed
     if (
       showSecondInstruction &&
       !printedFirstImage &&
@@ -95,13 +87,11 @@ export const draw = (
       }
     }
 
-    // Draw all images from history
     for (let i = 0; i < imagesHistory.current.length; i++) {
       const { img, x, y, width, height } = imagesHistory.current[i];
       p5.image(img, x - width / 2, y - height / 2, width, height);
     }
 
-    // Draw new image if needed
     if (drawImage && userImage && p5.mouseIsPressed) {
       const currentImage = {
         img: userImage,
@@ -116,5 +106,12 @@ export const draw = (
         setPrintedFirstImage(true);
       }
     }
+  }
+  
+};
+
+export const saveSketch = () => {
+  if (p5Instance) {
+    p5Instance.saveCanvas("my-drawing", "png");
   }
 };

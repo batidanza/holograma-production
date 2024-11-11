@@ -26,16 +26,13 @@ export default () => {
     canvas.style("position", "fixed");
     canvas.style("top", "0");
     canvas.style("left", "0");
-    canvas.style("z-index", "200");
-    p5.clear();
+    canvas.style("z-index", "2");
     p5.angleMode(p5.DEGREES);
     p5.rectMode(p5.CENTER);
   };
 
   const draw = (p5) => {
-    p5.background(4, 18, 37) ;
-    p5.noFill();
-
+    p5.background(19, 26, 36, 10);
     p5.translate(p5.width / 2, p5.height / 2);
 
     for (let i = 0; i < 85; i++) {
@@ -43,14 +40,14 @@ export default () => {
       p5.rotate(p5.sin(p5.frameCount + i) * 1200);
 
       const britishGreen = {
-        r: 255,
-        g: 0,    
-        b: 0,
+        r: 147,
+        g: 197,
+        b: 253
       };
 
       p5.stroke(britishGreen.r, britishGreen.g, britishGreen.b);
 
-      p5.line(x, y, 250 - i * 3, 250 - i / 3, 250 - i);
+      p5.circle(x, y, 250 - i * 3, 250 - i / 3, 250 - i);
 
       p5.pop();
     }
