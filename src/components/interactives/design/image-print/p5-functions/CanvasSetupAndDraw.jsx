@@ -1,11 +1,10 @@
 export const setup = (p5, canvasParentRef) => {
-
-  let canvasWidth = Math.min(window.innerWidth * 0.8, 1024); 
+  let canvasWidth = Math.min(window.innerWidth * 0.8, 1024);
   let canvasHeight = canvasWidth * (1.9 / 3);
 
   if (window.innerWidth < 780) {
-    canvasWidth = window.innerWidth * 0.65; 
-    canvasHeight = window.innerHeight * 0.9; 
+    canvasWidth = window.innerWidth * 0.65;
+    canvasHeight = window.innerHeight * 0.9;
   }
 
   const canvas = p5.createCanvas(canvasWidth, canvasHeight);
@@ -15,7 +14,7 @@ export const setup = (p5, canvasParentRef) => {
   canvas.style("margin", "auto");
   canvas.style("user-select", "none");
   canvas.style("touch-action", "none");
-  canvas.style("border-radius", "10px"); 
+  canvas.style("border-radius", "10px");
   p5.textFont("Array");
 
   canvas.elt.addEventListener(
@@ -29,6 +28,8 @@ export const setup = (p5, canvasParentRef) => {
   p5.background(255, 215, 235);
   p5.frameRate(60);
 };
+
+let p5Instance = null;
 
 export const draw = (
   p5,
@@ -45,6 +46,7 @@ export const draw = (
 ) => {
   p5.background(255);
 
+  p5Instance = p5;
   // Set cursor style based on eraser mode
   if (eraserMode) {
     p5.cursor("crosshair");
@@ -113,8 +115,6 @@ export const draw = (
     }
   }
 };
-
-let p5Instance = null;
 
 export const saveSketch = () => {
   if (p5Instance) {

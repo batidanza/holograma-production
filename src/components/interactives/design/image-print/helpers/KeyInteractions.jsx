@@ -29,7 +29,6 @@ export const keyTyped = (p5, handleUndo, handleSizeChange) => {
     // Forzar una actualización del componente
     setDrawImage(!drawImage);
   
-    console.log(imagesHistory.current);
   };
   
   export const handleSizeChange = (key, setSize) => {

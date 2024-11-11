@@ -32,6 +32,7 @@ import "slick-carousel/slick/slick-theme.css";
 import LoadingSketch from "../../../../layout/Loading/LoadingSketch";
 import { saveSketch } from "../p5-functions/CanvasSetupAndDraw";
 import ImagesContainer from "./ImagesContainer";
+import { FaAngleDown } from "react-icons/fa6";
 
 const PrintImagesJsx = ({
   drawImage,
@@ -53,7 +54,6 @@ const PrintImagesJsx = ({
   handleImageClick,
   handleImageUpload,
   openFullscreen,
-  handleUndo,
   mousePressed,
   mouseDragged,
   setup,
@@ -89,11 +89,48 @@ const PrintImagesJsx = ({
   }, []);
 
   const handleSizeChangeButton = (newSize) => {
+    setIgnoreCanvasClicks(true);
     setSize(newSize);
     setSelectedSize(newSize);
+    setTimeout(() => setIgnoreCanvasClicks(false), 0);
+  };
+
+  const scrollToImagesContainer = () => {
+    const imagesContainer = document.getElementById("images-container");
+    if (imagesContainer) {
+      imagesContainer.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === "z") {
+        event.preventDefault();
+        setIgnoreCanvasClicks(true);
+        handleUndo();
+        setTimeout(() => setIgnoreCanvasClicks(false), 0);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  // Updated handleUndo without params
+  const handleUndo = () => {
+    for (let i = imagesHistory.current.length - 1; i >= 0; i--) {
+      if (imagesHistory.current[i].hasOwnProperty("img")) {
+        imagesHistory.current.splice(i, 1);
+        break;
+      }
+    }
+    setDrawImage((prev) => !prev); // Toggle to refresh
   };
 
   const handleImageSelect = (image) => {
+    setIgnoreCanvasClicks(true);
     setSelectedImage(image);
     handleImageClick(
       new window.p5(),
@@ -105,6 +142,7 @@ const PrintImagesJsx = ({
       setPrintedFirstImage,
       setShowInstructions
     );
+    setTimeout(() => setIgnoreCanvasClicks(false), 0);
   };
 
   const sizeIconMap = {
@@ -348,11 +386,18 @@ const PrintImagesJsx = ({
           ))}
         </div>
           */}
-
-        <ImagesContainer
-          handleImageSelect={handleImageSelect}
-          selectedImage={selectedImage}
-        />
+        <button
+          className="more-images-button"
+          onClick={scrollToImagesContainer}
+        >
+          RANDOM PHOTOS <FaAngleDown />
+        </button>
+        <div id="images-container">
+          <ImagesContainer
+            handleImageSelect={handleImageSelect}
+            selectedImage={selectedImage}
+          />
+        </div>
       </div>
     </div>
   );
