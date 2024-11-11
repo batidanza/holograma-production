@@ -251,6 +251,23 @@ const PrintImagesJsx = ({
             />
           </div>
         </div>
+        <input
+          type="file"
+          id="imageInput"
+          accept="image/*"
+          style={{ display: "none" }}
+          onChange={(e) =>
+            handleImageUpload(
+              new window.p5(),
+              e,
+              setUserImage,
+              setShowInstructions,
+              setDrawImage,
+              setShowSecondInstruction,
+              imgRef
+            )
+          }
+        ></input>
         <div className="image-row">
           {[horseImage, image1, image2, image3, image4, image5].map((image) => (
             <img
