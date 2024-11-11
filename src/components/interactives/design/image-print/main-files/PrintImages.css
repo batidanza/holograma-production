@@ -27,7 +27,7 @@
 
 .image-row {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .image-column {
@@ -58,6 +58,7 @@
   border-radius: 5px;
   color:rgb(77, 52, 65);
   background-color:  transparent;
+  border: solid 1.5px  rgb(255, 255, 255);
   font-weight: bold;
   font-size: 1vw;
   width: 45px;
@@ -71,7 +72,7 @@
 
 .control-button.selected {
   opacity: 0.6;
-  background-color: rgb(40, 3, 22);
+  background-color: rgb(194, 107, 152);
 }
 
 .control-button-add-photo {
@@ -84,9 +85,11 @@
   align-items: center;
   justify-content: center;
   object-fit: contain;
-  background-color:  rgb(255, 255, 255);;
+  background-color:  rgba(147, 196, 253, 0.442);
   overflow: hidden;
+  width: 70px;
   height: 70px;
+  
 }
 
 .our-image.selected {

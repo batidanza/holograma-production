@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Sketch from "react-p5";
 import horseImage from "../../../../../assets/print-images/horse.png";
-import image1 from "../../../../../assets/print-images/face.png";
-import image2 from "../../../../../assets/print-images/flan.png";
+import image1 from "../../../../../assets/print-images/flan.png";
+import image2 from "../../../../../assets/print-images/wwwww.png";
 import image3 from "../../../../../assets/print-images/feel.png";
 import image4 from "../../../../../assets/print-images/stars.png";
-import image5 from "../../../../../assets/print-images/dolphines.png";
+import image5 from "../../../../../assets/print-images/face.png";
 import image7 from "../../../../../assets/print-images/background1.png";
 import image8 from "../../../../../assets/print-images/_DSC0416.jpg";
 import image9 from "../../../../../assets/print-images/weso.jpg";
@@ -197,6 +197,21 @@ const PrintImagesJsx = ({
           </button>
         </div>
         <div className="canvas-controls-desktop-row">
+          <div className="image-row">
+            {[horseImage, image1, image2, image3, image4, image5].map(
+              (image) => (
+                <img
+                  key={image}
+                  src={image}
+                  alt="our-image"
+                  className={`our-image ${
+                    selectedImage === image ? "selected" : ""
+                  }`}
+                  onClick={() => handleImageSelect(image)}
+                />
+              )
+            )}
+          </div>
           <div className="canvas-content">
             <Sketch
               setup={(p5, canvasParentRef) => setup(p5, canvasParentRef)}
@@ -250,6 +265,36 @@ const PrintImagesJsx = ({
               }}
             />
           </div>
+
+          <div className="image-column">
+            {uploadedImages.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt="uploaded-image"
+                className={`our-image ${
+                  selectedImage === image ? "selected" : ""
+                }`}
+                onClick={() => handleImageSelect(image)}
+              />
+            ))}
+            <div
+              className="control-button-add-photo"
+              onClick={() =>
+                document.getElementById("dynamicImageInput").click()
+              }
+            >
+              <img src={plusIcon} alt="Upload" />
+            </div>
+
+            <input
+              type="file"
+              id="dynamicImageInput"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleImageUploadDynamic}
+            />
+          </div>
         </div>
         <input
           type="file"
@@ -268,59 +313,7 @@ const PrintImagesJsx = ({
             )
           }
         ></input>
-        <div className="image-row">
-          {[horseImage, image1, image2, image3, image4, image5].map((image) => (
-            <img
-              key={image}
-              src={image}
-              alt="our-image"
-              className={`our-image ${
-                selectedImage === image ? "selected" : ""
-              }`}
-              onClick={() => handleImageSelect(image)}
-            />
-          ))}
-        </div>
-        <div className="image-column">
-          {[image7, image8, image9, image10, image11, image12].map((image) => (
-            <img
-              key={image}
-              src={image}
-              alt="our-image"
-              className={`our-image ${
-                selectedImage === image ? "selected" : ""
-              }`}
-              onClick={() => handleImageSelect(image)}
-            />
-          ))}
-        </div>
-        <div className="image-column">
-          {uploadedImages.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt="uploaded-image"
-              className={`our-image ${
-                selectedImage === image ? "selected" : ""
-              }`}
-              onClick={() => handleImageSelect(image)}
-            />
-          ))}
-          <div
-            className="control-button-add-photo"
-            onClick={() => document.getElementById("dynamicImageInput").click()}
-          >
-            <img src={plusIcon} alt="Upload" />
-          </div>
 
-          <input
-            type="file"
-            id="dynamicImageInput"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={handleImageUploadDynamic}
-          />
-        </div>
         {/* 
         <div style={{ width: "60vw" }}>
           <Slider {...settings}>
