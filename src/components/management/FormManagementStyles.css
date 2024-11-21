@@ -17,7 +17,7 @@
   box-sizing: border-box;
   border-radius: 4px;
   padding: 5%;
-  background-color: rgba(24, 2, 2);
+  background-color: #5900ff;
   opacity: 0.8;
   height: 90vh;
 }
@@ -85,7 +85,7 @@
   border: 1px solid  rgb(255, 255, 255); ;  ;; ;
   border-radius: 4px;
   box-sizing: border-box;
-  color:  rgb(255, 255, 255); ;  ;; ;
+  color:  rgb(0, 0, 0); ;  ;; ;
   transition: none;
   border: solid 1px  rgb(255, 255, 255); ;  ;; ;
 }
@@ -191,7 +191,7 @@
 .my-button-form,
 .my-link-form {
   margin-top: 2vw;
-  color:  rgb(255, 255, 255); ;  ;; 
+  color:  rgb(0, 0, 0); ;  ;; 
   background-color:  rgb(255, 255, 255); ;  ;; ;
   text-decoration: none;
   text-align: center;

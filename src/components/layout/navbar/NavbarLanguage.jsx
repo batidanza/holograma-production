@@ -34,13 +34,13 @@ function NavbarLanguage({
           style={{ marginBottom: "20px", transform: "rotate(180deg)" }}
           onClick={toggleNavbarAndOptions}
         >
-          <RiExpandRightLine color="white" size={35} />
+          <RiExpandRightLine color="#deff04" size={35} />
         </button>
       )}
 
       {isClosed && (
         <button style={{ marginBottom: "20px" }} onClick={openNavbar}>
-          <RiExpandRightLine color="white" size={35} />
+          <RiExpandRightLine color="#deff04" size={35} />
         </button>
       )}
     </div>
