@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sketch from "react-p5";
-import horseImage from "../../../../../assets/horse.png";
-import image1 from "../../../../../assets/face.png";
-import image2 from "../../../../../assets/flan.png";
-import image3 from "../../../../../assets/feel.png";
-import image4 from "../../../../../assets/stars.png";
-import image5 from "../../../../../assets/dolphines.png";
+import horseImage from "../../../../../assets/print-images/horse.png";
+import image1 from "../../../../../assets/print-images/flan.png";
+import image2 from "../../../../../assets/print-images/wwwww.png";
+import image3 from "../../../../../assets/print-images/feel.png";
+import image4 from "../../../../../assets/print-images/stars.png";
+import image5 from "../../../../../assets/print-images/face.png";
+import image7 from "../../../../../assets/print-images/background1.png";
+import image8 from "../../../../../assets/print-images/_DSC0416.jpg";
+import image9 from "../../../../../assets/print-images/weso.jpg";
+import image10 from "../../../../../assets/print-images/wwwww.png";
+import image11 from "../../../../../assets/print-images/background2.png";
+import image12 from "../../../../../assets/print-images/background3.png";
 
 import extraSmallSizeIcon from "../../../../../assets/icons/extra_small.svg";
 import smallSizeIcon from "../../../../../assets/icons/picture_small.svg";
@@ -13,10 +19,20 @@ import mediumSizeIcon from "../../../../../assets/icons/picture_medium.svg";
 import largeSizeIcon from "../../../../../assets/icons/picture_large.svg";
 import backgroundSizeIcon from "../../../../../assets/icons/wallpaper.svg";
 
+import downloadIcon from "../../../../../assets/icons/download_icon.svg";
 import chooseImage from "../../../../../assets/icons/choose_image.svg";
 import fullScreanIcon from "../../../../../assets/icons/full_screan.svg";
 import undoIcon from "../../../../../assets/icons/undo.svg";
+import plusIcon from "../../../../../assets/icons/plus-symbol.svg";
 import "./PrintImages.css";
+import { getPhotoByArchive } from "../../../../../services/ArchiveAPI";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import LoadingSketch from "../../../../layout/Loading/LoadingSketch";
+import { saveSketch } from "../p5-functions/CanvasSetupAndDraw";
+import ImagesContainer from "./ImagesContainer";
+import { FaAngleDown } from "react-icons/fa6";
 
 const PrintImagesJsx = ({
   drawImage,
@@ -38,21 +54,83 @@ const PrintImagesJsx = ({
   handleImageClick,
   handleImageUpload,
   openFullscreen,
-  handleUndo,
   mousePressed,
   mouseDragged,
   setup,
   draw,
 }) => {
-  const [selectedImage, setSelectedImage] = React.useState(null);
-  const [selectedSize, setSelectedSize] = React.useState(size);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(size);
+  const [ignoreCanvasClicks, setIgnoreCanvasClicks] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [uploadedImages, setUploadedImages] = useState([]);
+  {
+    /* 
+  useEffect(() => {
+    const fetchPhotoCollection = async () => {
+      const data = await getPhotoByArchive("print-images");
+      setCollection(data);
+      console.log(data);
+    };
+    fetchPhotoCollection();
+  }, []);
+
+  */
+  }
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 780);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleSizeChangeButton = (newSize) => {
+    setIgnoreCanvasClicks(true);
     setSize(newSize);
     setSelectedSize(newSize);
+    setTimeout(() => setIgnoreCanvasClicks(false), 0);
+  };
+
+  const scrollToImagesContainer = () => {
+    const imagesContainer = document.getElementById("images-container");
+    if (imagesContainer) {
+      imagesContainer.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === "z") {
+        event.preventDefault();
+        setIgnoreCanvasClicks(true);
+        handleUndo();
+        setTimeout(() => setIgnoreCanvasClicks(false), 0);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  // Updated handleUndo without params
+  const handleUndo = () => {
+    for (let i = imagesHistory.current.length - 1; i >= 0; i--) {
+      if (imagesHistory.current[i].hasOwnProperty("img")) {
+        imagesHistory.current.splice(i, 1);
+        break;
+      }
+    }
+    setDrawImage((prev) => !prev); // Toggle to refresh
   };
 
   const handleImageSelect = (image) => {
+    setIgnoreCanvasClicks(true);
     setSelectedImage(image);
     handleImageClick(
       new window.p5(),
@@ -64,104 +142,198 @@ const PrintImagesJsx = ({
       setPrintedFirstImage,
       setShowInstructions
     );
+    setTimeout(() => setIgnoreCanvasClicks(false), 0);
   };
 
   const sizeIconMap = {
-    
     50: extraSmallSizeIcon,
     150: smallSizeIcon,
     250: mediumSizeIcon,
     500: largeSizeIcon,
-    1050: backgroundSizeIcon
+    1050: backgroundSizeIcon,
+  };
+
+  const handleImageUploadDynamic = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setUploadedImages((prevImages) => [...prevImages, imageUrl]);
+    }
+  };
+
+  const handleButtonClickWithIgnore = (callback) => {
+    setIgnoreCanvasClicks(true);
+    callback();
+    setTimeout(() => setIgnoreCanvasClicks(false), 0);
+  };
+
+  const handleDownload = () => {
+    saveSketch(); // Llama directamente a la función saveSketch.
+  };
+
+  const renderSizeButtons = () => {
+    const sizeButtons = [50, 150, 250, 500, 1050].map((s) => (
+      <button
+        key={s}
+        className={`control-button ${selectedSize === s ? "selected" : ""}`}
+        onClick={() => handleSizeChangeButton(s)}
+      >
+        <img className="icon-image" src={sizeIconMap[s]} alt={`Size ${s}`} />
+      </button>
+    ));
+
+    return <div className="button-row">{sizeButtons}</div>;
+  };
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 9,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
     <div className="draw-images">
-      <h4 className="title"> IMAGE EXPERIMENTATION</h4>
       <div className="canvas-images-container">
         <div className="image-sizes">
-          {[50, 150, 250, 500, 1050].map((s) => (
-            <button
-              key={s}
-              className={`control-button ${
-                selectedSize === s ? "selected" : ""
-              }`}
-              onClick={() => handleSizeChangeButton(s)}
-            >
-              <img src={sizeIconMap[s]} alt={`Size ${s}`} />
-            </button>
-          ))}
-          <button className="control-text" onClick={openFullscreen}>
-            <img src={fullScreanIcon} />
-          </button>
-          <button className="control-text" onClick={handleButtonClick}>
-          <img src={chooseImage}/>
+          {renderSizeButtons()}
+          <button
+            className="control-button"
+            onClick={() => handleButtonClickWithIgnore(openFullscreen)}
+          >
+            <img className="icon-image" src={fullScreanIcon} alt="Fullscreen" />
           </button>
           <button
-            className="control-text"
-            onClick={() => handleUndo(imagesHistory, setDrawImage, drawImage)}
+            className="control-button"
+            onClick={() =>
+              handleButtonClickWithIgnore(() =>
+                handleUndo(imagesHistory, setDrawImage, drawImage)
+              )
+            }
           >
-            <img src={undoIcon}/>
+            <img className="icon-image" src={undoIcon} alt="Undo" />
+          </button>
+          <button className="control-button" onClick={handleDownload}>
+            <img className="icon-image" src={downloadIcon} alt="Download" />
           </button>
         </div>
-        <div className="canvas-content">
-          <Sketch
-            setup={(p5, canvasParentRef) => setup(p5, canvasParentRef)}
-            draw={(p5) =>
-              draw(
-                p5,
-                showInstructions,
-                showSecondInstruction,
-                printedFirstImage,
-                imagesHistory,
-                drawImage,
-                userImage,
-                setShowSecondInstruction,
-                setPrintedFirstImage,
-                size
+        <div className="canvas-controls-desktop-row">
+          <div className="image-row">
+            {[horseImage, image1, image2, image3, image4, image5].map(
+              (image) => (
+                <img
+                  key={image}
+                  src={image}
+                  alt="our-image"
+                  className={`our-image ${
+                    selectedImage === image ? "selected" : ""
+                  }`}
+                  onClick={() => handleImageSelect(image)}
+                />
               )
-            }
-            keyTyped={(p5) => handleKeyTyped(p5)}
-            mousePressed={(p5) =>
-              mousePressed(
-                p5,
-                imagesHistory,
-                userImage,
-                setShowSecondInstruction,
-                setPrintedFirstImage,
-                setShowInstructions,
-                size
-              )
-            }
-            mouseReleased={(p5) => setShowInstructions(false)}
-            mouseDragged={(p5) =>
-              mouseDragged(
-                p5,
-                imagesHistory,
-                userImage,
-                setShowSecondInstruction,
-                setPrintedFirstImage,
-                setShowInstructions,
-                size
-              )
-            }
-          />
-        </div>
-        <div className="image-column">
-          {[horseImage, image1, image2, image3, image4, image5].map((image) => (
-            <img
-              key={image}
-              src={image}
-              alt="our-image"
-              className={`our-image ${
-                selectedImage === image ? "selected" : ""
-              }`}
-              onClick={() => handleImageSelect(image)}
+            )}
+          </div>
+          <div className="canvas-content">
+            <Sketch
+              setup={(p5, canvasParentRef) => setup(p5, canvasParentRef)}
+              draw={(p5) => {
+                if (!ignoreCanvasClicks) {
+                  draw(
+                    p5,
+                    showInstructions,
+                    showSecondInstruction,
+                    printedFirstImage,
+                    imagesHistory,
+                    drawImage,
+                    userImage,
+                    setShowSecondInstruction,
+                    setPrintedFirstImage,
+                    size
+                  );
+                }
+              }}
+              keyTyped={(p5) => handleKeyTyped(p5)}
+              mousePressed={(p5) => {
+                if (!ignoreCanvasClicks) {
+                  mousePressed(
+                    p5,
+                    imagesHistory,
+                    userImage,
+                    setShowSecondInstruction,
+                    setPrintedFirstImage,
+                    setShowInstructions,
+                    size
+                  );
+                }
+              }}
+              mouseReleased={() => {
+                if (!ignoreCanvasClicks) {
+                  setShowInstructions(false);
+                }
+              }}
+              mouseDragged={(p5) => {
+                if (!ignoreCanvasClicks) {
+                  mouseDragged(
+                    p5,
+                    imagesHistory,
+                    userImage,
+                    setShowSecondInstruction,
+                    setPrintedFirstImage,
+                    setShowInstructions,
+                    size
+                  );
+                }
+              }}
             />
-          ))}
+          </div>
+
+          <div className="image-column">
+            {uploadedImages.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt="uploaded-image"
+                className={`our-image ${
+                  selectedImage === image ? "selected" : ""
+                }`}
+                onClick={() => handleImageSelect(image)}
+              />
+            ))}
+            <div
+              className="control-button-add-photo"
+              onClick={() =>
+                document.getElementById("dynamicImageInput").click()
+              }
+            >
+              <img src={plusIcon} alt="Upload" />
+            </div>
+
+            <input
+              type="file"
+              id="dynamicImageInput"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleImageUploadDynamic}
+            />
+          </div>
         </div>
-      </div>
-      <div className="controls-container">
         <input
           type="file"
           id="imageInput"
@@ -178,55 +350,54 @@ const PrintImagesJsx = ({
               imgRef
             )
           }
-        />
-      </div>
-      <div className="instructions-container">
-        <p>
-          <br />
-          <br />
-          Welcome to our interactive image collage platform! How It Works
-          <br />
-          For guidance on using the platform, follow the on-screen instructions.
-          These will provide helpful tips and information as you navigate the
-          collage creation process.
-          <br />
-          Whether you're an artist, designer, or simply looking to unleash your
-          creativity, our interactive image collage platform offers a fun and
-          efficient way to bring your ideas to life. Get started now and let
-          your imagination run wild!
-          <br />
-          <br />
-          Fullscreen Mode: Want to immerse yourself fully in your creative
-          process? Click the "FULLSCREEN" button to enter fullscreen mode.
-          <br />
-          Pause/Resume Drawing: Need a break or want to pause the drawing
-          process? Simply click inside the canvas area again to toggle between
-          pause and resume modes.
-        </p>
-        <p>
-          Begin by uploading your desired images using the "LOAD IMAGE" button.
-          Simply click the button or press "U" to trigger the image upload
-          prompt.
-        </p>
-        <p>
-          Once you've uploaded your images, click inside the canvas area to
-          start placing them. Each click will position the image at the cursor
-          location.
-        </p>
-        <p>
-          Image Size Adjustment: To adjust the size of the images, use the
-          numbered keys on your keyboard:
-          <br />
-          Press 1 for an extra-small size (50px).
-          <br />
-          Press 2 for a small size (150px).
-          <br />
-          Press 3 for a medium size (250px).
-          <br />
-          Press 4 for a large size (500px).
-          <br />
-          Press 5 for an extra-large size (1050px).
-        </p>
+        ></input>
+
+        {/* 
+        <div style={{ width: "60vw" }}>
+          <Slider {...settings}>
+            {imagesToDisplay.map((image, index) => (
+              <div key={index}>
+                 <img
+                src={image}
+                alt={`Random ${index + 1}`}
+                className={`our-image ${
+                  selectedImage === image ? "selected" : ""
+                }`}
+                onClick={() => handleImageSelect(image)}
+              />
+              </div>
+            ))}
+          </Slider>
+        </div>
+        */}
+        {/* 
+        <div className="all-images-container">
+          {imagesToDisplay.map((image, index) => (
+            <div key={index}>
+              <img
+                src={image}
+                alt={`Random ${index + 1}`}
+                className={`our-image ${
+                  selectedImage === image ? "selected" : ""
+                }`}
+                onClick={() => handleImageSelect(image)}
+              />
+            </div>
+          ))}
+        </div>
+          */}
+        <button
+          className="more-images-button"
+          onClick={scrollToImagesContainer}
+        >
+          RANDOM PHOTOS <FaAngleDown />
+        </button>
+        <div id="images-container">
+          <ImagesContainer
+            handleImageSelect={handleImageSelect}
+            selectedImage={selectedImage}
+          />
+        </div>
       </div>
     </div>
   );

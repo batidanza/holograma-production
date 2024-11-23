@@ -31,12 +31,12 @@ const RapidPrintPhoto = () => {
 
     const canvas = p5.createCanvas(canvasWidth, canvasHeight);
     canvas.parent(canvasParentRef);
-    p5.background(4, 18, 37) ;
+    p5.background(24, 2, 2) ;
     canvas.style("user-select", "none");
     canvas.style("touch-action", "none");
 
     try {
-      const collection = await getPhotoByArchive("Holograma");
+      const collection = await getPhotoByArchive("print-images");
       const images = await loadImages(collection, p5);
 
       const imageDisplays = images.map((img, index) => {
@@ -90,7 +90,7 @@ const RapidPrintPhoto = () => {
   };
 
   const draw = (p5) => {
-    p5.background(4, 18, 37) ; 
+    p5.background(20, 21, 12, 9)
     for (let i = 0; i <= currentIndex; i++) {
       imageDisplays[i]?.display();
     }
@@ -102,7 +102,7 @@ const RapidPrintPhoto = () => {
   };
 
   return (
-    <div>
+    <div style={{position:"absolute"}}> 
       <Sketch setup={setup} draw={draw} />
     </div>
   );

@@ -4,17 +4,20 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 21%;
-  max-width: 300px;
-  background-color: rgb(4, 18, 37);
-  border-right: 1.5px solid rgb(255, 0, 0);
+  width: 27%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 1000;
   font-family: "IBM Plex Sans", sans-serif;
-  font-weight: 700;
+  background-color:#89b8e2bf;
+  border-right: 2px solidrgb(222, 255, 4);
   font-style: normal;
+  padding: 10px;
+}
+
+.navbar-open {
+  background-color:#89b8e2bf;
 }
 
 .navbar-logo-container {
@@ -25,15 +28,15 @@
 
 .vertical-logo {
   font-family: "Array", sans-serif;
-  color: #ff0000;
-  font-size: 32px;
+  color: rgb(222, 255, 4);
+  font-size: 45px;
   align-items: center;
-  font-weight: bold;
   text-decoration: none;
   writing-mode: vertical-rl;
   text-orientation: upright;
   font-style: normal;
   margin-top: 25px;
+  cursor: pointer;
 }
 
 .image-button {
@@ -57,9 +60,9 @@
 }
 
 .art-options {
-  font-size: 2vw;
+  font-size: 2.2vw;
   font-weight: 550;
-  color: #ff0000;
+  color: #deff04;
   align-items: center;
   position: relative;
   display: flex;
@@ -70,25 +73,31 @@
 
 .nav-link {
   text-decoration: none;
-  color: #ff0000;
+  color:rgb(222, 255, 4);
   cursor: pointer;
 }
 
+.nav-link:hover {
+  color: #ecff3f; /* Cambia el color del texto */
+  text-decoration: underline; /* Agrega un subrayado */
+  transition: color 0.3s ease-in-out; /* Transición suave */
+}
+
 .nav-link.selected {
-  border: #4c00ff;
+  border: rgb(147, 197, 253);
 }
 
 .art-options-closed {
   font-size: 0px;
   font-weight: bold;
-  color: #ff0000;
+  color:rgb(222, 255, 4);
   margin-top: 2vw;
   cursor: pointer;
 }
 
 .nav-lang {
   font-weight: bold;
-  color: #ff0000;
+  color: #deff04;                    
   font-size: 1.1vw;
   margin-bottom: 5vh;
 }
@@ -103,22 +112,26 @@
 .language-button {
   background: none;
   border: none;
-  color: #ff0000;
+  color:rgb(222, 255, 4);
   cursor: pointer;
   font-weight: bold;
   font-size: 1.2vw;
   font-family: "IBM Plex Sans", sans-serif;
 }
 
+.language-button:hover {
+  color: red;
+}
+
 .text-logo {
   font-family: "Array", sans-serif;
-  color: #ff0000;
-  font-size: 3vw;
+  color:rgb(222, 255, 4);
+  font-size: 3.6vw;
   align-items: center;
-  font-weight: bold;
   text-decoration: none;
   letter-spacing: 0.1em;
   font-style: normal;
+  margin-top: 20px;
 }
 
 .navbar-brand {
@@ -139,7 +152,7 @@
   font-size: 3vw;
   border: none;
   background: none;
-  color: #ff0000;
+  color: rgb(255, 255, 255);
   margin-bottom: 1vw;
   cursor: pointer;
   font-weight: bold;
@@ -149,31 +162,30 @@
   font-size: 2vw;
   border: none;
   background: none;
-  color: #ff0000;
+  color: rgb(255, 255, 255);
   margin-bottom: 1vw;
   cursor: pointer;
   font-weight: bold;
 }
 
 .language-button.selected {
-  color: #ff0000;
+  color:rgb(222, 255, 4);
   font-weight: bold;
 }
 
 .language-separator {
   width: 100%;
   height: 2px;
-  background-color: #ff0000;
+  background-color: #deff04;                    
   margin: 1vw 0;
   display: block;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1207px) {
   .sidebar {
     width: 100%;
     max-width: none;
     height: 100vh;
-    background-color: rgb(4, 18, 37);
   }
 
   .navbar-closed {
@@ -187,7 +199,7 @@
     justify-content: space-around;
     align-items: center;
     border-right: none;
-    border-bottom: 1.5px solid rgb(255, 0, 0);
+    border-bottom: 1.5px solidrgb(222, 255, 4);
     flex-direction: row;
     align-items: center;
   }
@@ -203,18 +215,18 @@
 
   .art-options {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    font-size: 25px;
+    font-size: 3vw;
   }
 
   .language-separator {
     width: 85%;
     height: 2px;
-    background-color: #ff0000;
+    background-color:rgb(222, 255, 4);
     margin: 1vw 0;
     display: block;
   }
+  
 
   .art-options-closed {
     font-size: 0px;

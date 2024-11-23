@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Sketch from "react-p5";
 import "./DrawComponent.css";
 import { setup } from "../image-print/p5-functions/CanvasSetupAndDraw";
-import chooseImageIcon from "../../../../assets/icons/choose_image.svg"; // Ruta a tu ícono
+import chooseImageIcon from "../../../../assets/icons/choose_image.svg"; 
 import downloadIcon from "../../../../assets/icons/download_icon.svg";
 
 const DrawComponent = () => {

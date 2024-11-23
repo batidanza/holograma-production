@@ -1,103 +1,72 @@
-.sketch-image-list {
-  width: 100%;
-  text-align: center;
+/* Centrar el carrusel y sus imágenes */
+.sketch-carousel {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  color: red;
-}
-
-.image-loading {
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 35vh;
+  position: relative; /* Necesario para las flechas */
+}
+.view-container {
   display: flex;
+  flex-direction:column ;
   justify-content: center;
-  align-items: center;
-  font-family: "Array", sans-serif;
-  font-size: 2vw;
-  animation: opacityAnimation 1s ease infinite alternate,
-    colorAnimation 2s ease infinite alternate;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.8
-  );
-  border-radius: 8px;
+  width: 100%;
+  min-height: 100vh;
+  padding-left: 100px;
+  padding-right: 100px;
 }
-
-
-.sketch-containers {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; 
-  align-items: center; 
-  flex-direction: row;
-}
-
+/* Contenedor de las imágenes */
 .sketch-image-container {
-  flex: 0 0 calc(28.28% - 40px); 
-  margin: 20px;
-  position: relative;
-  border: solid 1.5px rgb(255, 0, 0);
-  border-radius: 8px;
-  padding: 10px;
-  cursor: pointer;
-  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
 
 .sketch-image-container:hover {
-  background-color: rgb(255, 0, 0);
-  color: rgb(208, 248, 255);
-  cursor: pointer;
-  border-color: rgb(255, 0, 0);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.1) saturate(1.2);
 }
 
-.sketch-image-container img {
-  width: 100%;
+/* Estilo de las imágenes */
+.sketch-image {
+  max-width:960px;
   height: auto;
-  display: block;
-  pointer-events: none;
+  border-radius: 10px;
+  object-fit: contain; /* Mantiene las proporciones */
 }
 
-.image-title {
-  margin-top: 10px;
-  text-align: center;
-  font-family: "Array", sans-serif;
-  font-size: 1.5vw;
-}
-
-.image-loading {
-  font-family: "Array", sans-serif;
+/* Estilo para las flechas de navegación */
+.swiper-button-prev,
+.swiper-button-next {
+  color: rgb(222, 255, 4) ;
+  font-size: 2rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
-  font-size: 2vw;
-  animation: opacityAnimation 1s ease infinite alternate,
-    colorAnimation 2s ease infinite alternate;
-  text-decoration: none;
+  align-items: center;
 }
 
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background:#89b8e2bf;
+}
+
+/* Ocultar flechas en pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
+  }
+}
+
+/* Responsividad */
 @media screen and (max-width: 1224px) {
   .sketch-image-container {
     width: 70%;
-    height: auto;
     margin: 20px auto;
   }
-
-  .image-title {
-    font-size: 4vw;
-  }
-
-  .sketch-image-list-title {
-    font-size: 3vw;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-.sketch-containers {
-  flex-direction: column;
-}
 }

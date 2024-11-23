@@ -13,7 +13,7 @@ export default () => {
   };
 
   const draw = (p5) => {
-    p5.background(255, 0, 0);
+    p5.background(20, 21, 12);
     p5.noFill();
 
     p5.translate(p5.width / 2, p5.height / 2);
@@ -24,9 +24,9 @@ export default () => {
 
       // Utilizar el color British Green
       const britishGreen = {
-        r: 0,
-        g: 0,
-        b: 0
+        r: 42,
+        g: 227,
+        b: 226
       };
 
       p5.stroke(britishGreen.r, britishGreen.g, britishGreen.b);

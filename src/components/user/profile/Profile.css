@@ -3,16 +3,16 @@
   justify-content: space-evenly;
   align-items: center;
   padding: 10px 20px;
-  background-color: rgb(4, 18, 37) ;
-  border-bottom: 1.5px solid #ff0000;
+  background-color:  rgb(255, 255, 255); ;  ;; 
+  border-bottom: 1.5px solid  rgb(255, 255, 255); ;  ;; 
 }
 
 .profile-navbar-button {
   width: 130px;
   height: 50px;
-  background-color: rgb(4, 18, 37) ;
-  color: rgb(255, 0, 0);
-  border: solid 1px red;
+  background-color:  rgb(255, 255, 255); ;  ;; 
+  color:  rgb(255, 255, 255); ;  ;; 
+  border: solid 1px  rgb(255, 255, 255); ;  ;; 
   border-radius: 3px;
   font-size: 14px;
   cursor: pointer;
@@ -20,7 +20,7 @@
 }
 
 .profile-navbar-button:hover {
-  background-color: #ff7583;
+  background-color: rgb(255, 255, 255); ;  ;; 
 }
 
 .post-photo-button-container {
@@ -33,8 +33,8 @@
 .post-photos-button {
   width: 130px;
   height: 50px;
-  background-color: red;
-  color: #f6f6f6f6;
+  background-color:#bcd7f5;
+  color:  rgb(255, 255, 255); ;  ;; 
   border-radius: 8px;
   border: none;
   font-family: "IBM Plex Sans", sans-serif;
@@ -65,8 +65,7 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: red;
-  color: white;
+  background-color:  rgb(255, 255, 255); ;  ;; 
   border: none;
   padding: 5px 10px;
   cursor: pointer;

@@ -38,9 +38,9 @@ const LoginForm = ({ credentials, handleChange, handleSubmit, errors }) => {
           {errors.general && <div className="error">{errors.general}</div>}
 
           <button type="submit" className="my-button-form">
-            Sign in
-            
+            Sign in          
           </button>
+          
           <Link className="my-button-form" to="/Register">
               Sign up
             </Link>

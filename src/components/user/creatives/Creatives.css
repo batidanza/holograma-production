@@ -24,7 +24,7 @@
 }
 
 .user-card {
-  border: 1.5px solid #ff0000;
+  border: 1.5px solid  rgb(255, 255, 255); ;  ;; ;
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
@@ -47,7 +47,7 @@
   font-size: 2vw;
   width: 100%;
   margin-top: 2vw;
-  color: rgb(255, 0, 0);
+  color:  rgb(255, 255, 255); ;  ;; ;
 }
 .creative-link {
   text-decoration: none;
