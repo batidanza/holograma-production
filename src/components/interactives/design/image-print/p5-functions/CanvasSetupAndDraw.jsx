@@ -62,7 +62,7 @@ export const draw = (
       const instructionTextSize = p5.width < 600 ? 20 : 35;
       p5.textSize(instructionTextSize);
       p5.textFont("Array");
-      p5.fill(0, 0, 0);
+      p5.fill(255,0,0);
       const instructionText = "PRESS U TO LOAD IMAGES";
       p5.text(
         instructionText,
@@ -78,7 +78,7 @@ export const draw = (
       imagesHistory.current.length === 0
     ) {
       if (p5.frameCount % 30 < 15) {
-        p5.fill(0);
+        p5.fill(255,0,0);
         p5.textAlign(p5.CENTER);
         const instructionTextSize = p5.width < 600 ? 20 : 35;
         p5.textSize(instructionTextSize);

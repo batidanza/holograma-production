@@ -28,7 +28,7 @@ const BackgroundSketch = () => {
   };
 
   const draw = (p5) => {
-    p5.background(19, 26, 36); 
+    p5.background(159, 187, 252, 0.678);
     p5.noFill();
 
     for (let i = particles.length - 1; i >= 0; i--) {
@@ -78,7 +78,7 @@ const BackgroundSketch = () => {
 
     display(p5) {
       const aspectRatio = this.particleImg.width / this.particleImg.height;
-      const width = this.radius * 80;
+      const width = this.radius * 30;
       const height = width / aspectRatio;
 
       p5.tint(255, this.alpha);
