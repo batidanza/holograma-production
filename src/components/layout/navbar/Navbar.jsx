@@ -8,7 +8,7 @@ import NavbarLanguage from "./NavbarLanguage";
 const Navbar = () => {
   const { t, i18n } = useTranslation();
   const { isLoggedIn, logout } = useContext(UserContext);
-  const [isClosed, setIsClosed] = useState(true);
+  const [isClosed, setIsClosed] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [selectedView, setSelectedView] = useState("/");
 
