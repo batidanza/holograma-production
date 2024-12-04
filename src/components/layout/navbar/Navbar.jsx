@@ -4,6 +4,9 @@ import "./Navbar.css";
 import { UserContext } from "../../user/context/UserContext";
 import { useTranslation } from "react-i18next";
 import NavbarLanguage from "./NavbarLanguage";
+import { RiExpandRightLine } from "../../../../node_modules/react-icons/ri";
+import { MdExpandMore } from "../../../../node_modules/react-icons/md";
+import { RiCloseLargeLine } from "../../../../node_modules/react-icons/ri";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -35,23 +38,22 @@ const Navbar = () => {
   return (
     <div className={`sidebar ${isClosed ? "navbar-closed" : "navbar-open"}`}>
       <div className={`logo-class ${isClosed ? "logo-class-closed" : ""}`}>
-        <div className={`logo-class ${isClosed ? "logo-class-closed" : ""}`}>
-          <Link
-            to="/"
-            className="navbar-brand"
-            onClick={() => handleOptionClick("/")}
-          >
-            {isClosed ? (
-              <p className="vertical-logo">
-                  HOLOGRAMA
-              </p>
-            ) : (
-              <p className="text-logo">
-                HOLOGRAMA
-              </p>
-            )}
-          </Link>
-        </div>
+        {isClosed && (
+          <button style={{ transform: "rotate(360deg)" }} onClick={openNavbar}>
+            <MdExpandMore color="#deff04" size={35} />
+          </button>
+        )}
+        <Link
+          to="/"
+          className="navbar-brand"
+          onClick={() => handleOptionClick("/")}
+        >
+          {isClosed ? (
+            <p className="vertical-logo">Holograma</p>
+          ) : (
+            <p className="text-logo">Holograma</p>
+          )}
+        </Link>
       </div>
       <div
         className={`art-options ${isClosed ? "art-options-closed" : ""}`}
@@ -120,14 +122,26 @@ const Navbar = () => {
             {t("logout")}
           </Link>
         )}
+        {!isClosed && (
+          <>
+            <NavbarLanguage
+              isClosed={isClosed}
+              selectedLanguage={selectedLanguage}
+              changeLanguage={changeLanguage}
+              toggleNavbarAndOptions={toggleNavbarAndOptions}
+              openNavbar={openNavbar}
+            />
+            <div className="button-close-container">
+              <button
+                style={{ transform: "rotate(180deg)" }}
+                onClick={toggleNavbarAndOptions}
+              >
+                <RiCloseLargeLine color="#deff04" size={35} />
+              </button>
+            </div>
+          </>
+        )}
       </div>
-      <NavbarLanguage
-        isClosed={isClosed}
-        selectedLanguage={selectedLanguage}
-        changeLanguage={changeLanguage}
-        toggleNavbarAndOptions={toggleNavbarAndOptions}
-        openNavbar={openNavbar}
-      />
     </div>
   );
 };

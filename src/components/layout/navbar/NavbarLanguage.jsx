@@ -5,9 +5,8 @@ function NavbarLanguage({
   isClosed,
   selectedLanguage,
   changeLanguage,
-  toggleNavbarAndOptions,
-  openNavbar,
 }) {
+
   return (
     <div className={`class-lang ${isClosed ? "class-lang-closed" : ""}`}>
       <div className="nav-lang">
@@ -29,20 +28,6 @@ function NavbarLanguage({
           ES
         </button>
       </div>
-      {!isClosed && (
-        <button
-          style={{ marginBottom: "20px", transform: "rotate(180deg)" }}
-          onClick={toggleNavbarAndOptions}
-        >
-          <RiExpandRightLine color="#deff04" size={35} />
-        </button>
-      )}
-
-      {isClosed && (
-        <button style={{ marginBottom: "20px" }} onClick={openNavbar}>
-          <RiExpandRightLine color="#deff04" size={35} />
-        </button>
-      )}
     </div>
   );
 }

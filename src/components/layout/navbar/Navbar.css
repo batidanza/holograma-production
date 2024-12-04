@@ -10,10 +10,9 @@
   justify-content: space-between;
   z-index: 1000;
   font-family: "IBM Plex Sans", sans-serif;
-  background-color:#89b8e2bf;
   border-right: 2px solidrgb(222, 255, 4);
   font-style: normal;
-  padding: 10px;
+  align-items: center;
 }
 
 .navbar-open {
@@ -26,17 +25,20 @@
   width: 20px;
 }
 
+.navbar-closed {
+  width: auto;
+  max-width: 400px;
+}
+
 .vertical-logo {
   font-family: "Array", sans-serif;
   color: rgb(222, 255, 4);
-  font-size: 45px;
+  font-size: 55px;
   align-items: center;
   text-decoration: none;
-  writing-mode: vertical-rl;
-  text-orientation: upright;
   font-style: normal;
-  margin-top: 25px;
   cursor: pointer;
+  letter-spacing: 10px;
 }
 
 .image-button {
@@ -54,9 +56,9 @@
   transform: rotate(180deg);
   transition: transform 0.3s ease-in-out;
 }
-.navbar-closed {
-  width: 5%;
-  max-width: 400px;
+
+.button-close-container {
+  height: 100px;
 }
 
 .art-options {
@@ -131,7 +133,6 @@
   text-decoration: none;
   letter-spacing: 0.1em;
   font-style: normal;
-  margin-top: 20px;
 }
 
 .navbar-brand {
@@ -141,10 +142,16 @@
   align-items: center;
 }
 
+.logo-class {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
 .logo-class-closed {
   position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
