@@ -16,7 +16,7 @@ function NavbarLanguage({
           }`}
           onClick={() => changeLanguage("en")}
         >
-          EN
+          En
         </button>
         <span className="language-separator"></span>
         <button
@@ -25,7 +25,7 @@ function NavbarLanguage({
           }`}
           onClick={() => changeLanguage("es")}
         >
-          ES
+          Es
         </button>
       </div>
     </div>

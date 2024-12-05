@@ -1,72 +1,57 @@
-/* Centrar el carrusel y sus imágenes */
-.sketch-carousel {
+/* Centrar el contenedor principal */
+.view-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  position: relative; /* Necesario para las flechas */
-}
-.view-container {
-  display: flex;
-  flex-direction:column ;
-  justify-content: center;
-  width: 100%;
   min-height: 100vh;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding: 20px;
 }
-/* Contenedor de las imágenes */
+
+/* Contenedor de la fila desplazable */
+.sketch-carousel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  overflow-x: auto; /* Activar desplazamiento horizontal */
+  scroll-behavior: smooth; /* Movimiento suave */
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .sketch-image-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 680px;
+  flex-shrink: 0;
+  height: auto;
   transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
 
-.sketch-image-container:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+.sketch-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 14px;
+}
+
+.sketch-image:hover {
   filter: brightness(1.1) saturate(1.2);
 }
 
-/* Estilo de las imágenes */
-.sketch-image {
-  max-width:960px;
-  height: auto;
-  border-radius: 10px;
-  object-fit: contain; /* Mantiene las proporciones */
-}
-
-/* Estilo para las flechas de navegación */
-.swiper-button-prev,
-.swiper-button-next {
-  color: rgb(222, 255, 4) ;
-  font-size: 2rem;
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.swiper-button-prev:hover,
-.swiper-button-next:hover {
-  background:#89b8e2bf;
-}
-
-/* Ocultar flechas en pantallas pequeñas */
+/* Responsividad */
 @media screen and (max-width: 768px) {
-  .swiper-button-prev,
-  .swiper-button-next {
-    display: none;
+  .sketch-image-container {
+    width: 90%;
   }
 }
 
-/* Responsividad */
-@media screen and (max-width: 1224px) {
+@media screen and (max-width: 480px) {
   .sketch-image-container {
-    width: 70%;
-    margin: 20px auto;
+    width: 100%;
   }
 }

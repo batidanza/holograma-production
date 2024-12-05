@@ -23,31 +23,33 @@ import Pad from "../components/interactives/audio/audio-visualizer/Pad";
 
 const AppRoutes = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home/>} />
-      <Route path="/magazine" element={<Magazine />} />
-      <Route path="/interactives-list" element={<InteractivesList />} />
-      <Route path="/draw-shape" element={<DrawComponent />} />
-      <Route path="/print-images" element={<PrintImages />} />
-      <Route path="/particle-component" element={<ParticleComponent />} />
-      <Route path="/fluid-component" element={<FluidComponent />} />
-      <Route path="/fan-sketch" element={<Fan />} />
-      <Route path="/image-particle" element={<BackgroundSketch />} />
-      <Route path="/september" element={<Pad2 />} />
-      <Route path="/pad" element={<Pad/>} />
-      <Route path="/image-circle" element={<ImageCircle />} />
+    <div className="app">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/magazine" element={<Magazine />} />
+        <Route path="/interactives-list" element={<InteractivesList />} />
+        <Route path="/draw-shape" element={<DrawComponent />} />
+        <Route path="/print-images" element={<PrintImages />} />
+        <Route path="/particle-component" element={<ParticleComponent />} />
+        <Route path="/fluid-component" element={<FluidComponent />} />
+        <Route path="/fan-sketch" element={<Fan />} />
+        <Route path="/image-particle" element={<BackgroundSketch />} />
+        <Route path="/september" element={<Pad2 />} />
+        <Route path="/pad" element={<Pad />} />
+        <Route path="/image-circle" element={<ImageCircle />} />
 
-      <Route path="/login" element={<Login />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/Register" element={<Register />} />
-      <Route path="/creatives" element={<Creatives />} />
-      <Route path="/creatives/:userId" element={<CreativeDetail />} />
-      <Route path="/collection-archive-create" element={<CreateArchive />} />
-      <Route
-        path="/collection-archive-photos-upload"
-        element={<UploadArchivePhotos />}
-      />
-    </Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="/creatives" element={<Creatives />} />
+        <Route path="/creatives/:userId" element={<CreativeDetail />} />
+        <Route path="/collection-archive-create" element={<CreateArchive />} />
+        <Route
+          path="/collection-archive-photos-upload"
+          element={<UploadArchivePhotos />}
+        />
+      </Routes>
+    </div>
   );
 };
 

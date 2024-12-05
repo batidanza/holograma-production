@@ -122,26 +122,26 @@ const Navbar = () => {
             {t("logout")}
           </Link>
         )}
-        {!isClosed && (
-          <>
-            <NavbarLanguage
-              isClosed={isClosed}
-              selectedLanguage={selectedLanguage}
-              changeLanguage={changeLanguage}
-              toggleNavbarAndOptions={toggleNavbarAndOptions}
-              openNavbar={openNavbar}
-            />
-            <div className="button-close-container">
-              <button
-                style={{ transform: "rotate(180deg)" }}
-                onClick={toggleNavbarAndOptions}
-              >
-                <RiCloseLargeLine color="#deff04" size={35} />
-              </button>
-            </div>
-          </>
-        )}
       </div>
+      {!isClosed && (
+        <>
+          <NavbarLanguage
+            isClosed={isClosed}
+            selectedLanguage={selectedLanguage}
+            changeLanguage={changeLanguage}
+            toggleNavbarAndOptions={toggleNavbarAndOptions}
+            openNavbar={openNavbar}
+          />
+          <div className="button-close-container">
+            <button
+              style={{ transform: "rotate(180deg)" }}
+              onClick={toggleNavbarAndOptions}
+            >
+              <RiCloseLargeLine color="#deff04" size={35} />
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

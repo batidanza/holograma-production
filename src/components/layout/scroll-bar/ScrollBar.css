@@ -1,0 +1,54 @@
+/* Estilo base para el contenedor del scroll */
+.scroll-bar {
+    display: flex;
+    gap: 20px; /* Espaciado entre elementos */
+    overflow-x: auto; /* Activar scroll horizontal */
+    scroll-behavior: smooth; /* Movimiento suave */
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%; /* Ajustar al ancho disponible */
+  }
+  
+  /* Ocultar scrollbars en navegadores modernos */
+  .scroll-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .scroll-bar {
+    -ms-overflow-style: none; /* IE y Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  /* Ejemplo de item para usar dentro del componente */
+  .scroll-item {
+    flex-shrink: 0; /* Evitar que los elementos se reduzcan */
+    width: 680px; /* Ancho de cada elemento */
+    height: auto;
+    border-radius: 14px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  }
+  
+  .scroll-item img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 14px;
+  }
+  
+  .scroll-item:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    filter: brightness(1.1) saturate(1.2);
+  }
+  
+  /* Responsividad */
+  @media screen and (max-width: 768px) {
+    .scroll-item {
+      width: 90%;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .scroll-item {
+      width: 100%;
+    }
+  }
+  

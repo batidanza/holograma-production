@@ -1,8 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules"; // Solo importar Navigation
-import "swiper/swiper-bundle.css";
 import "./SketchList.css";
 
 import sketchImage1 from "../../../assets/interactiveList/draw-images.png";
@@ -24,29 +21,20 @@ const InteractivesList = () => {
 
   return (
     <div className="view-container">
-          <div className="sketch-carousel">
-      <Swiper
-        modules={[Navigation]} // Solo Navigation
-        spaceBetween={30}
-        slidesPerView={1}
-        loop={true} // Carrusel infinito
-        navigation={true} // Habilitar flechas
-      >
+      <div className="sketch-carousel">
+        
         {imagesData.map((image) => (
-          <SwiperSlide key={image.id}>
-            <div className="sketch-image-container">
-              <Link to={`/${image.path}`} aria-label={`Go to ${image.title}`}>
-                <img
-                  src={image.src}
-                  alt={image.title}
-                  className="sketch-image"
-                />
-              </Link>
-            </div>
-          </SwiperSlide>
+          <div className="sketch-image-container" key={image.id}>
+            <Link to={`/${image.path}`} aria-label={`Go to ${image.title}`}>
+              <img
+                src={image.src}
+                alt={image.title}
+                className="sketch-image"
+              />
+            </Link>
+          </div>
         ))}
-      </Swiper>
-    </div>
+      </div>
     </div>
   );
 };
