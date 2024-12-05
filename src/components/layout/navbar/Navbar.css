@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 27%;
+  width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -70,11 +70,11 @@
 }
 
 .button-close-container {
-  height: 100px;
+  margin-bottom: 10px;
 }
 
 .art-options {
-  font-size: 2.2vw;
+  font-size: 30px;
   font-weight: 550;
   color: #deff04;
   align-items: center;
@@ -110,10 +110,12 @@
 }
 
 .nav-lang {
-  font-weight: bold;
   color: #deff04;
-  font-size: 1.1vw;
-  margin-bottom: 5vh;
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+  align-items: center;
+  gap: 5px;
 }
 
 .sidebar .class-lang {
@@ -129,12 +131,16 @@
   color: rgb(222, 255, 4);
   cursor: pointer;
   font-weight: bold;
-  font-size: 1.2vw;
+  font-size: 18px;
   font-family: "IBM Plex Sans", sans-serif;
 }
 
 .language-button:hover {
   color: red;
+}
+
+.language-button.selected {
+  color: rgb(255, 255, 255);
 }
 
 .navbar-brand {
@@ -157,30 +163,6 @@
   align-items: center;
 }
 
-.close-button {
-  font-size: 3vw;
-  border: none;
-  background: none;
-  color: rgb(255, 255, 255);
-  margin-bottom: 1vw;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.open-button {
-  font-size: 2vw;
-  border: none;
-  background: none;
-  color: rgb(255, 255, 255);
-  margin-bottom: 1vw;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.language-button.selected {
-  color: rgb(222, 255, 4);
-  font-weight: bold;
-}
 
 .language-separator {
   width: 100%;
@@ -240,6 +222,7 @@
     font-size: 0px;
     margin-top: 20px;
     margin-left: 10px;
+    display: none;
   }
 
   .language-button {
@@ -263,7 +246,6 @@
     font-size: 32px;
     writing-mode: horizontal-tb;
     text-orientation: initial;
-    margin-top: 30px;
   }
   .nav-lang {
     display: none;
