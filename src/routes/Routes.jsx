@@ -6,7 +6,7 @@ import FluidComponent from "../components/interactives/audio/song-animated/main-
 import Home from "../components/layout/home/Home";
 import InteractivesList from "../components/interactives/list/InteractivesList";
 import Magazine from "../components/magazine/main-files/Magazine";
-import Login from "../components/user/login/Login";
+import Login from "../Login";
 import Profile from "../components/user/profile/Profile";
 import DrawComponent from "../components/interactives/design/shape-draw/DrawComponent";
 import Fan from "../components/interactives/artwork/Fan";
@@ -20,12 +20,32 @@ import CreateArchive from "../components/management/archive/CreateArchive";
 import UploadArchivePhotos from "../components/management/archive/UploadArchivePhotos";
 import Pad2 from "../components/interactives/audio/audio-visualizer/Pad2";
 import Pad from "../components/interactives/audio/audio-visualizer/Pad";
+import Signin from "../Signin";
+import ProtectedRoute from "../ProtectedRoute";
 
 const AppRoutes = () => {
   return (
     <div className="app">
       <Routes>
+        <Route
+          path="/signin"
+          element={
+            <ProtectedRoute redirectTo="/interactives-list">
+              <Signin />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute redirectTo="/interactives-list">
+              <Login />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/" element={<Home />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/magazine" element={<Magazine />} />
         <Route path="/interactives-list" element={<InteractivesList />} />
         <Route path="/draw-shape" element={<DrawComponent />} />
@@ -37,8 +57,6 @@ const AppRoutes = () => {
         <Route path="/september" element={<Pad2 />} />
         <Route path="/pad" element={<Pad />} />
         <Route path="/image-circle" element={<ImageCircle />} />
-
-        <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/creatives" element={<Creatives />} />

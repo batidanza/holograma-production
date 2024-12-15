@@ -115,27 +115,6 @@ const ImageCircle = () => {
       }
 
       p5.fill(0, 0, 0, alpha);
-
-      const textLine1 = "CHOSE YOUR IMAGE";
-      const textLine2 =
-        "START INTERACTING WITH THE DIFERENT FEATURES";
-
-      if (p5.frameCount < 230) {
-        if (p5.frameCount % 60 < 15) {
-          const textWidth = p5.textWidth("DONT BE SHY!!");
-          const textHeight = p5.textAscent() + p5.textDescent();
-          p5.text(
-            "DONT BE SHY!!",
-            p5.width / 2,
-            p5.height / 2 - textHeight / 2
-          );
-        }
-      } else {
-        const textHeight1 = p5.textAscent() + p5.textDescent();
-        const textHeight2 = p5.textAscent() + p5.textDescent();
-        p5.text(textLine1, p5.width / 2, p5.height / 2 - textHeight1);
-        p5.text(textLine2, p5.width / 2, p5.height / 2 + textHeight2);
-      }
     } 
 
     if (userImage && !imgRef.current) {

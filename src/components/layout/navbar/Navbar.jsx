@@ -1,16 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import { UserContext } from "../../user/context/UserContext";
+// import { UserContext } from "../../user/context/UserContext";
 import { useTranslation } from "react-i18next";
 import NavbarLanguage from "./NavbarLanguage";
 import { RiExpandRightLine } from "../../../../node_modules/react-icons/ri";
 import { MdExpandMore } from "../../../../node_modules/react-icons/md";
 import { RiCloseLargeLine } from "../../../../node_modules/react-icons/ri";
+import { UserAuth } from "../../../AuthContext";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
-  const { isLoggedIn, logout } = useContext(UserContext);
+
+  const { user, logout } = UserAuth();
   const [isClosed, setIsClosed] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [selectedView, setSelectedView] = useState("/");
@@ -18,6 +20,14 @@ const Navbar = () => {
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     setSelectedLanguage(lng);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const openNavbar = () => {
@@ -43,23 +53,38 @@ const Navbar = () => {
             <MdExpandMore color="#deff04" size={35} />
           </button>
         )}
-        <Link
-          to="/"
+        <button
+          onClick={toggleNavbarAndOptions}
           className="navbar-brand"
-          onClick={() => handleOptionClick("/")}
+          style={{
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+          }}
         >
           {isClosed ? (
             <p className="vertical-logo">Holograma</p>
           ) : (
             <p className="text-logo">Holograma</p>
           )}
-        </Link>
+        </button>
       </div>
       <div
         className={`art-options ${isClosed ? "art-options-closed" : ""}`}
         id="artOptions"
+        style={isClosed ? { display: "none" } : null}
       >
-        {!isLoggedIn() && (
+        {user?.displayName ? (
+          <button className="nav-link" onClick={handleSignOut}>
+            Logout
+          </button>
+        ) : (
+          <Link className="nav-link" to="/login">
+            Login
+          </Link>
+        )}
+
+        {/*  {!isLoggedIn() && (
           <>
             <Link
               to="/login"
@@ -72,6 +97,7 @@ const Navbar = () => {
             </Link>
           </>
         )}
+         */}
         <Link
           to="/magazine"
           className={`nav-link ${
@@ -99,29 +125,6 @@ const Navbar = () => {
         >
           {t("SketchList")}
         </Link>
-        {isLoggedIn() && (
-          <Link
-            to="/profile"
-            className={`nav-link ${
-              selectedView === "/profile" ? "selected" : ""
-            }`}
-            onClick={() => handleOptionClick("/profile")}
-          >
-            {t("profile")}
-          </Link>
-        )}
-        {isLoggedIn() && (
-          <Link
-            to="/"
-            className="nav-link"
-            onClick={() => {
-              logout();
-              handleOptionClick("/");
-            }}
-          >
-            {t("logout")}
-          </Link>
-        )}
       </div>
       {!isClosed && (
         <>

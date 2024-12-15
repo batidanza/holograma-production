@@ -271,6 +271,20 @@
   align-items: center;
 }
 
+.google-login-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  padding: 10px;
+}
+
+.google-button {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 5px;
+}
+
+
 @media (max-width: 768px) {
   .my-label-form,
   .form-title {

@@ -1,10 +1,10 @@
 import React from "react";
-import "../FormManagementStyles.css";// Asegúrate de importar tus estilos CSS aquí
+import "../FormManagementStyles.css";
 
-const CustomTextInput = ({ value, onChange, placeholder }) => {
+const CustomTextInput = ({ type, value, onChange, placeholder, required, name }) => {
   const handleChange = (e) => {
     if (e && e.target && e.target.value !== undefined) {
-      onChange(e.target.value);
+      onChange(e);
     } else {
       console.error("Invalid event or event target in handleChange");
     }
@@ -12,11 +12,13 @@ const CustomTextInput = ({ value, onChange, placeholder }) => {
 
   return (
     <input
-      type="text"
-      className="custom-text-input" // Asegúrate de usar la clase correcta aquí
+      type={type}
+      className="custom-text-input"
       value={value}
       onChange={handleChange}
       placeholder={placeholder}
+      required={required}
+      name={name}
     />
   );
 };
