@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./components/management/FormManagementStyles.css";
 import CustomTextInput from "./components/management/FormComponents/CustomTextInput";
 import LoadingSketch from "./components/layout/Loading/LoadingSketch";
+import googleLogo from "./assets/icons/google_logo.svg"
 
 const Login = () => {
   const { googleSignIn, emailLogin } = UserAuth();
@@ -51,7 +52,7 @@ const Login = () => {
       <div className="my-container-form">
         {isLoading && <LoadingSketch />}
         {error && <div className="error-message">{error}</div>}
-        <h1 className="text-center text-3xl font-bold py-8">Login</h1>
+        <h2 className="my-form-title">Login</h2>
         <form
           className="my-form-form"
           onSubmit={handleSubmit}
@@ -90,9 +91,12 @@ const Login = () => {
             SIGN IN
           </Link>
         </form>
-        <div className="google-login-container">
-          <GoogleButton type="light" onClick={handleGoogleLogin} />
-        </div >
+     
+          <button className="google-login-button" onClick={handleGoogleLogin}>
+            <img src={googleLogo} />
+            <p>Continue with Google</p>
+          </button>
+
       </div>
     </div>
   );

@@ -142,7 +142,7 @@ const FluidComponent = () => {
             className="button-permission"
             onClick={requestAudioPermission}
           >
-            ALLOW AUDIO
+            Allow Audio
           </button>
         )}
       </div>

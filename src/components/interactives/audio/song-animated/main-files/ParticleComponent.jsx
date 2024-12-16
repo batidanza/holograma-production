@@ -121,7 +121,7 @@ const ParticleComponent = () => {
             className="button-permisson"
             onClick={handleRequestAudioPermission}
           >
-            ALLOW AUDIO
+            Allow Audio{" "}
           </button>
         )}
       </div>

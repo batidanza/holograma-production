@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-color: rgba(159, 187, 252, 0.678);
+  background-color: rgba(212, 225, 255, 0.678);
 }
 
 *::-webkit-scrollbar {
@@ -12,7 +12,7 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color:rgb(222, 255, 4)
+  background-color:#040311;
 }
 
 .title {
@@ -20,7 +20,7 @@ body {
   font-size: 3rem;
   margin-top: 10vh;
   margin-bottom: 2;
-  color:rgb(222, 255, 4)
+  color:#040311;
 }
 
 .content {
@@ -43,13 +43,13 @@ body {
 .shape-button {
   background-color: transparent;
   border: none;
-  color: #deff04;                    
+  color: #040311;                    
   cursor: pointer;
 }
 
 .color-button {
   background-color: transparent;
-  border: solid 1px #deff04;
+  border: solid 1px #040311;
   cursor: pointer;
   border-radius: 5px;
 }

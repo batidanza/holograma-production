@@ -50,7 +50,7 @@ const Navbar = () => {
       <div className={`logo-class ${isClosed ? "logo-class-closed" : ""}`}>
         {isClosed && (
           <button style={{ transform: "rotate(360deg)" }} onClick={openNavbar}>
-            <MdExpandMore color="#deff04" size={35} />
+            <MdExpandMore color="#040311" size={35} />
           </button>
         )}
         <button
@@ -140,7 +140,7 @@ const Navbar = () => {
               style={{ transform: "rotate(180deg)" }}
               onClick={toggleNavbarAndOptions}
             >
-              <RiCloseLargeLine color="#deff04" size={35} />
+              <RiCloseLargeLine color="#040311" size={35} />
             </button>
           </div>
         </>

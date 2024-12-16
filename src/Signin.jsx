@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import { GoogleButton } from 'react-google-button';
-import { UserAuth } from './AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { GoogleButton } from "react-google-button";
+import { UserAuth } from "./AuthContext";
+import { useNavigate } from "react-router-dom";
 import "./components/management/FormManagementStyles.css";
-import CustomTextInput from './components/management/FormComponents/CustomTextInput';
-import LoadingSketch from './components/layout/Loading/LoadingSketch';
+import CustomTextInput from "./components/management/FormComponents/CustomTextInput";
+import LoadingSketch from "./components/layout/Loading/LoadingSketch";
+import googleLogo from "./assets/icons/google_logo.svg"
 
 
 const Signin = () => {
-
   const { googleSignIn, emailSignUp } = UserAuth(); // Asume que tienes una función `emailSignUp` en tu contexto de autenticación.
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({ Email: '', Password: '' });
+  const [formData, setFormData] = useState({ Email: "", Password: "" });
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleGoogleSignIn = async () => {
     try {
       setIsLoading(true);
       await googleSignIn();
-      navigate('/interactives-list');
+      navigate("/interactives-list");
     } catch (error) {
-      setError('Error signing in with Google');
+      setError("Error signing in with Google");
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -36,12 +36,12 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
+    setError("");
     try {
       await emailSignUp(formData.Email, formData.Password); // Implementa esta función en tu `AuthContext`.
-      navigate('/dashboard'); // Redirige al usuario después de registrarse.
+      navigate("/dashboard"); // Redirige al usuario después de registrarse.
     } catch (error) {
-      setError('Error signing up. Please try again.');
+      setError("Error signing up. Please try again.");
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -68,7 +68,7 @@ const Signin = () => {
               name="Email"
               value={formData.Email}
               onChange={handleChange}
-              placeholder="Enter your email"
+              placeholder="Email"
               required
             />
           </div>
@@ -81,17 +81,18 @@ const Signin = () => {
               name="Password"
               value={formData.Password}
               onChange={handleChange}
-              placeholder="Enter your password"
+              placeholder="Create a password"
               required
             />
           </div>
           <button type="submit" className="my-button-form">
-            REGISTER
+            SIGN IN
           </button>
         </form>
-        <div className="max-w-[240px] m-auto py-4">
-          <GoogleButton onClick={handleGoogleSignIn} />
-        </div>
+        <button className="google-login-button" onClick={handleGoogleSignIn}>
+          <img src={googleLogo} />
+          <p>Continue with Google</p>
+        </button>
       </div>
     </div>
   );

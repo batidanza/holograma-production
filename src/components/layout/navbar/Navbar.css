@@ -4,20 +4,20 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 500px;
+  width: 422px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 1000;
   font-family: "IBM Plex Sans", sans-serif;
-  border-right: 2px solidrgb(222, 255, 4);
   font-style: normal;
   align-items: center;
 }
 
 .navbar-open {
-  background-color: #89b8e2bf;
+  background-color: rgba(212, 225, 255, 0.9);
   z-index: 1100;
+  border-right: 2px solid#040311;;
 }
 
 .navbar-logo-container {
@@ -34,7 +34,7 @@
 
 .vertical-logo {
   font-family: "Array", sans-serif;
-  color: rgb(222, 255, 4);
+  color: #040311;;
   font-size: 55px;
   align-items: center;
   text-decoration: none;
@@ -45,7 +45,7 @@
 
 .text-logo {
   font-family: "Array", sans-serif;
-  color: rgb(222, 255, 4);
+  color: #040311;;
   font-size: 55px;
   align-items: center;
   text-decoration: none;
@@ -76,7 +76,7 @@
 .art-options {
   font-size: 30px;
   font-weight: 550;
-  color: #deff04;
+  color: #040311;
   align-items: center;
   position: relative;
   display: flex;
@@ -87,14 +87,12 @@
 
 .nav-link {
   text-decoration: none;
-  color: rgb(222, 255, 4);
+  color: #040311;;
   cursor: pointer;
 }
 
 .nav-link:hover {
-  color: #ecff3f; /* Cambia el color del texto */
-  text-decoration: underline; /* Agrega un subrayado */
-  transition: color 0.3s ease-in-out; /* Transición suave */
+  text-decoration: underline; 
 }
 
 .nav-link.selected {
@@ -104,13 +102,13 @@
 .art-options-closed {
   font-size: 0px;
   font-weight: bold;
-  color: rgb(222, 255, 4);
+  color: #040311;;
   margin-top: 2vw;
   cursor: pointer;
 }
 
 .nav-lang {
-  color: #deff04;
+  color: #040311;
   display: flex;
   flex-direction: row;
   width: 100px;
@@ -128,7 +126,7 @@
 .language-button {
   background: none;
   border: none;
-  color: rgb(222, 255, 4);
+  color: #040311;;
   cursor: pointer;
   font-weight: bold;
   font-size: 18px;
@@ -167,7 +165,7 @@
 .language-separator {
   width: 100%;
   height: 2px;
-  background-color: #deff04;
+  background-color: #040311;
   margin: 1vw 0;
   display: block;
 }
@@ -190,7 +188,7 @@
     justify-content: space-around;
     align-items: center;
     border-right: none;
-    border-bottom: 1.5px solidrgb(222, 255, 4);
+    border-bottom: 1.5px solid#040311;;
     flex-direction: row;
     align-items: center;
   }
@@ -213,7 +211,7 @@
   .language-separator {
     width: 85%;
     height: 2px;
-    background-color: rgb(222, 255, 4);
+    background-color: #040311;;
     margin: 1vw 0;
     display: block;
   }
