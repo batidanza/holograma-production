@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sketch from "react-p5";
-import audio from "../../../assets/llanto.wav";
+import audio from "../../../../../assets/rec2.wav";
 
 let sound;
 

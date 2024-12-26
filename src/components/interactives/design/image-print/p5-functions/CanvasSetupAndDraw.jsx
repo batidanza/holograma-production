@@ -15,6 +15,7 @@ export const setup = (p5, canvasParentRef) => {
   canvas.style("user-select", "none");
   canvas.style("touch-action", "none");
   canvas.style("border-radius", "10px");
+  canvas.style("border", "1.5px solid #040311");
   p5.textFont("Array");
 
   canvas.elt.addEventListener(
@@ -62,7 +63,7 @@ export const draw = (
       const instructionTextSize = p5.width < 600 ? 20 : 35;
       p5.textSize(instructionTextSize);
       p5.textFont("Array");
-      p5.fill(255,0,0);
+      p5.fill(4, 3, 17)
       const instructionText = "PRESS U TO LOAD IMAGES";
       p5.text(
         instructionText,
@@ -78,7 +79,7 @@ export const draw = (
       imagesHistory.current.length === 0
     ) {
       if (p5.frameCount % 30 < 15) {
-        p5.fill(255,0,0);
+        p5.fill(4, 3, 17)
         p5.textAlign(p5.CENTER);
         const instructionTextSize = p5.width < 600 ? 20 : 35;
         p5.textSize(instructionTextSize);

@@ -15,9 +15,11 @@
 }
 .text-animation {
   color: #040311;;
-  font-size: 15px;
+  font-size: 16px;
   font-family: "IBM Plex Sans", sans-serif;
   width: 650px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
 }
 
 .particle {

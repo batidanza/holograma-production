@@ -13,7 +13,7 @@ const Navbar = () => {
   const { t, i18n } = useTranslation();
 
   const { user, logout } = UserAuth();
-  const [isClosed, setIsClosed] = useState(false);
+  const [isClosed, setIsClosed] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [selectedView, setSelectedView] = useState("/");
 

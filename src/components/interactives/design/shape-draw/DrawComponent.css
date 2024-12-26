@@ -84,7 +84,7 @@
 .more-images-button {
   display: flex;
   flex-direction: row;
-  color: white;
+  color:#040311;
   align-items: center;
   gap: 10px;
   font-family: "Array", sans-serif;

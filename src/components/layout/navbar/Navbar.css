@@ -15,7 +15,7 @@
 }
 
 .navbar-open {
-  background-color: rgba(212, 225, 255, 0.9);
+  background-color: rgb(212, 225, 255);
   z-index: 1100;
   border-right: 2px solid#040311;;
 }
@@ -96,7 +96,8 @@
 }
 
 .nav-link.selected {
-  border: rgb(147, 197, 253);
+  text-decoration: underline; 
+
 }
 
 .art-options-closed {
@@ -134,11 +135,11 @@
 }
 
 .language-button:hover {
-  color: red;
+  color:  #53517894;
 }
 
 .language-button.selected {
-  color: rgb(255, 255, 255);
+  color:  #53517894;
 }
 
 .navbar-brand {

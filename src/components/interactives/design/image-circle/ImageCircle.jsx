@@ -38,13 +38,13 @@ const ImageCircle = () => {
   const mousePressed = (p5) => {
     if (drawUserImage && userImage && imgRef.current && imgRef.current.user) {
       const img = imgRef.current.user;
-      const maxSize = 250;
+      const maxSize = 120;
       let imgWidth = img.width;
       let imgHeight = img.height;
       const scaleFactor = Math.min(maxSize / imgWidth, maxSize / imgHeight);
       const scaledWidth = imgWidth * scaleFactor;
       const scaledHeight = imgHeight * scaleFactor;
-  
+
       const mouseX = p5.mouseX;
       const mouseY = p5.mouseY;
       p5.image(
@@ -114,13 +114,41 @@ const ImageCircle = () => {
         alpha = p5.lerp(255, 0, fadeOutPosition / fadeOutDuration);
       }
 
-      p5.fill(0, 0, 0, alpha);
-    } 
+      const instructionText =
+      "Select an image and choose the different features using the icons.";
 
+      const wrappedText = wrapText(instructionText, p5.width - 40, p5);
+
+      p5.fill(0, 0, 0, alpha);
+      const lineHeight = 40; 
+      wrappedText.forEach((line, index) => {
+        p5.text(line, p5.width / 2, p5.height / 2 + index * lineHeight);
+      });
+    }
+
+    function wrapText(text, maxWidth, p5) {
+      const words = text.split(" ");
+      let lines = [];
+      let currentLine = words[0];
+
+      for (let i = 1; i < words.length; i++) {
+        const word = words[i];
+        const width = p5.textWidth(currentLine + " " + word);
+        if (width < maxWidth) {
+          currentLine += " " + word;
+        } else {
+          lines.push(currentLine);
+          currentLine = word;
+        }
+      }
+      lines.push(currentLine); // Add the last line
+      return lines;
+    }
     if (userImage && !imgRef.current) {
       imgRef.current = {
         user: p5.loadImage(userImage, () => {
-          console.log("User image loaded successfully.");
+          p5.background(255);
+          setShowInstructions(false)
         }),
       };
     }
