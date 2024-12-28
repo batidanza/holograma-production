@@ -41,7 +41,6 @@ body {
 
 .custom-range {
   font-family: "Array", sans-serif;
-  -webkit-appearance: none; 
   width: 100%;
   height: 15px;
   background: linear-gradient(to right, #dddddd,#040311);

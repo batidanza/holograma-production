@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Sketch from "react-p5";
-import audio from "../../../../../assets/rec2.wav"; // Cambiar por el archivo de audio deseado
+import audio from "../../../../../assets/psy-sketch-audio.wav";
 import {
   playAudio,
   stopAudio,
   requestAudioPermission,
 } from "../helpers/AudioControls";
-import './SongAnimated.css'
+import { openFullscreen } from "../../../design/image-print/helpers/HandleImageUpload";
+import Star from "../helpers/Star";
+import "./SongAnimated.css";
+import fullScreanIcon from "../../../../../assets/icons/full_screan.svg";
 
 let sound;
 
-const MagicHorseSketch = () => {
+const ParticleComponent = () => {
   const [audioPermission, setAudioPermission] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [cursorVisible, setCursorVisible] = useState(true);
+  const [stars, setStars] = useState([]);
 
   useEffect(() => {
     sound = new Audio(audio);
@@ -45,7 +49,7 @@ const MagicHorseSketch = () => {
     canvas.style("touch-action", "none");
     canvas.style("border", "2px solid black");
     canvas.style("border-radius", "10px");
-    p5.frameRate(30);
+    p5.frameRate(60);
 
     p5.noCursor();
   };
@@ -53,56 +57,71 @@ const MagicHorseSketch = () => {
   const draw = (p5) => {
     p5.background(0);
 
-    const centerX = p5.width / 2;
-    const centerY = p5.height / 2;
+    for (let star of stars) {
+      star.update();
+      star.show(p5);
+    }
 
-    // Dibujar líneas estilo "ojo mágico"
-    for (let y = 0; y < p5.height; y += 3) {
-      for (let x = 0; x < p5.width; x += 5) {
-        const offset = p5.noise(x * 0.01, y * 0.01, p5.frameCount * 0.01) * 20;
-        p5.stroke(255, 200, 50);
-        p5.strokeWeight(1);
-        p5.line(x, y, x + offset, y);
+    if (!audioPlaying) {
+      p5.stroke(255);
+      p5.strokeWeight(1);
+      p5.line(p5.width / 2, p5.height / 2, p5.mouseX, p5.mouseY);
+
+      if (p5.frameCount % 5 === 0) {
+        let newStar = new Star(p5.mouseX, p5.mouseY);
+        setStars([...stars, newStar]);
       }
     }
 
-    // Dibujar el caballo basado en audio
-    if (audioPlaying && sound) {
-      const amplitude = (sound.currentTime / sound.duration) * 200;
-      p5.push();
-      p5.stroke(255, 0, 0);
-      p5.strokeWeight(2);
-      p5.noFill();
-      p5.translate(centerX, centerY);
-
-      p5.beginShape();
-      for (let angle = 0; angle < p5.TWO_PI; angle += 0.1) {
-        const x = p5.cos(angle) * amplitude;
-        const y = p5.sin(angle) * amplitude;
-        p5.vertex(x, y);
+    if (audioPlaying || !cursorVisible) {
+      const centerX = p5.width / 2;
+      const centerY = p5.height / 2;
+      const numLines = 500;
+      const angleIncrement = p5.TWO_PI / numLines;
+      const maxLength = p5.dist(0, 0, centerX, centerY);
+      let lineLength = (sound.currentTime / sound.duration) * maxLength;
+      for (let i = 0; i < numLines; i++) {
+        const angle = i * angleIncrement;
+        const x = centerX + lineLength * p5.cos(angle);
+        const y = centerY + lineLength * p5.sin(angle);
+        p5.stroke(p5.random(255), p5.random(255), p5.random(255));
+        p5.strokeWeight(p5.random(1, 3));
+        p5.line(centerX, centerY, x, y);
       }
-      p5.endShape(p5.CLOSE);
+    }
 
-      // Dibujar figura de caballo estilizada
-      p5.textAlign(p5.CENTER, p5.CENTER);
-      p5.textSize(32);
-      p5.fill(255);
-      p5.text("🐴", 0, 0);
-      p5.pop();
+    if (
+      !audioPlaying &&
+      p5.dist(p5.width / 2, p5.height / 2, p5.mouseX, p5.mouseY) < 50
+    ) {
+      playAudio(sound, setAudioPlaying, setCursorVisible);
+    } else if (
+      audioPlaying &&
+      p5.dist(p5.width / 2, p5.height / 2, p5.mouseX, p5.mouseY) >= 50
+    ) {
+      stopAudio(sound, setAudioPlaying, setCursorVisible);
     }
   };
 
   return (
-    <div className="magic-horse-sketch">
+    <div className="sketch">
       <div className="sketch-content">
         {audioPermission ? (
-          <Sketch setup={setup} draw={draw} className="fluid-sketch" />
+          <>
+            <div>
+              <button className="button-full-screan" onClick={openFullscreen}>
+                <img src={fullScreanIcon} />
+              </button>
+            </div>
+
+            <Sketch setup={setup} draw={draw} className="fluid-sketch" />
+          </>
         ) : (
           <button
             className="button-permisson"
             onClick={handleRequestAudioPermission}
           >
-            Allow Audio
+            Allow Audio{" "}
           </button>
         )}
       </div>
@@ -110,4 +129,4 @@ const MagicHorseSketch = () => {
   );
 };
 
-export default MagicHorseSketch;
+export default ParticleComponent;
