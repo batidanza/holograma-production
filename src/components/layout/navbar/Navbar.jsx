@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 // import { UserContext } from "../../user/context/UserContext";
 import { useTranslation } from "react-i18next";
 import NavbarLanguage from "./NavbarLanguage";
 import { RiExpandRightLine } from "../../../../node_modules/react-icons/ri";
 import { MdExpandMore } from "../../../../node_modules/react-icons/md";
-import { RiCloseLargeLine } from "../../../../node_modules/react-icons/ri";
+import { RiCloseFill } from "react-icons/ri";
 import { UserAuth } from "../../../AuthContext";
 
 const Navbar = () => {
@@ -45,14 +45,15 @@ const Navbar = () => {
     setIsClosed(true);
   };
 
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
   return (
-    <div className={`sidebar ${isClosed ? "navbar-closed" : "navbar-open"}`}>
+    <div
+      className={`sidebar ${isClosed ? "navbar-closed" : "navbar-open"}`}
+      style={isHome ? { backgroundColor: "rgba(212, 225, 225, 0.3)" } : {}}
+    >
       <div className={`logo-class ${isClosed ? "logo-class-closed" : ""}`}>
-        {isClosed && (
-          <button style={{ transform: "rotate(360deg)" }} onClick={openNavbar}>
-            <MdExpandMore color="#040311" size={35} />
-          </button>
-        )}
         <button
           onClick={toggleNavbarAndOptions}
           className="navbar-brand"
@@ -62,13 +63,20 @@ const Navbar = () => {
             cursor: "pointer",
           }}
         >
+
           {isClosed ? (
-            <p className="vertical-logo">Holograma</p>
+            <p className="vertical-logo">HOLOGRAMA</p>
           ) : (
-            <p className="text-logo">Holograma</p>
+            <p className="text-logo">HOLOGRAMA</p>
+          )}
+                    {isClosed && (
+            <button className="expand-icon" onClick={openNavbar}>
+              <MdExpandMore color="#040311" size={35} />
+            </button>
           )}
         </button>
       </div>
+
       <div
         className={`art-options ${isClosed ? "art-options-closed" : ""}`}
         id="artOptions"
@@ -76,11 +84,11 @@ const Navbar = () => {
       >
         {user?.displayName ? (
           <button className="nav-link" onClick={handleSignOut}>
-            Logout
+            logout
           </button>
         ) : (
           <Link className="nav-link" to="/login">
-            Login
+            login
           </Link>
         )}
 
@@ -140,7 +148,7 @@ const Navbar = () => {
               style={{ transform: "rotate(180deg)" }}
               onClick={toggleNavbarAndOptions}
             >
-              <RiCloseLargeLine color="#040311" size={35} />
+              <RiCloseFill color="#f6f6f6" size={35} />
             </button>
           </div>
         </>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Sketch from "react-p5";
-import horseImg from "../../../assets/print-images/horse.png"; // Asegúrate de que la ruta sea correcta
+import horseImg from "../../../assets/print-images/stars.png"; // Asegúrate de que la ruta sea correcta
 
 export default () => {
   const [x, setX] = useState(0.4);
@@ -19,26 +19,26 @@ export default () => {
   };
 
   const draw = (p5) => {
-    p5.background(225, 225, 120, 6);
+    p5.background(5, 6, 21, 6);
     p5.noFill();
 
     p5.translate(p5.width / 2, p5.height / 2);
 
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 50; i++) {
       p5.push();
-      let scaleFactor = 1 - i * 0.01; // Reduce el tamaño progresivamente
-      let posX = p5.sin(p5.frameCount + i) * (5200 - i * 15);
-      let posY = p5.cos(p5.frameCount + i) * (500 - i / 15);
+      let scaleFactor = 14 + i * 0.01; // Reduce el tamaño progresivamente
+      let posX = p5.sin(p5.frameCount + i) / (20 / i * 15);
+      let posY = p5.cos(p5.frameCount + i) / (10 / i * 15);
 
-      p5.rotate(p5.sin(p5.frameCount + i) * 110);
+      p5.rotate(p5.sin(p5.frameCount + i) * 11330);
       p5.image(img, posX, posY, img.width * scaleFactor, img.height * scaleFactor);
       p5.pop();
     }
   };
 
   const mousePressed = (p5) => {
-    const distance = p5.dist(p5.width / 2, p5.height / 2, p5.mouseX, p5.mouseY);
-    if (distance < 750) {
+    const distance = p5.dist(p5.width / 2, p5.height / 10, p5.mouseX, p5.mouseY);
+    if (distance < 50) {
       setDragging(true);
     }
   };

@@ -15,7 +15,7 @@
   width: 100%;
   justify-content: center;
   gap: 20px;
-  margin-top: 30px;
+  margin-top: 35px;
 }
 
 .canvas-controls-desktop-row {
@@ -47,8 +47,7 @@
   object-fit: contain;
   background-color: rgb(255, 255, 255);
   overflow: hidden;
-  border: solid 1.5px #040311;
-
+  border: solid 1px #040311;
 }
 
 .our-image img {
@@ -70,12 +69,11 @@
   justify-content: center;
   cursor: pointer;
   background-color: #ffffff;
-  border: solid 1.5px #040311;
-
+  border: solid 1px #040311;
 }
 
 .control-button.selected {
-  opacity: 0.6;
+  background-color: #fc3232cd;
 }
 
 .control-button-add-photo {

@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 422px;
+  width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,12 +12,44 @@
   font-family: "IBM Plex Sans", sans-serif;
   font-style: normal;
   align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.sketch-random-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none; /* Evita que interfiera con otras interacciones */
+  z-index: 5; /* Mantiene las imágenes por debajo del sketch-carousel */
+}
+
+.sketch-random-image {
+  position: absolute;
+  width: 150px;
+  height: auto;
+  pointer-events: auto; /* Permite hacer clic en los enlaces */
+}
+
+.sketch-random-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.sketch-random-image:hover img {
+  transform: scale(1.1);
+  opacity: 0.9;
 }
 
 .navbar-open {
-  background-color: rgb(212, 225, 255);
+  background-color: rgb(60, 54, 46);
   z-index: 1100;
-  border-right: 2px solid#040311;;
+  border-right: 2px solid #040311;
 }
 
 .navbar-logo-container {
@@ -34,19 +66,20 @@
 
 .vertical-logo {
   font-family: "Array", sans-serif;
-  color: #040311;;
-  font-size: 55px;
+  color: #040311;
+  font-size: 45px;
   align-items: center;
   text-decoration: none;
   font-style: normal;
   cursor: pointer;
   letter-spacing: 10px;
+  padding-left: 14px;
 }
 
 .text-logo {
   font-family: "Array", sans-serif;
-  color: #040311;;
-  font-size: 55px;
+  color: #f6f6f6;
+  font-size: 45px;
   align-items: center;
   text-decoration: none;
   letter-spacing: 10px;
@@ -59,6 +92,16 @@
   margin-bottom: 15px;
   cursor: pointer;
 }
+
+.expand-icon {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.logo-class:hover .expand-icon {
+  opacity: 1;
+}
+
 
 .image-button-open {
   width: 60px;
@@ -76,40 +119,39 @@
 .art-options {
   font-size: 30px;
   font-weight: 550;
-  color: #040311;
+  color: #f6f6f6;
   align-items: center;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 5vh;
+  gap: 6vh;
   cursor: pointer;
 }
 
 .nav-link {
   text-decoration: none;
-  color: #040311;;
+  color: #f6f6f6;
   cursor: pointer;
 }
 
 .nav-link:hover {
-  text-decoration: underline; 
+  text-decoration: underline;
 }
 
 .nav-link.selected {
-  text-decoration: underline; 
-
+  text-decoration: underline;
 }
 
 .art-options-closed {
   font-size: 0px;
   font-weight: bold;
-  color: #040311;;
+  color: #f6f6f6;
   margin-top: 2vw;
   cursor: pointer;
 }
 
 .nav-lang {
-  color: #040311;
+  color: #f6f6f6;
   display: flex;
   flex-direction: row;
   width: 100px;
@@ -127,7 +169,7 @@
 .language-button {
   background: none;
   border: none;
-  color: #040311;;
+  color: #f6f6f6;
   cursor: pointer;
   font-weight: bold;
   font-size: 18px;
@@ -135,11 +177,11 @@
 }
 
 .language-button:hover {
-  color:  #53517894;
+  color: #53517894;
 }
 
 .language-button.selected {
-  color:  #53517894;
+  color: #53517894;
 }
 
 .navbar-brand {
@@ -147,6 +189,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 15px;
 }
 
 .logo-class {
@@ -162,11 +205,10 @@
   align-items: center;
 }
 
-
 .language-separator {
   width: 100%;
   height: 2px;
-  background-color: #040311;
+  background-color: #f6f6f6;
   margin: 1vw 0;
   display: block;
 }
@@ -189,7 +231,7 @@
     justify-content: space-around;
     align-items: center;
     border-right: none;
-    border-bottom: 1.5px solid#040311;;
+    border-bottom: 1.5px solid#040311;
     flex-direction: row;
     align-items: center;
   }
@@ -212,7 +254,7 @@
   .language-separator {
     width: 85%;
     height: 2px;
-    background-color: #040311;;
+    background-color: #040311;
     margin: 1vw 0;
     display: block;
   }

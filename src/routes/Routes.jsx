@@ -22,6 +22,7 @@ import Pad2 from "../components/interactives/audio/audio-visualizer/Pad2";
 import Pad from "../components/interactives/audio/audio-visualizer/Pad";
 import Signin from "../Signin";
 import ProtectedRoute from "../ProtectedRoute";
+import PhotoSwirlSketch from "../components/interactives/experimental/PhotoSwirlSketch";
 
 const AppRoutes = () => {
   return (
@@ -52,6 +53,7 @@ const AppRoutes = () => {
         <Route path="/print-images" element={<PrintImages />} />
         <Route path="/particle-component" element={<ParticleComponent />} />
         <Route path="/fluid-component" element={<FluidComponent />} />
+        <Route path="/swirl-sketch" element={<PhotoSwirlSketch />} />
         <Route path="/fan-sketch" element={<Fan />} />
         <Route path="/image-particle" element={<BackgroundSketch />} />
         <Route path="/september" element={<Pad2 />} />

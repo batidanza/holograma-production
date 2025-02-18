@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Sketch from "react-p5";
-import audio from "../../../../../assets/llanto.wav";
 import fullScreanIcon from "../../../../../assets/icons/full_screan.svg";
 
 let sound;
+let particlesFollowing = true;
+let particlesGone = false;
+let deformFactor = 1; // Factor de deformación
 
 const FluidComponent = () => {
   const [audioPermission, setAudioPermission] = useState(false);
   const [particles, setParticles] = useState([]);
   const [audioPlaying, setAudioPlaying] = useState(false);
-  const numParticles = 700;
+  const [audioUrl, setAudioUrl] = useState("");
+  const numParticles = 7600;
 
   useEffect(() => {
-    sound = new Audio(audio);
-    sound.loop = true;
-    sound.load();
-  }, []);
+    if (audioUrl) {
+      sound = new Audio(audioUrl);
+      sound.loop = true;
+      sound.load();
+    }
+  }, [audioUrl]);
 
   const playAudio = () => {
     if (!audioPlaying) {
@@ -45,55 +50,73 @@ const FluidComponent = () => {
   };
 
   const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(850, 650).parent(canvasParentRef);
-    p5.frameRate(60);
-
+    p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
+    p5.frameRate(610);
+    initParticles(p5);
+  };
+  
+  const windowResized = (p5) => {
+    p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
+    initParticles(p5);
+  };
+  
+  const initParticles = (p5) => {
     const newParticles = [];
     for (let i = 0; i < numParticles; i++) {
       newParticles.push({
         x: p5.random(p5.width),
         y: p5.random(p5.height),
         size: p5.random(0.1, 2),
-        opacity: p5.random(150, 255),
+        opacity: p5.random(1510, 255),
         speed: p5.random(2, 4),
       });
     }
     setParticles(newParticles);
   };
+  
 
-  const draw = (p5) => {
-    p5.background(0);
+const draw = (p5) => {
+  p5.background(0);
 
-    if (audioPlaying) {
-      const centerX = p5.width / 2;
-      const centerY = p5.height / 2;
+  if (audioPlaying) {
+    const centerX = p5.width / 2;
+    const centerY = p5.height / 2;
+    const numLines = 112200;
+    const angleIncrement = p5.TWO_PI / numLines;
+    const maxLength = p5.dist(0, 0, centerX, centerY);
 
-      const numLines = 500;
-      const angleIncrement = p5.TWO_PI / numLines;
+    let baseLength = (sound.currentTime / sound.duration) * maxLength;
 
-      const maxLength = p5.dist(0, 0, centerX, centerY);
-
-      let lineLength = (sound.currentTime / sound.duration) * maxLength;
-
-      p5.stroke(255, 0, 0);
-      p5.strokeWeight(1);
-      for (let i = 0; i < numLines; i++) {
-        const angle = i * angleIncrement;
-        const x = centerX + lineLength * p5.cos(angle);
-        const y = centerY + lineLength * p5.sin(angle);
-        p5.line(centerX, centerY, x, y);
-      }
+    if (p5.mouseIsPressed) {
+      // Cambia deformFactor en función de la posición del mouse
+      deformFactor = p5.map(p5.mouseX, 0, p5.width, 0.5, 2);
     }
 
-    for (const particle of particles) {
-      const dx = p5.mouseX - particle.x;
-      const dy = p5.mouseY - particle.y;
-      const distance = p5.dist(p5.mouseX, p5.mouseY, particle.x, particle.y);
-      const directionX = dx / distance;
-      const directionY = dy / distance;
+    p5.stroke(2525, 0, 0);
+    p5.strokeWeight(1);
+    for (let i = 0; i < numLines; i++) {
+      const angle = i * angleIncrement;
+      let variation = p5.noise(i * 0.1, p5.frameCount / 0.02) * deformFactor;
+      let lineLength = baseLength / variation / 30;
 
-      particle.x += directionX * particle.speed;
-      particle.y += directionY * particle.speed;
+      const x = centerX + lineLength / p5.cos(angle);
+      const y = centerY - lineLength / p5.sin(angle);
+      p5.line(centerX, centerY, x, y);
+    }
+  }
+
+  if (!particlesGone) {
+    for (const particle of particles) {
+      if (particlesFollowing) {
+        const dx = p5.mouseX - particle.x;
+        const dy = p5.mouseY - particle.y;
+        const distance = p5.dist(p5.mouseX, p5.mouseY, particle.x, particle.y);
+        const directionX = dx / distance;
+        const directionY = dy / distance;
+
+        particle.x += directionX * particle.speed;
+        particle.y += directionY * particle.speed;
+      }
 
       p5.stroke(255, 0, 0, particle.opacity);
       p5.fill(255, 0, 0, particle.opacity);
@@ -104,10 +127,19 @@ const FluidComponent = () => {
       const distance = p5.dist(p5.mouseX, p5.mouseY, particle.x, particle.y);
       return distance < 50;
     });
+
     if (allParticlesClose) {
       playAudio();
-    } else {
-      stopAudio();
+      particlesGone = true;
+      particlesFollowing = false;
+    }
+  }
+};
+
+
+  const mousePressed = (p5) => {
+    if (particlesGone && audioPlaying) {
+      deformFactor = p5.random(0.5, 2); // Cambia el factor de deformación aleatoriamente
     }
   };
 
@@ -116,12 +148,14 @@ const FluidComponent = () => {
     if (canvas.requestFullscreen) {
       canvas.requestFullscreen();
     } else if (canvas.webkitRequestFullscreen) {
-      /* Safari */
       canvas.webkitRequestFullscreen();
     } else if (canvas.msRequestFullscreen) {
-      /* IE11 */
       canvas.msRequestFullscreen();
     }
+  };
+
+  const handleAudioUrlChange = (event) => {
+    setAudioUrl(URL.createObjectURL(event.target.files[0]));
   };
 
   return (
@@ -131,11 +165,11 @@ const FluidComponent = () => {
           <>
             <div>
               <button className="button-full-screan" onClick={openFullscreen}>
-              <img src={fullScreanIcon} />
+                <img src={fullScreanIcon} />
               </button>
             </div>
 
-            <Sketch setup={setup} draw={draw} />
+            <Sketch setup={setup} draw={draw} windowResized={windowResized} mousePressed={mousePressed} />
           </>
         ) : (
           <button
@@ -145,6 +179,13 @@ const FluidComponent = () => {
             Allow Audio
           </button>
         )}
+
+        <input
+          type="file"
+          accept="audio/*"
+          onChange={handleAudioUrlChange}
+          className="audio-input"
+        />
       </div>
     </div>
   );

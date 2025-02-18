@@ -9,9 +9,9 @@ i18n
         translation: {
           home: 'Home',
           signUp: 'Sign up',
-          magazine: 'Magazine',
+          magazine: 'magazine',
           gallery: 'Gallery',
-          creatives: 'Creatives',
+          creatives: 'creatives',
 
           price: 'Price',
           description: 'Description',
@@ -21,13 +21,13 @@ i18n
 
           upload: 'Upload an image',
           createArt: 'Create artwork',
-          SketchList: 'Interactives',
+          SketchList: 'interactives',
           draw: 'Draw',
           movies: 'Movies',
           sketchText: 'Step 1: Press U to upload an image. Step 2: Click over the sketch to start drawing your image',
           profile: 'Profile',
-          logout: 'Logout',
-          signIn: 'Log in',
+          logout: 'logout',
+          signIn: 'log in',
           password: 'Password',
           username: 'Username'
         },

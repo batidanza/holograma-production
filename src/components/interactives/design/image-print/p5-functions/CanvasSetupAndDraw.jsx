@@ -64,7 +64,7 @@ export const draw = (
       p5.textSize(instructionTextSize);
       p5.textFont("Array");
       p5.fill(4, 3, 17)
-      const instructionText = "PRESS U TO LOAD IMAGES";
+      const instructionText = "PRESS 'U' TO LOAD IMAGES OR CHOOSE ONE FROM THE SIDES.";
       p5.text(
         instructionText,
         p5.width / 2,
