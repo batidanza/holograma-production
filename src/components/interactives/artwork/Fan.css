@@ -1,0 +1,43 @@
+.input-choose-image-container {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 250px;
+  height: 50px;
+  border: 2px dashed #ffffff;
+  border-radius: 6px;
+  background-color:  rgba(81, 81, 81, 0.557);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  padding: 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+}
+
+.image-upload:hover {
+  background: rgba(240, 240, 240, 0.95);
+  border-color: #999;
+}
+.input-choose-image-container input[type="file"] {
+  width: 250px;
+  height: 50px;
+  z-index: 200;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.input-choose-image-container span {
+  font-family: Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+  line-height: 1.5;
+  position: absolute;
+  color:rgb(255, 255, 255)
+}

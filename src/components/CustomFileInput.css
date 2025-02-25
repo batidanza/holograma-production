@@ -1,0 +1,38 @@
+.custom-file-input {
+  position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 250px;
+    height: 50px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.1); /* Fondo opaco */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    padding: 20px;
+    text-align: center;
+    font-size: 17px;
+    color: #333;
+  }
+  
+  .custom-file-input.dragging {
+    background-color: rgba(0, 0, 0, 0.2); /* Cambio de fondo al arrastrar */
+    border-color: #007bff;
+  }
+  
+  .custom-file-input input[type="file"] {
+    display: none; /* Ocultar el input de archivo */
+  }
+  
+  .custom-file-input span {
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.5;
+  }
+  

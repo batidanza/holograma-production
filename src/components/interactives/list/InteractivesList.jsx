@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./SketchList.css";
 
@@ -14,6 +14,23 @@ const InteractivesList = () => {
   const [hoveredDescription, setHoveredDescription] = useState("");
   const [visibleSketches, setVisibleSketches] = useState([]);
   const [linePosition, setLinePosition] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [sketchCount, setSketchCount] = useState(visibleSketches.length);
+
+  useEffect(() => {
+    setSketchCount(visibleSketches.length);
+  }, [visibleSketches]);
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 968);
+    };
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
+    return () => {
+      window.removeEventListener("resize", checkIfMobile);
+    };
+  }, []);
 
   const sections = [
     { name: "CALM", description: "Relaxing, fluid, or minimalistic designs." },
@@ -69,6 +86,18 @@ const InteractivesList = () => {
         title: "IMAGE + SHAPE",
         path: "image-circle",
       },
+      {
+        id: 8,
+        src: sketchImage4,
+        title: "IMAGE + SHAPE",
+        path: "image-circle",
+      },
+      {
+        id: 8,
+        src: sketchImage3,
+        title: "IMAGE + SHAPE",
+        path: "image-circle",
+      },
     ],
     NATURE: [
       {
@@ -97,27 +126,28 @@ const InteractivesList = () => {
   const handleHover = (section, event) => {
     setHoveredDescription(section.description);
 
-    // Obtener la posición del botón
     const rect = event.target.getBoundingClientRect();
     const startX = rect.left + rect.width / 2; // Centrar la línea en el botón
-    const startY = rect.bottom + 50; // Añadir 20 píxeles más abajo
-    let endY = startY + 150; // Punto donde se separará la línea
+    const startY = rect.bottom + 50;
+    let endY = startY + 150;
 
     const sketches = sketchesBySection[section.name] || [];
     let sketchesWithPositions = [];
 
     if (sketches.length > 0) {
-      // Encontrar el punto medio entre las imágenes
-      const middleX = startX;
-      const spacing = 500; // Separación entre imágenes
+      const screenWidth = window.innerWidth;
+      const padding = 100; // Margen de seguridad
+      const availableWidth = screenWidth - padding * 2;
+      const sketchSpacing = availableWidth / sketches.length; // Espacio entre sketches
+      const startXOffset = padding + sketchSpacing / 2; // Primera posición
 
       sketchesWithPositions = sketches.map((sketch, index) => ({
         ...sketch,
-        x: middleX + (index - (sketches.length - 1) / 2) * spacing, // Distribuir horizontalmente
-        y: endY + 50, // Ubicar más abajo de la línea principal
+        x: startXOffset + index * sketchSpacing,
+        y: endY + 50,
       }));
 
-      endY += 20; // Hacer espacio para la bifurcación
+      endY += 20; // Ajuste de espacio para bifurcación
     }
 
     setLinePosition({
@@ -130,48 +160,42 @@ const InteractivesList = () => {
     setVisibleSketches(sketchesWithPositions);
   };
 
-  const handleMouseLeave = () => {
-    setHoveredDescription("");
-    setLinePosition(null);
-  };
-
   return (
     <div className="view-container">
-      <div className="sketch-carousel">
-        <div className="section-description-container">
-          <div className="sections-container">
-            {sections.map((section) => (
-              <button
-                key={section.name}
-                className="section-button"
-                onMouseEnter={(event) => handleHover(section, event)}
-                onMouseLeave={handleMouseLeave}
-              >
-                {section.name}
-              </button>
-            ))}
+      {!isMobile ? (
+        <div className="sketch-carousel">
+          <div className="section-description-container">
+            <div className="sections-container">
+              {sections.map((section) => (
+                <button
+                  key={section.name}
+                  className="section-button"
+                  onMouseEnter={(event) => handleHover(section, event)}
+                >
+                  {section.name}
+                </button>
+              ))}
+            </div>
+            {hoveredDescription && (
+              <div className="description-container">{hoveredDescription}</div>
+            )}
           </div>
-          {hoveredDescription && (
-            <div className="description-container">{hoveredDescription}</div>
-          )}
         </div>
+      ) : (
+        <div className="desktop-content">MOBILE CONTENT</div>
+      )}
+      <div className="sketch-container" data-count={sketchCount}>
+        {visibleSketches.map((sketch, index) => (
+          <Link
+            to={`/${sketch.path}`}
+            key={`${sketch.id}-${index}`}
+            className="sketch-image-container"
+            style={{ top: sketch.y, left: sketch.x }}
+          >
+            <img src={sketch.src} alt={sketch.title} />
+          </Link>
+        ))}
       </div>
-
-      {/* Renderizar las imágenes en posiciones aleatorias */}
-      {visibleSketches.map((sketch) => (
-        <Link
-          to={`/${sketch.path}`}
-          key={sketch.id}
-          className="sketch-image-container"
-          style={{
-            position: "absolute",
-            top: sketch.y,
-            left: sketch.x,
-          }}
-        >
-          <img src={sketch.src} alt={sketch.title} className="sketch-image" />
-        </Link>
-      ))}
       {linePosition && (
         <svg className="dotted-line" xmlns="http://www.w3.org/2000/svg">
           {/* Línea principal */}

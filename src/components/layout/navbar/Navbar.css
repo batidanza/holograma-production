@@ -22,15 +22,15 @@
   height: 100%;
   top: 0;
   left: 0;
-  pointer-events: none; /* Evita que interfiera con otras interacciones */
-  z-index: 5; /* Mantiene las imágenes por debajo del sketch-carousel */
+  pointer-events: none; 
+  z-index: 5;
 }
 
 .sketch-random-image {
   position: absolute;
   width: 150px;
   height: auto;
-  pointer-events: auto; /* Permite hacer clic en los enlaces */
+  pointer-events: auto; 
 }
 
 .sketch-random-image img {
@@ -47,9 +47,8 @@
 }
 
 .navbar-open {
-  background-color: rgb(60, 54, 46);
+  background-color: rgb(235, 0, 0);
   z-index: 1100;
-  border-right: 2px solid #040311;
 }
 
 .navbar-logo-container {

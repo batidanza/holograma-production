@@ -1,4 +1,3 @@
-/* Centrar el contenedor principal */
 .view-container {
   display: flex;
   flex-direction: column;
@@ -7,7 +6,7 @@
   width: 100%;
   min-height: 100vh;
   padding: 20px;
-  position: relative; /* Necesario para posicionar las imágenes de forma absoluta */
+  position: relative; 
 }
 
 .section-description-container {
@@ -16,6 +15,7 @@
   gap: 10px;
   min-height: 300px;
   width: 100%;
+  margin-top: 150px;
 }
 
 .sections-container {
@@ -37,22 +37,20 @@
   height: 100%;
   top: 0;
   left: 0;
-  pointer-events: none; /* Evita que interfiera con otras interacciones */
-  z-index: 5; /* Mantiene las imágenes por debajo del sketch-carousel */
+  pointer-events: none; 
+  z-index: 5; 
 }
 
 .sketch-random-image {
-  z-index: 10; /* Mantiene la sección de botones y descripción por encima */
+  z-index: 10; 
 }
 
-/* Botón de sección */
 .section-button {
   background: transparent;
   border: none;
   cursor: pointer;
   font-size: 16px;
   padding: 8px 12px;
-
   transition: color 0.3s ease;
 }
 
@@ -61,24 +59,59 @@
   color: #dfbaff;
 }
 
-/* Contenedor de las imágenes que aparecerán en posiciones aleatorias */
 .sketch-random-container {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  pointer-events: none; /* Para que los elementos debajo sigan siendo interactuables */
+  pointer-events: none; 
 }
 
 .sketch-image-container {
-  position: fixed; /* Fijo en la pantalla basado en la posición del botón */
-  width: 280px;
+  position: absolute;
   overflow: hidden;
   pointer-events: auto;
   border: 2px dashed rgb(75, 75, 75);
   padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
 }
+
+.sketch-container[data-count="1"] .sketch-image-container {
+  width: 30vw;
+  height: 30vh;
+}
+
+.sketch-container[data-count="2"] .sketch-image-container {
+  width: 25vw;
+  height: 25vh;
+}
+
+.sketch-container[data-count="3"] .sketch-image-container {
+  width: 20vw;
+  height: 20vh;
+}
+
+.sketch-container[data-count="4"] .sketch-image-container {
+  width: 15vw;
+  height: 15vh;
+}
+
+.sketch-container[data-count="5"] .sketch-image-container {
+  width: 12vw;
+  height: 12vh;
+}
+
+.sketch-image-container img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 
 .dotted-line {
   position: fixed;

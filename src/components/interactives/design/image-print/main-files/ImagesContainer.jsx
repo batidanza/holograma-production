@@ -29,7 +29,6 @@ const ImagesContainer = ({ selectedImage, handleImageSelect }) => {
 
   return (
     <div className="all-images-container">
-      {isLoading && <LoadingSketch />} 
       {!isLoading && imagesToDisplay.length > 0 && imagesToDisplay.map((image, index) => (
         <div key={index}>
           <img
