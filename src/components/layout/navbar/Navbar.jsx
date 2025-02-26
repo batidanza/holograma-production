@@ -51,7 +51,6 @@ const Navbar = () => {
   return (
     <div
       className={`sidebar ${isClosed ? "navbar-closed" : "navbar-open"}`}
-      style={isHome ? { backgroundColor: "rgba(212, 225, 225, 0.3)" } : {}}
     >
       <div className={`logo-class ${isClosed ? "logo-class-closed" : ""}`}>
         <button

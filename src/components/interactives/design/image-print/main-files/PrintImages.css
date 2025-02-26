@@ -39,7 +39,7 @@
 .our-image {
   margin-bottom: 10px;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 5px;
   display: flex;
   align-items: center;
@@ -57,7 +57,7 @@
 }
 
 .control-button {
-  border-radius: 5px;
+  border-radius: 6px;
   color: rgb(77, 52, 65);
   background-color: transparent;
   font-weight: bold;
@@ -79,7 +79,7 @@
 .control-button-add-photo {
   margin-bottom: 10px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 5px;
   display: flex;
   align-items: center;
@@ -87,7 +87,7 @@
   object-fit: contain;
   background-color: #ffffff;
   overflow: hidden;
-  border: solid 1.5px #040311;
+  border: solid 1px #040311;
   width: 70px;
   height: 70px;
 }

@@ -116,7 +116,7 @@
 }
 
 .art-options {
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 550;
   color: #f6f6f6;
   align-items: center;
@@ -176,11 +176,11 @@
 }
 
 .language-button:hover {
-  color: #53517894;
+  text-decoration: underline;
 }
 
 .language-button.selected {
-  color: #53517894;
+  text-decoration: underline;
 }
 
 .navbar-brand {

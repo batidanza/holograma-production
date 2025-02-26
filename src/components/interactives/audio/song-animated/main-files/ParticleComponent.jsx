@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Sketch from "react-p5";
-import audio from "../../../../../assets/psy-sketch-audio.wav";
-import {
-  playAudio,
-  stopAudio,
-  requestAudioPermission,
-} from "../helpers/AudioControls";
-import { openFullscreen } from "../../../design/image-print/helpers/HandleImageUpload";
-import Star from "../helpers/Star";
-import "./SongAnimated.css";
+import audio from "../../../../../assets/audioVisualizer/rec2.wav";
 import fullScreanIcon from "../../../../../assets/icons/full_screan.svg";
+import { playAudio, stopAudio, requestAudioPermission } from "../helpers/AudioControls";
+import Star from "../helpers/Star"; 
 
 let sound;
 
-const ParticleComponent = () => {
+const FluidComponent = () => {
   const [audioPermission, setAudioPermission] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [cursorVisible, setCursorVisible] = useState(true);
   const [stars, setStars] = useState([]);
+  const p5Ref = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     sound = new Audio(audio);
@@ -47,15 +43,13 @@ const ParticleComponent = () => {
     canvas.style("margin", "auto");
     canvas.style("user-select", "none");
     canvas.style("touch-action", "none");
-    canvas.style("border", "2px solid black");
-    canvas.style("border-radius", "10px");
     p5.frameRate(60);
 
     p5.noCursor();
   };
 
   const draw = (p5) => {
-    p5.background(0);
+    p5.background(15, 5, 55, 6);
 
     for (let star of stars) {
       star.update();
@@ -80,6 +74,7 @@ const ParticleComponent = () => {
       const angleIncrement = p5.TWO_PI / numLines;
       const maxLength = p5.dist(0, 0, centerX, centerY);
       let lineLength = (sound.currentTime / sound.duration) * maxLength;
+
       for (let i = 0; i < numLines; i++) {
         const angle = i * angleIncrement;
         const x = centerX + lineLength * p5.cos(angle);
@@ -103,25 +98,79 @@ const ParticleComponent = () => {
     }
   };
 
+  const windowResized = (p5) => {
+    if (document.fullscreenElement) {
+      p5.resizeCanvas(window.innerWidth, window.innerHeight);
+    } else {
+      p5.resizeCanvas(800, 600);
+    }
+  };
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      if (containerRef.current.requestFullscreen) {
+        containerRef.current.requestFullscreen();
+      } else if (containerRef.current.webkitRequestFullscreen) {
+        containerRef.current.webkitRequestFullscreen();
+      } else if (containerRef.current.msRequestFullscreen) {
+        containerRef.current.msRequestFullscreen();
+      }
+      document.body.style.overflow = "hidden";
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+      document.body.style.overflow = "auto";
+    }
+  };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement) {
+        if (p5Ref.current) {
+          p5Ref.current.resizeCanvas(800, 600);
+        }
+      } else {
+        if (p5Ref.current) {
+          p5Ref.current.resizeCanvas(window.innerWidth, window.innerHeight);
+        }
+      }
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, []);
+
   return (
-    <div className="sketch">
+    <div ref={containerRef} className="sketch">
       <div className="sketch-content">
         {audioPermission ? (
           <>
             <div>
-              <button className="button-full-screan" onClick={openFullscreen}>
-                <img src={fullScreanIcon} />
+              <button className="button-full-screan" onClick={toggleFullscreen}>
+                <img src={fullScreanIcon} alt="Fullscreen" />
               </button>
             </div>
 
-            <Sketch setup={setup} draw={draw} className="fluid-sketch" />
+            <Sketch
+              setup={setup}
+              draw={draw}
+              windowResized={windowResized}
+              className="fluid-sketch"
+            />
           </>
         ) : (
           <button
-            className="button-permisson"
+            className="button-permission"
             onClick={handleRequestAudioPermission}
           >
-            Allow Audio{" "}
+            Allow audio
           </button>
         )}
       </div>
@@ -129,4 +178,4 @@ const ParticleComponent = () => {
   );
 };
 
-export default ParticleComponent;
+export default FluidComponent;
