@@ -168,7 +168,7 @@ const FluidComponent = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="sketch">
+    <div ref={containerRef}  className="sketch-container">
       <div className="sketch-content">
         {audioPermission ? (
           <>

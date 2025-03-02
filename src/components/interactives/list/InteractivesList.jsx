@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./SketchList.css";
 
-import sketchImage1 from "../../../assets/interactiveList/draw-images.png";
-import sketchImage2 from "../../../assets/interactiveList/particle.png";
-import sketchImage3 from "../../../assets/interactiveList/draw-lines.png";
-import sketchImage4 from "../../../assets/interactiveList/fluid.png";
-import sketchImage5 from "../../../assets/interactiveList/draw-image-with-shape.png";
-import sketchImage6 from "../../../assets/interactiveList/Screenshot 2024-11-10 at 20.32.04 2.jpeg";
-import sketchImage7 from "../../../assets/interactiveList/swirl.jpg";
+import calm from "../../../assets/interactiveList/calm.jpeg";
+import calm2 from "../../../assets/interactiveList/calm2.jpeg";
+import printImg from "../../../assets/interactiveList/print-images.jpeg";
+import printImg2 from "../../../assets/interactiveList/print-images-2.jpeg";
+import shapeImg from "../../../assets/interactiveList/image-shape.jpeg";
+import psy from "../../../assets/interactiveList/psy.jpeg";
+import chaotic from "../../../assets/interactiveList/chaotic.jpeg";
+import dynamic3 from "../../../assets/interactiveList/dynamic3.jpeg";
+
+import dynamic from "../../../assets/interactiveList/dynamic2.jpeg";
+import pad from "../../../assets/interactiveList/pad.jpeg";
 
 const InteractivesList = () => {
   const [hoveredDescription, setHoveredDescription] = useState("");
@@ -16,21 +20,67 @@ const InteractivesList = () => {
   const [linePosition, setLinePosition] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [sketchCount, setSketchCount] = useState(visibleSketches.length);
+  const [activeSection, setActiveSection] = useState(null);
 
   useEffect(() => {
     setSketchCount(visibleSketches.length);
   }, [visibleSketches]);
 
   useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth <= 968);
-    };
+    const checkIfMobile = () => setIsMobile(window.innerWidth <= 968);
     checkIfMobile();
     window.addEventListener("resize", checkIfMobile);
-    return () => {
-      window.removeEventListener("resize", checkIfMobile);
-    };
+    return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
+
+  useEffect(() => {
+    const updateLinePosition = () => {
+      if (!activeSection) return;
+
+      const button = document.querySelector(
+        `[data-section="${activeSection.name}"]`
+      );
+      if (!button) return;
+
+      const rect = button.getBoundingClientRect();
+      const startX = rect.left + rect.width / 2;
+      const startY = rect.bottom + 50;
+      let endY = startY + 150;
+
+      const sketches = sketchesBySection[activeSection.name] || [];
+      let sketchesWithPositions = [];
+
+      if (sketches.length > 0) {
+        const screenWidth = window.innerWidth;
+        const padding = 100;
+        const availableWidth = screenWidth - padding * 2;
+        const sketchSpacing = availableWidth / sketches.length;
+        const startXOffset = padding + sketchSpacing / 2;
+
+        sketchesWithPositions = sketches.map((sketch, index) => ({
+          ...sketch,
+          x: startXOffset + index * sketchSpacing - 90,
+          y: endY + 90,
+        }));
+
+        endY += 20;
+      }
+
+      setLinePosition({
+        startX,
+        startY,
+        endX: startX,
+        endY,
+        branches: sketchesWithPositions,
+      });
+
+      setVisibleSketches(sketchesWithPositions);
+    };
+
+    updateLinePosition();
+    window.addEventListener("resize", updateLinePosition);
+    return () => window.removeEventListener("resize", updateLinePosition);
+  }, [activeSection]);
 
   const sections = [
     { name: "CALM", description: "Relaxing, fluid, or minimalistic designs." },
@@ -51,7 +101,6 @@ const InteractivesList = () => {
       name: "EXPERIMENTAL",
       description: "Rule-breaking, interactive, or conceptual designs.",
     },
-    { name: "MINIMALISTIC", description: "Simple designs with few elements." },
     {
       name: "DYNAMIC",
       description: "Designs with movement or a sense of energy.",
@@ -61,40 +110,34 @@ const InteractivesList = () => {
   const sketchesBySection = {
     CALM: [
       {
-        id: 4,
-        src: sketchImage4,
-        title: "FLUID SKETCH",
+        id: 1,
+        src: calm,
+        title: "calm",
         path: "fluid-component",
       },
+      {
+        id: 2,
+        src: calm2,
+        title: "calm 2",
+        path: "particle-component",
+      },     
     ],
     PSYCHEDELIC: [
       {
-        id: 2,
-        src: sketchImage2,
-        title: "SOLO BRILLABA",
-        path: "particle-component",
+        id: 3,
+        src: psy,
+        title: "psy",
+        path: "alma",
       },
     ],
     CHAOTIC: [
-      { id: 6, src: sketchImage6, title: "FAN SKETCH", path: "fan-sketch" },
+      { id: 4, src: chaotic , title: "chaotic", path: "chaotic" },
     ],
     DESIGN: [
-      { id: 1, src: sketchImage1, title: "PRINT IMAGES", path: "print-images" },
+      { id: 5, src: printImg, title: "PRINT IMAGES", path: "print-images" },
       {
-        id: 5,
-        src: sketchImage5,
-        title: "IMAGE + SHAPE",
-        path: "image-circle",
-      },
-      {
-        id: 8,
-        src: sketchImage4,
-        title: "IMAGE + SHAPE",
-        path: "image-circle",
-      },
-      {
-        id: 8,
-        src: sketchImage3,
+        id: 6,
+        src: shapeImg,
         title: "IMAGE + SHAPE",
         path: "image-circle",
       },
@@ -102,66 +145,27 @@ const InteractivesList = () => {
     NATURE: [
       {
         id: 2,
-        src: sketchImage2,
+        src: printImg2,
         title: "SOLO BRILLABA",
         path: "particle-component",
       },
     ],
     EXPERIMENTAL: [
-      { id: 3, src: sketchImage7, title: "SHAPE", path: "swirl-sketch" },
-    ],
-    MINIMALISTIC: [
-      {
-        id: 5,
-        src: sketchImage5,
-        title: "IMAGE + SHAPE",
-        path: "image-circle",
-      },
+      { id: 3, src: dynamic3, title: "SHAPE", path: "swirl-sketch" },
     ],
     DYNAMIC: [
-      { id: 6, src: sketchImage6, title: "FAN SKETCH", path: "fan-sketch" },
+      { id: 6, src: dynamic, title: "FAN SKETCH", path: "fan-sketch" },
+      { id: 6, src: pad, title: "FAN SKETCH", path: "pad" },
     ],
   };
 
-  const handleHover = (section, event) => {
+  const handleHover = (section) => {
     setHoveredDescription(section.description);
-
-    const rect = event.target.getBoundingClientRect();
-    const startX = rect.left + rect.width / 2; // Centrar la línea en el botón
-    const startY = rect.bottom + 50;
-    let endY = startY + 150;
-
-    const sketches = sketchesBySection[section.name] || [];
-    let sketchesWithPositions = [];
-
-    if (sketches.length > 0) {
-      const screenWidth = window.innerWidth;
-      const padding = 100; // Margen de seguridad
-      const availableWidth = screenWidth - padding * 2;
-      const sketchSpacing = availableWidth / sketches.length; // Espacio entre sketches
-      const startXOffset = padding + sketchSpacing / 2; // Primera posición
-
-      sketchesWithPositions = sketches.map((sketch, index) => ({
-        ...sketch,
-        x: startXOffset + index * sketchSpacing,
-        y: endY + 50,
-      }));
-
-      endY += 20; // Ajuste de espacio para bifurcación
-    }
-
-    setLinePosition({
-      startX,
-      startY,
-      endX: startX,
-      endY,
-      branches: sketchesWithPositions,
-    });
-    setVisibleSketches(sketchesWithPositions);
+    setActiveSection(section);
   };
 
   return (
-    <div className="view-container">
+    <div className="sketch-list-view-container">
       {!isMobile ? (
         <div className="sketch-carousel">
           <div className="section-description-container">
@@ -170,7 +174,8 @@ const InteractivesList = () => {
                 <button
                   key={section.name}
                   className="section-button"
-                  onMouseEnter={(event) => handleHover(section, event)}
+                  data-section={section.name}
+                  onMouseEnter={() => handleHover(section)}
                 >
                   {section.name}
                 </button>
@@ -184,6 +189,7 @@ const InteractivesList = () => {
       ) : (
         <div className="desktop-content">MOBILE CONTENT</div>
       )}
+
       <div className="sketch-container" data-count={sketchCount}>
         {visibleSketches.map((sketch, index) => (
           <Link
@@ -196,9 +202,9 @@ const InteractivesList = () => {
           </Link>
         ))}
       </div>
+
       {linePosition && (
         <svg className="dotted-line" xmlns="http://www.w3.org/2000/svg">
-          {/* Línea principal */}
           <line
             x1={linePosition.startX}
             y1={linePosition.startY}
@@ -206,22 +212,20 @@ const InteractivesList = () => {
             y2={linePosition.endY}
             stroke="#4b4b4b"
             strokeWidth="2"
-            strokeDasharray="5, 5"
+            strokeDasharray="5,5"
           />
-          {/* Líneas secundarias para conectar imágenes */}
-          {linePosition.branches &&
-            linePosition.branches.map((sketch, index) => (
-              <line
-                key={index}
-                x1={linePosition.endX}
-                y1={linePosition.endY}
-                x2={sketch.x + 35} // Centrar en la imagen
-                y2={sketch.y}
-                stroke="#4b4b4b"
-                strokeWidth="2"
-                strokeDasharray="5, 5"
-              />
-            ))}
+          {linePosition.branches?.map((sketch, index) => (
+            <line
+              key={index}
+              x1={linePosition.endX}
+              y1={linePosition.endY}
+              x2={sketch.x + 35}
+              y2={sketch.y}
+              stroke="#4b4b4b"
+              strokeWidth="2"
+              strokeDasharray="5,5"
+            />
+          ))}
         </svg>
       )}
     </div>

@@ -16,7 +16,7 @@ class Star {
 
     // Mostrar la estrella
     show(p5) {
-      p5.fill(255);
+      p5.fill(155, 128, 199);
       p5.noStroke();
       p5.ellipse(this.x, this.y, this.size, this.size);
     }

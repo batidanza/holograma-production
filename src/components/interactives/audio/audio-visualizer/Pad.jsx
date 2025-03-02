@@ -19,7 +19,6 @@ let sound3;
 let sound4;
 let video;
 
-
 let wasLKeyPressed = false;
 let areSoundsStarted = false;
 let isSoundOn = false;
@@ -53,7 +52,6 @@ let goylOffset = 0;
 let cubeRotation = 0;
 
 const Pad = (props) => {
-
   const preload = (p5) => {
     sound = p5.loadSound(audio);
     sound1 = p5.loadSound(audio1);
@@ -92,7 +90,6 @@ const Pad = (props) => {
   };
 
   const draw = (p5) => {
-
     //video
     if (p5.keyIsDown(86) && !isVideoPlaying) {
       video.loop();
@@ -134,7 +131,7 @@ const Pad = (props) => {
 
     //tecla B - beat
     if (isSoundOn && sound.isPlaying()) {
-      p5.push(); 
+      p5.push();
       const scaleValue = p5.sin(suziAngle);
       suziSize = p5.map(scaleValue, -1, 1, 50, 900);
       suziAngle += 0.5;
@@ -146,7 +143,7 @@ const Pad = (props) => {
         suziSize,
         suziSize
       );
-      p5.pop(); 
+      p5.pop();
     }
 
     if (p5.keyIsDown(66) && !isSoundOn) {
@@ -164,7 +161,6 @@ const Pad = (props) => {
       harmSize = p5.map(scaleValue, -1, 1, 50, 900);
       harmAngle += 0.5;
 
-      
       const harmXPos = (p5.width * 1.5) / 1.6;
       p5.translate(harmXPos, p5.height / 8, -700);
       p5.image(
@@ -186,7 +182,7 @@ const Pad = (props) => {
     }
 
     if (isSound2On && sound2.isPlaying()) {
-      p5.push(); 
+      p5.push();
       const scaleValue = p5.sin(goylAngle);
       goylSize = p5.map(scaleValue, -1, 1, 50, 900);
       goylAngle += 0.5;
@@ -224,7 +220,6 @@ const Pad = (props) => {
       circleRadius = initialCircleRadius;
     } else if (!p5.keyIsDown(72) && isHKeyPressed) {
       isHKeyPressed = false;
-    
     }
 
     if (isHKeyPressed) {
@@ -237,13 +232,13 @@ const Pad = (props) => {
         circleRadius += 10;
         if (circleRadius > 200) {
           circleRadius = 200;
-          isGrowing = false; 
+          isGrowing = false;
         }
       } else {
         circleRadius -= 5;
         if (circleRadius < 5) {
           circleRadius = 5;
-          isGrowing = true; 
+          isGrowing = true;
         }
       }
     }
@@ -262,12 +257,12 @@ const Pad = (props) => {
       drawStar(p5, stars[i].x, stars[i].y, stars[i].radius);
     }
 
-    if (p5.keyIsPressed && p5.keyIsDown(82) ) {
+    if (p5.keyIsPressed && p5.keyIsDown(82)) {
       stars.push({
         x: p5.random(p5.width),
         y: p5.random(p5.height),
         radius: 5,
-        growing: true
+        growing: true,
       });
 
       for (let i = 0; i < stars.length; i++) {
@@ -287,13 +282,18 @@ const Pad = (props) => {
   };
 
   return (
-    <Sketch
-      className={"sketch"}
-      setup={setup}
-      draw={draw}
-      preload={preload}
-      remove={remove}
-    />
+    <div className="pad-sketch-container">
+      <span>
+        Press keys: K, B, S, H, V, R to trigger different sounds and visuals.
+      </span>
+      <Sketch
+        className={"sketch"}
+        setup={setup}
+        draw={draw}
+        preload={preload}
+        remove={remove}
+      />
+    </div>
   );
 };
 
@@ -301,7 +301,7 @@ function drawStar(p5, x, y, radius) {
   p5.fill(280, 20, 50);
   p5.beginShape();
   for (let i = 0; i < 5; i++) {
-    let angle = p5.TWO_PI * i / 8 - p5.HALF_PI;
+    let angle = (p5.TWO_PI * i) / 8 - p5.HALF_PI;
     let x1 = x * p5.cos(angle) * radius;
     let y1 = y * p5.sin(angle) * radius;
     p5.vertex(x1, y1);

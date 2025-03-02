@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Sketch from "react-p5";
-import audio from "../../../../../assets/audioVisualizer/rec2.wav";
+import audio from "../../../../../assets/audioVisualizer/crema.mp3";
 import fullScreanIcon from "../../../../../assets/icons/full_screan.svg";
 import { playAudio, stopAudio, requestAudioPermission } from "../helpers/AudioControls";
 import Star from "../helpers/Star"; 
@@ -49,7 +49,7 @@ const FluidComponent = () => {
   };
 
   const draw = (p5) => {
-    p5.background(15, 5, 55, 6);
+    p5.background(15, 5, 55);
 
     for (let star of stars) {
       star.update();
@@ -70,7 +70,7 @@ const FluidComponent = () => {
     if (audioPlaying || !cursorVisible) {
       const centerX = p5.width / 2;
       const centerY = p5.height / 2;
-      const numLines = 500;
+      const numLines = 1500;
       const angleIncrement = p5.TWO_PI / numLines;
       const maxLength = p5.dist(0, 0, centerX, centerY);
       let lineLength = (sound.currentTime / sound.duration) * maxLength;
@@ -79,7 +79,7 @@ const FluidComponent = () => {
         const angle = i * angleIncrement;
         const x = centerX + lineLength * p5.cos(angle);
         const y = centerY + lineLength * p5.sin(angle);
-        p5.stroke(p5.random(255), p5.random(255), p5.random(255));
+        p5.stroke(125, 4, 130, 5); // Color blanco para las líneas
         p5.strokeWeight(p5.random(1, 3));
         p5.line(centerX, centerY, x, y);
       }
@@ -148,7 +148,7 @@ const FluidComponent = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="sketch">
+    <div ref={containerRef} className="sketch-container">
       <div className="sketch-content">
         {audioPermission ? (
           <>

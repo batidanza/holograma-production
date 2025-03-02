@@ -17,6 +17,10 @@ const ImageCircle = () => {
   const [drawUserImage, setDrawUserImage] = useState(false);
   const [showInstructions, setShowInstructions] = useState(true);
   const [selectedShape, setSelectedShape] = useState("ellipse");
+  const [imageSize, setImageSize] = useState(120); // Tamaño inicial de la imagen
+  const [isControlPressed, setIsControlPressed] = useState(false);
+
+
   const imgRef = useRef(null);
   const aureolas = [];
 
@@ -29,24 +33,31 @@ const ImageCircle = () => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = (e) => {
-      setUserImage(e.target.result);
+      setUserImage(e.target.result); // Actualizar la imagen
       setDrawUserImage(true);
+      imgRef.current = null; // Limpiar la referencia de la imagen anterior
     };
     reader.readAsDataURL(file);
   };
 
   const mousePressed = (p5) => {
-    if (drawUserImage && userImage && imgRef.current && imgRef.current.user) {
+    if (isControlPressed) return; // Evita dibujar si un botón está presionado
+  
+    if (drawUserImage && userImage && imgRef.current?.user) {
       const img = imgRef.current.user;
-      const maxSize = 120;
       let imgWidth = img.width;
       let imgHeight = img.height;
-      const scaleFactor = Math.min(maxSize / imgWidth, maxSize / imgHeight);
+  
+      // Aumenta imageSize para permitir mayor escala
+      const maxImageSize = imageSize * 2; // Ajusta el factor de escalado
+      const scaleFactor = Math.min(maxImageSize / imgWidth, maxImageSize / imgHeight);
+  
       const scaledWidth = imgWidth * scaleFactor;
       const scaledHeight = imgHeight * scaleFactor;
-
+  
       const mouseX = p5.mouseX;
       const mouseY = p5.mouseY;
+  
       p5.image(
         img,
         mouseX - scaledWidth / 2,
@@ -54,9 +65,12 @@ const ImageCircle = () => {
         scaledWidth,
         scaledHeight
       );
+  
       aureolas.push({ x: mouseX, y: mouseY, radius: 0, growing: true });
     }
   };
+  
+  
   const mouseReleased = () => {
     aureolas.forEach((aureola) => {
       aureola.growing = false;
@@ -79,15 +93,9 @@ const ImageCircle = () => {
     canvas.style("margin", "auto");
     canvas.style("user-select", "none");
     canvas.style("touch-action", "none");
-    canvas.style("border", "2px solid rgb(255, 255, 255); ;  ;");
-    canvas.style("border-radius", "10px");
     p5.textFont("Array");
 
-    if (!userImage) {
-      p5.background(255, 55, 50);
-    } else {
-      p5.background(255, 5, 50);
-    }
+
     p5.frameRate(60);
   };
 
@@ -115,12 +123,12 @@ const ImageCircle = () => {
       }
 
       const instructionText =
-      "Select an image and choose the different features using the icons.";
+        "✨ First, select an image using the upper icon, then choose a feature and use it to print a shape with the image ✨";
 
       const wrappedText = wrapText(instructionText, p5.width - 40, p5);
 
       p5.fill(0, 0, 0, alpha);
-      const lineHeight = 40; 
+      const lineHeight = 40;
       wrappedText.forEach((line, index) => {
         p5.text(line, p5.width / 2, p5.height / 2 + index * lineHeight);
       });
@@ -147,8 +155,8 @@ const ImageCircle = () => {
     if (userImage && !imgRef.current) {
       imgRef.current = {
         user: p5.loadImage(userImage, () => {
-          p5.background(255);
-          setShowInstructions(false)
+          setShowInstructions(false);
+          p5.background(255); // Configura el fondo después de cargar la imagen
         }),
       };
     }
@@ -233,75 +241,105 @@ const ImageCircle = () => {
   };
 
   return (
-    <div className="sketch-container">
-      <div className="sketch-controls">
-        <input
-          type="color"
-          id="aureolaColor"
-          value={aureolaColor}
-          onChange={handleColorChange}
-          className="color-button"
-        />
-        <label htmlFor="imageUpload" className="image-upload-button">
-          <img className="shape-button" src={chooseImageIcon} alt="Choose" />
-        </label>
-        <input
-          id="imageUpload"
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          style={{ display: "none" }}
-        />
-        <button
-          className="shape-button"
-          onClick={() => setSelectedShape("ellipse")}
-        >
-          <img src={circleIcon} />
-        </button>
-        <button
-          className="shape-button"
-          onClick={() => setSelectedShape("rect")}
-        >
-          <img src={sideSquareIcon} />
-        </button>
-        <button
-          className="shape-button"
-          onClick={() => setSelectedShape("centerRect")}
-        >
-          <img src={squareIcon} />
-        </button>
-        <button
-          className="shape-button"
-          onClick={() => setSelectedShape("tube")}
-        >
-          <TbArrowDownRightCircle size={30} />
-        </button>
-        <button
-          className="shape-button"
-          onClick={() => setSelectedShape("circleLoop")}
-        >
-          <TbTopologyStarRing size={30} />
-        </button>
-        <button
-          className="shape-button"
-          onClick={() => setSelectedShape("squareLoop")}
-        >
-          <LiaVectorSquareSolid size={30} />
-        </button>
-        <button
-          className="shape-button"
-          onClick={() => setSelectedShape("blurie")}
-        >
-          <img src={blur} />
-        </button>
-        <button
-          className="shape-button"
-          onClick={() => setSelectedShape("chart")}
-        >
-          <img src={chart} />
-        </button>
-      </div>
-      <div>
+    <div className="sketch-draw-image-figure-container">
+      <div className="sketch-draw-image-figure-content">
+        <div className="sketch-controls">
+          <input
+            type="color"
+            id="aureolaColor"
+            value={aureolaColor}
+            onChange={handleColorChange}
+            className="color-button"
+            onMouseDown={() => setIsControlPressed(true)}
+            onMouseUp={() => setIsControlPressed(false)}
+          />
+          <label htmlFor="imageUpload" className="control-button">
+            <img className="shape-button" src={chooseImageIcon} alt="Choose" />
+          </label>
+          <input
+            id="imageUpload"
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            style={{ display: "none" }}
+          />
+          <input
+            type="range"
+            min="50"
+            max="500"
+            value={imageSize}
+            onChange={(e) => setImageSize(e.target.value)}
+            className="control-button-slide"
+            onMouseDown={() => setIsControlPressed(true)}
+            onMouseUp={() => setIsControlPressed(false)}
+          />
+
+          <button
+            className="control-button"
+            onClick={() => setSelectedShape("ellipse")}
+            onMouseDown={() => setIsControlPressed(true)}
+            onMouseUp={() => setIsControlPressed(false)}
+          >
+            <img src={circleIcon} />
+          </button>
+          <button
+            className="control-button"
+            onClick={() => setSelectedShape("rect")}
+            onMouseDown={() => setIsControlPressed(true)}
+            onMouseUp={() => setIsControlPressed(false)}
+          >
+            <img src={sideSquareIcon} />
+          </button>
+          <button
+            className="control-button"
+            onClick={() => setSelectedShape("centerRect")}
+            onMouseDown={() => setIsControlPressed(true)}
+            onMouseUp={() => setIsControlPressed(false)}
+          >
+            <img src={squareIcon} />
+          </button>
+          <button
+            className="control-button"
+            onClick={() => setSelectedShape("tube")}
+            onMouseDown={() => setIsControlPressed(true)}
+            onMouseUp={() => setIsControlPressed(false)}
+          >
+            <TbArrowDownRightCircle size={30} />
+          </button>
+          <button
+            className="control-button"
+            onClick={() => setSelectedShape("circleLoop")}
+            onMouseDown={() => setIsControlPressed(true)}
+            onMouseUp={() => setIsControlPressed(false)}
+          >
+            <TbTopologyStarRing size={30} />
+          </button>
+          <button
+            className="control-button"
+            onClick={() => setSelectedShape("squareLoop")}
+            onMouseDown={() => setIsControlPressed(true)}
+            onMouseUp={() => setIsControlPressed(false)}
+          >
+            <LiaVectorSquareSolid size={30} />
+          </button>
+          <button
+            className="control-button"
+            onClick={() => setSelectedShape("blurie")}
+            onMouseDown={() => setIsControlPressed(true)}
+            onMouseUp={() => setIsControlPressed(false)}
+          >
+            <img src={blur} />
+          </button>
+          <button
+            className="control-button"
+            onClick={() => setSelectedShape("chart")}
+            onMouseDown={() => setIsControlPressed(true)}
+            onMouseUp={() => setIsControlPressed(false)}
+          >
+            <img src={chart} />
+          </button>
+        </div>
+
         <Sketch
           className="fluid"
           setup={setup}

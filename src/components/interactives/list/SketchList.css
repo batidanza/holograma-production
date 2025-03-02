@@ -1,12 +1,14 @@
-.view-container {
+.sketch-list-view-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 100vh;
+  max-height: 100vh;
   padding: 20px;
   position: relative; 
+  overflow: hidden;
+  
 }
 
 .section-description-container {
@@ -21,7 +23,7 @@
 .sections-container {
   display: flex;
   flex-direction: row;
-  gap: 5px;
+  gap: 15px;
   flex-wrap: wrap;
   justify-content: center;
   z-index: 20;
@@ -50,7 +52,6 @@
   border: none;
   cursor: pointer;
   font-size: 16px;
-  padding: 8px 12px;
   transition: color 0.3s ease;
 }
 
@@ -96,8 +97,8 @@
 }
 
 .sketch-container[data-count="4"] .sketch-image-container {
-  width: 16vw;
-  height: 16vh;
+  width: 14vw;
+  height: 14vh;
 }
 
 .sketch-container[data-count="5"] .sketch-image-container {
@@ -111,7 +112,6 @@
   object-fit: contain;
 }
 
-
 .dotted-line {
   position: fixed;
   top: 0;
@@ -120,8 +120,6 @@
   height: 100%;
   pointer-events: none;
   z-index: 15;
-  border: 2px dashed #4b4b4b;
-
 }
 
 .sketch-image-container img {

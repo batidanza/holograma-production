@@ -1,18 +1,117 @@
-.image-circle-container {
-    display: flex;
-    flex-direction: row;
-    margin-top: 70px;
-    gap: 5vw;
+.sketch-draw-image-figure-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  width: 100vw;
+  height: 100vh;
+  pad: 40px;
+  gap: 60px;
 }
 
-.color-buttons{
-    background-color: rgba(245, 252, 255);
-      border: 1px solid  rgb(255, 255, 255); ;  ;; ;
+.sketch-draw-image-figure-content {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 50px;
+}
+
+.control-button-slide {
+    -webkit-appearance: none; /* Quita los estilos por defecto en WebKit */
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(to right,#c2c2c2 , #180d46);
     border-radius: 5px;
-    font-size: 2vw;
+    outline: none;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+    cursor: pointer;
+  }
+  
+  /* Efecto al pasar el mouse */
+  .control-button-slide:hover {
+    opacity: 1;
+  }
+  
+  /* Estilos del thumb (el botón deslizante) en Chrome, Safari, Edge */
+  .control-button-slide::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #ff0000;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* Efecto de escala al presionar el thumb */
+  .control-button-slide::-webkit-slider-thumb:active {
+    transform: scale(1.2);
+  }
+  
+  /* Estilos del thumb en Firefox */
+  .control-button-slide::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border: 2px solid #2196F3;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .control-button-slide::-moz-range-thumb:active {
+    transform: scale(1.2);
+  }
+  
+
+.image-circle-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 70px;
+  gap: 5vw;
+}
+.control-button {
+  border-radius: 6px;
+  color: rgb(77, 52, 65);
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 1vw;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #ffffff;
+  border: solid 1px #040311;
 }
 
-.picker{
-    position: absolute;
-    margin-top: 310px;
+.sketch-controls {
+  font-family: "Array", sans-serif;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.5vh;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
+
+.color-buttons {
+  background-color: rgba(245, 252, 255);
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 5px;
+  font-size: 2vw;
+}
+
+.picker {
+  position: absolute;
+  margin-top: 310px;
 }

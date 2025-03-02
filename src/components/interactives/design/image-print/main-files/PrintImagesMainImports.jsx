@@ -220,7 +220,8 @@ const PrintImagesJsx = ({
           >
             <img className="icon-image" src={fullScreanIcon} alt="Fullscreen" />
           </button>
-          <button
+          {/*
+         <button
             className="control-button"
             onClick={() =>
               handleButtonClickWithIgnore(() =>
@@ -230,6 +231,7 @@ const PrintImagesJsx = ({
           >
             <img className="icon-image" src={undoIcon} alt="Undo" />
           </button>
+          */}
           <button className="control-button" onClick={handleDownload}>
             <img className="icon-image" src={downloadIcon} alt="Download" />
           </button>

@@ -3,10 +3,9 @@ export const setup = (p5, canvasParentRef) => {
   let canvasHeight = canvasWidth * (1.9 / 3);
 
   if (window.innerWidth < 780) {
-    canvasWidth = window.innerWidth * 0.65;
-    canvasHeight = window.innerHeight * 0.9;
+    canvasWidth = window.innerWidth; // Ocupa todo el ancho
+    canvasHeight = window.innerHeight * 0.9; // Ajusta altura para mejor proporción
   }
-
   const canvas = p5.createCanvas(canvasWidth, canvasHeight);
   canvas.parent(canvasParentRef);
 
@@ -14,8 +13,6 @@ export const setup = (p5, canvasParentRef) => {
   canvas.style("margin", "auto");
   canvas.style("user-select", "none");
   canvas.style("touch-action", "none");
-  canvas.style("border-radius", "10px");
-  canvas.style("border", "1.5px solid #040311");
   p5.textFont("Array");
 
   canvas.elt.addEventListener(
@@ -43,79 +40,55 @@ export const draw = (
   setShowSecondInstruction,
   setPrintedFirstImage,
   size,
-  eraserMode // Added: Eraser mode
+  eraserMode
 ) => {
   p5.background(255);
-
   p5Instance = p5;
-  // Set cursor style based on eraser mode
-  if (eraserMode) {
-    p5.cursor("crosshair");
-  } else {
-    p5.cursor("default");
+
+  // Cambia el cursor según el modo borrador
+  p5.cursor(eraserMode ? "crosshair" : "default");
+
+  const alpha = p5.map(Math.sin(p5.frameCount * 0.1), -1, 1, 50, 255); 
+
+  if (showInstructions) {
+    p5.fill(4, 3, 17, alpha);
+    p5.textAlign(p5.CENTER);
+    const instructionTextSize = p5.width < 600 ? 18 : 30;
+    p5.textSize(instructionTextSize);
+    p5.textFont("Array");
+    const instructionText = "✨ Choose an image, then print it by dragging the mouse over the canvas ✨";
+    p5.text(instructionText, p5.width / 2, p5.height / 2 + instructionTextSize / 2);
+  } else if (showSecondInstruction && !printedFirstImage && imagesHistory.current.length === 0) {
+    p5.fill(4, 3, 17, alpha);
+    p5.textAlign(p5.CENTER);
+    const instructionTextSize = p5.width < 600 ? 18 : 30;
+    p5.textSize(instructionTextSize);
+    p5.textFont("Array");
+    const instructionText = "👆 Press and hold the mouse to drag and paint the image on the canvas.  🎨";
+    p5.text(instructionText, p5.width / 2, p5.height / 2 + instructionTextSize / 2);
   }
 
-  // Display instructions if needed
-  if (showInstructions) {
-    if (p5.frameCount % 30 < 15) {
-      p5.fill(0);
-      p5.textAlign(p5.CENTER);
-      const instructionTextSize = p5.width < 600 ? 20 : 35;
-      p5.textSize(instructionTextSize);
-      p5.textFont("Array");
-      p5.fill(4, 3, 17)
-      const instructionText = "PRESS 'U' TO LOAD IMAGES OR CHOOSE ONE FROM THE SIDES.";
-      p5.text(
-        instructionText,
-        p5.width / 2,
-        p5.height / 2 + instructionTextSize / 2
-      );
-    }
-  } else {
-    // Display secondary instruction if needed
-    if (
-      showSecondInstruction &&
-      !printedFirstImage &&
-      imagesHistory.current.length === 0
-    ) {
-      if (p5.frameCount % 30 < 15) {
-        p5.fill(4, 3, 17)
-        p5.textAlign(p5.CENTER);
-        const instructionTextSize = p5.width < 600 ? 20 : 35;
-        p5.textSize(instructionTextSize);
-        p5.textFont("Array");
-        const instructionText = "CLICK INSIDE THE CANVAS";
-        p5.text(
-          instructionText,
-          p5.width / 2,
-          p5.height / 2 + instructionTextSize / 2
-        );
-      }
-    }
+  for (let i = 0; i < imagesHistory.current.length; i++) {
+    const { img, x, y, width, height } = imagesHistory.current[i];
+    p5.image(img, x - width / 2, y - height / 2, width, height);
+  }
 
-    // Draw all images from history
-    for (let i = 0; i < imagesHistory.current.length; i++) {
-      const { img, x, y, width, height } = imagesHistory.current[i];
-      p5.image(img, x - width / 2, y - height / 2, width, height);
-    }
-
-    // Draw new image if needed
-    if (drawImage && userImage && p5.mouseIsPressed) {
-      const currentImage = {
-        img: userImage,
-        x: p5.mouseX,
-        y: p5.mouseY,
-        width: userImage.width * (size / userImage.width),
-        height: userImage.height * (size / userImage.width),
-      };
-      imagesHistory.current.push(currentImage);
-      if (!printedFirstImage) {
-        setShowSecondInstruction(false);
-        setPrintedFirstImage(true);
-      }
+  if (drawImage && userImage && p5.mouseIsPressed) {
+    const currentImage = {
+      img: userImage,
+      x: p5.mouseX,
+      y: p5.mouseY,
+      width: userImage.width * (size / userImage.width),
+      height: userImage.height * (size / userImage.width),
+    };
+    imagesHistory.current.push(currentImage);
+    if (!printedFirstImage) {
+      setShowSecondInstruction(false);
+      setPrintedFirstImage(true);
     }
   }
 };
+
 
 export const saveSketch = () => {
   if (p5Instance) {

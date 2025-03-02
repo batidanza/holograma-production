@@ -23,6 +23,7 @@ import Pad from "../components/interactives/audio/audio-visualizer/Pad";
 import Signin from "../Signin";
 import ProtectedRoute from "../ProtectedRoute";
 import PhotoSwirlSketch from "../components/interactives/experimental/PhotoSwirlSketch";
+import Alma from "../components/interactives/artwork/Ismael.jsx";
 
 const AppRoutes = () => {
   return (
@@ -55,7 +56,6 @@ const AppRoutes = () => {
         <Route path="/fluid-component" element={<FluidComponent />} />
         <Route path="/swirl-sketch" element={<PhotoSwirlSketch />} />
         <Route path="/fan-sketch" element={<Fan />} />
-        <Route path="/image-particle" element={<BackgroundSketch />} />
         <Route path="/september" element={<Pad2 />} />
         <Route path="/pad" element={<Pad />} />
         <Route path="/image-circle" element={<ImageCircle />} />
@@ -64,6 +64,10 @@ const AppRoutes = () => {
         <Route path="/creatives" element={<Creatives />} />
         <Route path="/creatives/:userId" element={<CreativeDetail />} />
         <Route path="/collection-archive-create" element={<CreateArchive />} />
+        <Route path="/chaotic" element={<BackgroundSketch />} />
+        <Route path="/sketch" element={<Pad />} />
+        <Route path="/alma" element={<Alma />} />
+
         <Route
           path="/collection-archive-photos-upload"
           element={<UploadArchivePhotos />}
