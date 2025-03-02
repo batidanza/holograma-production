@@ -20,56 +20,55 @@
 }
 
 .control-button-slide {
-    -webkit-appearance: none; /* Quita los estilos por defecto en WebKit */
-    appearance: none;
-    width: 100%;
-    height: 6px;
-    background: linear-gradient(to right,#c2c2c2 , #180d46);
-    border-radius: 5px;
-    outline: none;
-    opacity: 0.9;
-    transition: opacity 0.2s;
-    cursor: pointer;
-  }
-  
-  /* Efecto al pasar el mouse */
-  .control-button-slide:hover {
-    opacity: 1;
-  }
-  
-  /* Estilos del thumb (el botón deslizante) en Chrome, Safari, Edge */
-  .control-button-slide::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    background: #ff0000;
-    border: 2px solid #000000;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  /* Efecto de escala al presionar el thumb */
-  .control-button-slide::-webkit-slider-thumb:active {
-    transform: scale(1.2);
-  }
-  
-  /* Estilos del thumb en Firefox */
-  .control-button-slide::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    background: #fff;
-    border: 2px solid #2196F3;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .control-button-slide::-moz-range-thumb:active {
-    transform: scale(1.2);
-  }
-  
+  -webkit-appearance: none; /* Quita los estilos por defecto en WebKit */
+  appearance: none;
+  width: 50%;
+  height: 6px;
+  background: linear-gradient(to right, #c2c2c2, #180d46);
+  border-radius: 5px;
+  outline: none;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+/* Efecto al pasar el mouse */
+.control-button-slide:hover {
+  opacity: 1;
+}
+
+/* Estilos del thumb (el botón deslizante) en Chrome, Safari, Edge */
+.control-button-slide::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #fff66e;
+  border: 2px solid #000000;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Efecto de escala al presionar el thumb */
+.control-button-slide::-webkit-slider-thumb:active {
+  transform: scale(1.2);
+}
+
+/* Estilos del thumb en Firefox */
+.control-button-slide::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border: 2px solid #2196f3;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.control-button-slide::-moz-range-thumb:active {
+  transform: scale(1.2);
+}
 
 .image-circle-container {
   display: flex;

@@ -20,7 +20,6 @@ const ImageCircle = () => {
   const [imageSize, setImageSize] = useState(120); // Tamaño inicial de la imagen
   const [isControlPressed, setIsControlPressed] = useState(false);
 
-
   const imgRef = useRef(null);
   const aureolas = [];
 
@@ -42,22 +41,25 @@ const ImageCircle = () => {
 
   const mousePressed = (p5) => {
     if (isControlPressed) return; // Evita dibujar si un botón está presionado
-  
+
     if (drawUserImage && userImage && imgRef.current?.user) {
       const img = imgRef.current.user;
       let imgWidth = img.width;
       let imgHeight = img.height;
-  
+
       // Aumenta imageSize para permitir mayor escala
       const maxImageSize = imageSize * 2; // Ajusta el factor de escalado
-      const scaleFactor = Math.min(maxImageSize / imgWidth, maxImageSize / imgHeight);
-  
+      const scaleFactor = Math.min(
+        maxImageSize / imgWidth,
+        maxImageSize / imgHeight
+      );
+
       const scaledWidth = imgWidth * scaleFactor;
       const scaledHeight = imgHeight * scaleFactor;
-  
+
       const mouseX = p5.mouseX;
       const mouseY = p5.mouseY;
-  
+
       p5.image(
         img,
         mouseX - scaledWidth / 2,
@@ -65,12 +67,11 @@ const ImageCircle = () => {
         scaledWidth,
         scaledHeight
       );
-  
+
       aureolas.push({ x: mouseX, y: mouseY, radius: 0, growing: true });
     }
   };
-  
-  
+
   const mouseReleased = () => {
     aureolas.forEach((aureola) => {
       aureola.growing = false;
@@ -94,7 +95,6 @@ const ImageCircle = () => {
     canvas.style("user-select", "none");
     canvas.style("touch-action", "none");
     p5.textFont("Array");
-
 
     p5.frameRate(60);
   };
@@ -123,7 +123,7 @@ const ImageCircle = () => {
       }
 
       const instructionText =
-        "✨ First, select an image using the upper icon, then choose a feature and use it to print a shape with the image ✨";
+        "✨First, select a photo using the yellow button. Then, choose a shape from the shape buttons. To print both the image and the shape, hold down the mouse button inside the canvas✨";
 
       const wrappedText = wrapText(instructionText, p5.width - 40, p5);
 
@@ -253,7 +253,13 @@ const ImageCircle = () => {
             onMouseDown={() => setIsControlPressed(true)}
             onMouseUp={() => setIsControlPressed(false)}
           />
-          <label htmlFor="imageUpload" className="control-button">
+          <label
+            style={{ backgroundColor: "#fff66e" }}
+            htmlFor="imageUpload"
+            className="control-button"
+            onMouseDown={() => setIsControlPressed(true)}
+            onMouseUp={() => setIsControlPressed(false)}
+          >
             <img className="shape-button" src={chooseImageIcon} alt="Choose" />
           </label>
           <input
@@ -265,8 +271,8 @@ const ImageCircle = () => {
           />
           <input
             type="range"
-            min="50"
-            max="500"
+            min="100"
+            max="300"
             value={imageSize}
             onChange={(e) => setImageSize(e.target.value)}
             className="control-button-slide"
@@ -274,8 +280,11 @@ const ImageCircle = () => {
             onMouseUp={() => setIsControlPressed(false)}
           />
 
+          {/* Botones de figuras con clase "selected" cuando están activos */}
           <button
-            className="control-button"
+            className={`control-button ${
+              selectedShape === "ellipse" ? "selected" : ""
+            }`}
             onClick={() => setSelectedShape("ellipse")}
             onMouseDown={() => setIsControlPressed(true)}
             onMouseUp={() => setIsControlPressed(false)}
@@ -283,7 +292,9 @@ const ImageCircle = () => {
             <img src={circleIcon} />
           </button>
           <button
-            className="control-button"
+            className={`control-button ${
+              selectedShape === "rect" ? "selected" : ""
+            }`}
             onClick={() => setSelectedShape("rect")}
             onMouseDown={() => setIsControlPressed(true)}
             onMouseUp={() => setIsControlPressed(false)}
@@ -291,7 +302,9 @@ const ImageCircle = () => {
             <img src={sideSquareIcon} />
           </button>
           <button
-            className="control-button"
+            className={`control-button ${
+              selectedShape === "centerRect" ? "selected" : ""
+            }`}
             onClick={() => setSelectedShape("centerRect")}
             onMouseDown={() => setIsControlPressed(true)}
             onMouseUp={() => setIsControlPressed(false)}
@@ -299,7 +312,9 @@ const ImageCircle = () => {
             <img src={squareIcon} />
           </button>
           <button
-            className="control-button"
+            className={`control-button ${
+              selectedShape === "tube" ? "selected" : ""
+            }`}
             onClick={() => setSelectedShape("tube")}
             onMouseDown={() => setIsControlPressed(true)}
             onMouseUp={() => setIsControlPressed(false)}
@@ -307,7 +322,9 @@ const ImageCircle = () => {
             <TbArrowDownRightCircle size={30} />
           </button>
           <button
-            className="control-button"
+            className={`control-button ${
+              selectedShape === "circleLoop" ? "selected" : ""
+            }`}
             onClick={() => setSelectedShape("circleLoop")}
             onMouseDown={() => setIsControlPressed(true)}
             onMouseUp={() => setIsControlPressed(false)}
@@ -315,7 +332,9 @@ const ImageCircle = () => {
             <TbTopologyStarRing size={30} />
           </button>
           <button
-            className="control-button"
+            className={`control-button ${
+              selectedShape === "squareLoop" ? "selected" : ""
+            }`}
             onClick={() => setSelectedShape("squareLoop")}
             onMouseDown={() => setIsControlPressed(true)}
             onMouseUp={() => setIsControlPressed(false)}
@@ -323,7 +342,9 @@ const ImageCircle = () => {
             <LiaVectorSquareSolid size={30} />
           </button>
           <button
-            className="control-button"
+            className={`control-button ${
+              selectedShape === "blurie" ? "selected" : ""
+            }`}
             onClick={() => setSelectedShape("blurie")}
             onMouseDown={() => setIsControlPressed(true)}
             onMouseUp={() => setIsControlPressed(false)}
@@ -331,7 +352,9 @@ const ImageCircle = () => {
             <img src={blur} />
           </button>
           <button
-            className="control-button"
+            className={`control-button ${
+              selectedShape === "chart" ? "selected" : ""
+            }`}
             onClick={() => setSelectedShape("chart")}
             onMouseDown={() => setIsControlPressed(true)}
             onMouseUp={() => setIsControlPressed(false)}

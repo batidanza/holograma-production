@@ -48,14 +48,15 @@ export const draw = (
   // Cambia el cursor según el modo borrador
   p5.cursor(eraserMode ? "crosshair" : "default");
 
-  const alpha = p5.map(Math.sin(p5.frameCount * 0.1), -1, 1, 50, 255); 
+  // Suavizamos el efecto de opacidad con un cambio gradual
+  const alpha = p5.map(Math.sin(p5.frameCount * 0.05), -1, 1, 50, 255); // La velocidad de parpadeo es más baja
 
   if (showInstructions) {
     p5.fill(4, 3, 17, alpha);
     p5.textAlign(p5.CENTER);
     const instructionTextSize = p5.width < 600 ? 18 : 30;
     p5.textSize(instructionTextSize);
-    p5.textFont("Array");
+    p5.textFont("IBM Plex Sans");
     const instructionText = "✨ Choose an image, then print it by dragging the mouse over the canvas ✨";
     p5.text(instructionText, p5.width / 2, p5.height / 2 + instructionTextSize / 2);
   } else if (showSecondInstruction && !printedFirstImage && imagesHistory.current.length === 0) {
@@ -63,16 +64,18 @@ export const draw = (
     p5.textAlign(p5.CENTER);
     const instructionTextSize = p5.width < 600 ? 18 : 30;
     p5.textSize(instructionTextSize);
-    p5.textFont("Array");
+    p5.textFont("IBM Plex Sans");
     const instructionText = "👆 Press and hold the mouse to drag and paint the image on the canvas.  🎨";
     p5.text(instructionText, p5.width / 2, p5.height / 2 + instructionTextSize / 2);
   }
 
+  // Dibuja las imágenes históricas
   for (let i = 0; i < imagesHistory.current.length; i++) {
     const { img, x, y, width, height } = imagesHistory.current[i];
     p5.image(img, x - width / 2, y - height / 2, width, height);
   }
 
+  // Dibuja la imagen del usuario si está habilitado
   if (drawImage && userImage && p5.mouseIsPressed) {
     const currentImage = {
       img: userImage,

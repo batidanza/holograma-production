@@ -21,12 +21,11 @@
   width: 100%;
   max-width: 520px;
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 5%;
-  background-color: rgba(212, 225, 255, 0.678);
+  background-color: rgb(183, 206, 255);
   opacity: 0.8;
   height: fit-content;
-  border: solid 2px #040311;
 }
 
 .preview-images {
@@ -81,8 +80,8 @@
   height: 50px;
   padding: 8px;
   font-size: 14px;
-  border: 1.5px solid #040311;
-  border-radius: 8px;
+  border: 1px solid #040311;
+  border-radius: 6px;
   box-sizing: border-box;
   color: #040311;
   transition: none;
@@ -91,7 +90,7 @@
 
 .custom-text-input:focus {
   outline: none;
-  border: 2px solid #040311; 
+  border: 1.3px solid #040311; 
   box-shadow: 0 0 6px #040311;
   transition: box-shadow 0.2s ease, border 0.2s ease;
 }
@@ -106,7 +105,7 @@
   justify-content: center;
   margin: 2vh auto;
   color: rgb(255, 255, 255);
-  border: 1.5px solid rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
   width: 100%;
   max-width: 600px;
   box-sizing: border-box;
@@ -197,7 +196,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-radius: 30px;
+  border-radius: 6px;
   width: 100%;
   background-color: transparent;
   padding: 10px;
@@ -207,7 +206,7 @@
   gap: 10px;
   font-weight: 600;
   font-size: 1em;
-  border: solid 1.5px#040311;
+  border: solid 1px#040311;
 }
 
 .my-button-form,
@@ -218,14 +217,14 @@
   text-decoration: none;
   text-align: center;
   padding: 10px;
-  border-radius: 30px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 1em;
-  border: solid 1.5px#040311;
+  border: solid 1px#040311;
 }
 
 .my-button-form:hover {
-  background-color: rgba(84, 119, 194, 0.678);
+  background-color: rgb(145, 231, 255);
 }
 
 .management-button {

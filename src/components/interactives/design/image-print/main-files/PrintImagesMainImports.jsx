@@ -6,12 +6,6 @@ import image2 from "../../../../../assets/print-images/wwwww.png";
 import image3 from "../../../../../assets/print-images/feel.png";
 import image4 from "../../../../../assets/print-images/stars.png";
 import image5 from "../../../../../assets/print-images/face.png";
-import image7 from "../../../../../assets/print-images/background1.png";
-import image8 from "../../../../../assets/print-images/_DSC0416.jpg";
-import image9 from "../../../../../assets/print-images/weso.jpg";
-import image10 from "../../../../../assets/print-images/wwwww.png";
-import image11 from "../../../../../assets/print-images/background2.png";
-import image12 from "../../../../../assets/print-images/background3.png";
 
 import extraSmallSizeIcon from "../../../../../assets/icons/extra_small.svg";
 import smallSizeIcon from "../../../../../assets/icons/picture_small.svg";
@@ -26,10 +20,8 @@ import undoIcon from "../../../../../assets/icons/undo.svg";
 import plusIcon from "../../../../../assets/icons/plus-symbol.svg";
 import "./PrintImages.css";
 import { getPhotoByArchive } from "../../../../../services/ArchiveAPI";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import LoadingSketch from "../../../../layout/Loading/LoadingSketch";
 import { saveSketch } from "../p5-functions/CanvasSetupAndDraw";
 import ImagesContainer from "./ImagesContainer";
 import { FaAngleDown } from "react-icons/fa6";
@@ -142,6 +134,10 @@ const PrintImagesJsx = ({
       setPrintedFirstImage,
       setShowInstructions
     );
+
+    setShowInstructions(false)
+    setShowSecondInstruction(true)
+
     setTimeout(() => setIgnoreCanvasClicks(false), 0);
   };
 
@@ -210,7 +206,7 @@ const PrintImagesJsx = ({
   };
 
   return (
-    <div className="draw-images">
+    <div className="sketch-container">
       <div className="canvas-images-container">
         <div className="image-sizes">
           {renderSizeButtons()}
@@ -285,11 +281,7 @@ const PrintImagesJsx = ({
                   );
                 }
               }}
-              mouseReleased={() => {
-                if (!ignoreCanvasClicks) {
-                  setShowInstructions(false);
-                }
-              }}
+
               mouseDragged={(p5) => {
                 if (!ignoreCanvasClicks) {
                   mouseDragged(

@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 400px;
+  width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -47,7 +47,7 @@
 }
 
 .navbar-open {
-  background-color: rgb(235, 0, 0);
+  background-color: rgb(255, 0, 0);
   z-index: 1100;
 }
 
@@ -116,7 +116,7 @@
 }
 
 .art-options {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 550;
   color: #f6f6f6;
   align-items: center;

@@ -7,12 +7,13 @@
 }
 
 .pad-sketch-container {
-  display:flex ;
+  display: flex;
   flex-direction: column;
   align-items: center;
   width: 100vw;
   height: 100vh;
   justify-content: center;
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
 .sketch-content {

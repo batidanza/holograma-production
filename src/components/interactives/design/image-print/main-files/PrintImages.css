@@ -34,6 +34,7 @@
 .image-column {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 .our-image {
@@ -73,7 +74,7 @@
 }
 
 .control-button.selected {
-  background-color: #fc3232cd;
+opacity: 0.5;
 }
 
 .control-button-add-photo {
