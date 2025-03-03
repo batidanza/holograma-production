@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-color: rgba(178, 203, 255, 0.678);
+  background-color: rgb(187, 196, 202);
 }
 
 *::-webkit-scrollbar {

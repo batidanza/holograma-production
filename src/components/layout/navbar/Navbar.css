@@ -11,9 +11,6 @@
   z-index: 1000;
   font-family: "IBM Plex Sans", sans-serif;
   font-style: normal;
-  align-items: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .sketch-random-container {
@@ -49,6 +46,7 @@
 .navbar-open {
   background-color: rgb(255, 0, 0);
   z-index: 1100;
+  align-items: center;
 }
 
 .navbar-logo-container {
@@ -58,9 +56,9 @@
 }
 
 .navbar-closed {
-  width: auto;
-  max-width: 400px;
+  width: 100%;
   height: fit-content;
+  background-color: rgb(187, 196, 202);
 }
 
 .vertical-logo {
@@ -189,6 +187,8 @@
   justify-content: center;
   align-items: center;
   gap: 15px;
+  background-color: rgb(187, 196, 202);
+
 }
 
 .logo-class {

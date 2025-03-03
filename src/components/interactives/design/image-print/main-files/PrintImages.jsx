@@ -3,7 +3,7 @@ import { handleImageUpload, openFullscreen } from "../helpers/HandleImageUpload"
 import { mousePressed, mouseDragged } from "../helpers/MouseInteraction";
 import { handleButtonClick, handleImageClick } from "../helpers/HandleImageAndButtonClick";
 import { keyTyped, keyDown, handleUndo, handleSizeChange } from "../helpers/KeyInteractions";
-import { setup, draw } from "../p5-functions/CanvasSetupAndDraw";
+import { setup, draw, windowResized } from "../p5-functions/CanvasSetupAndDraw";
 import PrintImagesJsx from "./PrintImagesMainImports";
 
 const PrintImages = () => {
@@ -61,6 +61,7 @@ const PrintImages = () => {
       mouseDragged={mouseDragged}
       setup={setup}
       draw={draw}
+      windowResized={windowResized}
     />
   );
 };

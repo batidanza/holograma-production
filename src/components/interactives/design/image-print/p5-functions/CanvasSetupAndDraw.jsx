@@ -1,20 +1,42 @@
-export const setup = (p5, canvasParentRef) => {
-  let canvasWidth = Math.min(window.innerWidth * 0.8, 1024);
-  let canvasHeight = canvasWidth * (1.9 / 3);
+import { setP5Instance } from "./P5Instance";
 
-  if (window.innerWidth < 780) {
-    canvasWidth = window.innerWidth; // Ocupa todo el ancho
-    canvasHeight = window.innerHeight * 0.9; // Ajusta altura para mejor proporción
-  }
-  const canvas = p5.createCanvas(canvasWidth, canvasHeight);
+
+export const setup = (p5, canvasParentRef) => {
+  setP5Instance(p5); // Guardamos la instancia de p5
+
+  const updateCanvasSize = () => {
+    let canvasWidth = Math.min(window.innerWidth * 0.8, 1024); // 80% del ancho, máximo 1024px
+    let canvasHeight = canvasWidth * (1.9 / 3); // Mantiene la relación de aspecto 1.9:3
+
+    if (window.innerHeight < 1060) {
+      let canvasWidth = Math.min(window.innerWidth * 0.8, 1024); // 80% del ancho, máximo 1024px
+      canvasHeight = window.innerHeight * 0.75; // 7.5% of the window height
+
+    }
+    // En pantallas pequeñas
+    if (window.innerWidth < 980) {
+      canvasWidth = window.innerWidth; 
+      canvasHeight = window.innerHeight * 0.7; 
+    }
+
+    p5.resizeCanvas(canvasWidth, canvasHeight);
+  };
+
+  const canvas = p5.createCanvas(1, 1); 
   canvas.parent(canvasParentRef);
 
+  updateCanvasSize(); 
+
+  // Estilos para el canvas
   canvas.style("display", "block");
   canvas.style("margin", "auto");
   canvas.style("user-select", "none");
   canvas.style("touch-action", "none");
+
+  // Establecer fuente
   p5.textFont("Array");
 
+  // Manejar eventos táctiles
   canvas.elt.addEventListener(
     "touchstart",
     (e) => {
@@ -25,6 +47,21 @@ export const setup = (p5, canvasParentRef) => {
 
   p5.background(255, 215, 235);
   p5.frameRate(60);
+
+  window.addEventListener("resize", updateCanvasSize);
+};
+
+
+export const windowResized = (p5) => {
+  let canvasWidth = Math.min(window.innerWidth * 0.8, 1024);
+  let canvasHeight = canvasWidth * (1.9 / 3);
+
+  if (window.innerWidth < 780) {
+    canvasWidth = window.innerWidth;
+    canvasHeight = window.innerHeight * 0.9;
+  }
+
+  p5.resizeCanvas(canvasWidth, canvasHeight);
 };
 
 let p5Instance = null;
@@ -52,22 +89,54 @@ export const draw = (
   const alpha = p5.map(Math.sin(p5.frameCount * 0.05), -1, 1, 50, 255); // La velocidad de parpadeo es más baja
 
   if (showInstructions) {
-    p5.fill(4, 3, 17, alpha);
-    p5.textAlign(p5.CENTER);
-    const instructionTextSize = p5.width < 600 ? 18 : 30;
-    p5.textSize(instructionTextSize);
+    p5.textAlign(p5.CENTER, p5.CENTER);
+    p5.textSize(30);
     p5.textFont("IBM Plex Sans");
-    const instructionText = "✨ Choose an image, then print it by dragging the mouse over the canvas ✨";
-    p5.text(instructionText, p5.width / 2, p5.height / 2 + instructionTextSize / 2);
-  } else if (showSecondInstruction && !printedFirstImage && imagesHistory.current.length === 0) {
+  
+    const fadeInDuration = 120;
+    const fadeOutDuration = 120;
+    const totalDuration = fadeInDuration + fadeOutDuration;
+  
+    let alpha = 255;
+    const cyclePosition = p5.frameCount % totalDuration;
+    if (cyclePosition < fadeInDuration) {
+      alpha = p5.lerp(0, 255, cyclePosition / fadeInDuration);
+    } else if (cyclePosition < totalDuration) {
+      const fadeOutPosition = cyclePosition - fadeInDuration;
+      alpha = p5.lerp(255, 0, fadeOutPosition / fadeOutDuration);
+    }
+  
+    const instructionText =
+      "✨ Choose an image, press and hold the mouse to drag and paint the image over the canvas ✨";
+  
+    const wrappedText = wrapText(instructionText, p5.width - 40, p5);
+  
     p5.fill(4, 3, 17, alpha);
-    p5.textAlign(p5.CENTER);
-    const instructionTextSize = p5.width < 600 ? 18 : 30;
-    p5.textSize(instructionTextSize);
-    p5.textFont("IBM Plex Sans");
-    const instructionText = "👆 Press and hold the mouse to drag and paint the image on the canvas.  🎨";
-    p5.text(instructionText, p5.width / 2, p5.height / 2 + instructionTextSize / 2);
+    const lineHeight = 40;
+    wrappedText.forEach((line, index) => {
+      p5.text(line, p5.width / 2, p5.height / 2 + index * lineHeight);
+    });
   }
+  
+  function wrapText(text, maxWidth, p5) {
+    const words = text.split(" ");
+    let lines = [];
+    let currentLine = words[0];
+  
+    for (let i = 1; i < words.length; i++) {
+      const word = words[i];
+      const width = p5.textWidth(currentLine + " " + word);
+      if (width < maxWidth) {
+        currentLine += " " + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+    lines.push(currentLine); // Añadir la última línea
+    return lines;
+  }
+  
 
   // Dibuja las imágenes históricas
   for (let i = 0; i < imagesHistory.current.length; i++) {

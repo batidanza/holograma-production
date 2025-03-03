@@ -12,6 +12,7 @@ import smallSizeIcon from "../../../../../assets/icons/picture_small.svg";
 import mediumSizeIcon from "../../../../../assets/icons/picture_medium.svg";
 import largeSizeIcon from "../../../../../assets/icons/picture_large.svg";
 import backgroundSizeIcon from "../../../../../assets/icons/wallpaper.svg";
+import refresh from "../../../../../assets/icons/refresh2.svg";
 
 import downloadIcon from "../../../../../assets/icons/download_icon.svg";
 import chooseImage from "../../../../../assets/icons/choose_image.svg";
@@ -25,6 +26,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { saveSketch } from "../p5-functions/CanvasSetupAndDraw";
 import ImagesContainer from "./ImagesContainer";
 import { FaAngleDown } from "react-icons/fa6";
+import { getP5Instance } from "../p5-functions/P5Instance";
 
 const PrintImagesJsx = ({
   drawImage,
@@ -50,6 +52,7 @@ const PrintImagesJsx = ({
   mouseDragged,
   setup,
   draw,
+  windowResized
 }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedSize, setSelectedSize] = useState(size);
@@ -94,6 +97,22 @@ const PrintImagesJsx = ({
     }
   };
 
+  const handleClearCanvas = () => {
+    const p5 = getP5Instance(); // Access the p5 instance
+
+    imagesHistory.current = []; // Vaciar historial de imágenes
+    setSelectedImage(null); // Asegurar que no quede imagen seleccionada
+    setIgnoreCanvasClicks(true);
+  
+    if (p5) {
+      p5.background(255); // Limpia el canvas manualmente
+    }
+  
+    setTimeout(() => setIgnoreCanvasClicks(false), 300); // Reactivar clics después de un momento
+  };
+
+  
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if ((event.metaKey || event.ctrlKey) && event.key === "z") {
@@ -135,11 +154,23 @@ const PrintImagesJsx = ({
       setShowInstructions
     );
 
-    setShowInstructions(false)
-    setShowSecondInstruction(true)
+    setShowInstructions(false);
+    setShowSecondInstruction(true);
 
     setTimeout(() => setIgnoreCanvasClicks(false), 0);
   };
+  useEffect(() => {
+    const handleResize = () => {
+      const p5 = getP5Instance();
+      if (p5) {
+        windowResized(p5); // Llamamos a la función para redimensionar el canvas
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [getP5Instance]);
+
 
   const sizeIconMap = {
     50: extraSmallSizeIcon,
@@ -216,6 +247,9 @@ const PrintImagesJsx = ({
           >
             <img className="icon-image" src={fullScreanIcon} alt="Fullscreen" />
           </button>
+          <button className="control-button" onClick={handleClearCanvas}>
+            <img src={refresh} />
+          </button>
           {/*
          <button
             className="control-button"
@@ -251,6 +285,7 @@ const PrintImagesJsx = ({
           <div className="canvas-content">
             <Sketch
               setup={(p5, canvasParentRef) => setup(p5, canvasParentRef)}
+              windowResized={(p5) => windowResized(p5)} 
               draw={(p5) => {
                 if (!ignoreCanvasClicks) {
                   draw(
@@ -281,7 +316,6 @@ const PrintImagesJsx = ({
                   );
                 }
               }}
-
               mouseDragged={(p5) => {
                 if (!ignoreCanvasClicks) {
                   mouseDragged(
