@@ -32,6 +32,10 @@ export const setup = (p5, canvasParentRef) => {
   canvas.style("margin", "auto");
   canvas.style("user-select", "none");
   canvas.style("touch-action", "none");
+  canvas.style("border", "1.5px dashed whitesmoke");  // Aumentar el grosor del borde
+  canvas.style("border-spacing", "10px");  canvas.style("padding", "10px");
+  canvas.style("border-radius", "6px");  canvas.style("padding", "10px");
+
 
   // Establecer fuente
   p5.textFont("Array");
@@ -45,7 +49,6 @@ export const setup = (p5, canvasParentRef) => {
     { passive: false }
   );
 
-  p5.background(255, 215, 235);
   p5.frameRate(60);
 
   window.addEventListener("resize", updateCanvasSize);
@@ -79,7 +82,7 @@ export const draw = (
   size,
   eraserMode
 ) => {
-  p5.background(255);
+  p5.background(245, 245, 245);
   p5Instance = p5;
 
   // Cambia el cursor según el modo borrador

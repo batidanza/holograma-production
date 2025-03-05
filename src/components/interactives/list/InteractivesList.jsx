@@ -210,7 +210,7 @@ const InteractivesList = () => {
             y1={linePosition.startY}
             x2={linePosition.endX}
             y2={linePosition.endY}
-            stroke="#4b4b4b"
+            stroke="#ffffff"
             strokeWidth="2"
             strokeDasharray="5,5"
           />
@@ -221,7 +221,7 @@ const InteractivesList = () => {
               y1={linePosition.endY}
               x2={sketch.x + 35}
               y2={sketch.y}
-              stroke="#4b4b4b"
+              stroke="#ffffff"
               strokeWidth="2"
               strokeDasharray="5,5"
             />

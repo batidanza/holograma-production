@@ -32,25 +32,25 @@
 
 .image-column {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  flex-direction: column-reverse;
+  gap: 8px;
 }
-
 .our-image {
   margin-bottom: 10px;
   cursor: pointer;
   border-radius: 6px;
-  padding: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   object-fit: contain;
-  background-color: rgb(255, 255, 255);
   overflow: hidden;
-  border: solid 1px #040311;
+  border: 1.5px dashed whitesmoke; /* Borde dashed */
   width: 70px;
   height: 70px;
+  padding: 10px; /* Agregar padding para dejar espacio entre el borde y el contenido */
+  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
 }
+
 
 .our-image img {
   max-width: 100%;
@@ -60,7 +60,6 @@
 
 .control-button {
   border-radius: 6px;
-  color: rgb(77, 52, 65);
   background-color: transparent;
   font-size: 1vw;
   width: 45px;
@@ -69,7 +68,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: #ffffff;
+  background-color: rgb(245, 245, 245);
   border: solid 1px #040311;
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 400;
@@ -88,15 +87,9 @@
   align-items: center;
   justify-content: center;
   object-fit: contain;
-  background-color: #ffffff;
-  overflow: hidden;
-  border: solid 1px #040311;
+  border: dashed 1.5px whitesmoke;
   width: 70px;
   height: 70px;
-}
-
-.control-button-add-photo:hover {
-  opacity: 0.6;
 }
 
 .our-image.selected {
@@ -147,6 +140,39 @@
   gap: 5px;
   position: absolute;
 }
+
+.size-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 25px;
+}
+.tooltip {
+  position: relative;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  color: whitesmoke;
+  text-align: center;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px dashed whitesmoke;
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
 
 @media (min-width: 300px) and (max-width: 1000px) {
   .canvas-images-container {

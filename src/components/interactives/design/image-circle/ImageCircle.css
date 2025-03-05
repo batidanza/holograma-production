@@ -88,8 +88,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: #ffffff;
-  border: solid 1px #040311;
+  border:1.5px dashed whitesmoke;
 }
 
 .sketch-controls {

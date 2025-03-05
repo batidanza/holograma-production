@@ -14,7 +14,20 @@
   height: 100vh;
   justify-content: center;
   font-family: "IBM Plex Sans", sans-serif;
+  color: red;
+  background-color: rgb(33, 33, 48);
+  font-size: 18px;
+  font-weight: 400;
 }
+
+.sketch-container .fluid-component {
+  background-color: rgb(41, 40, 36);
+}
+
+.fullscreen-icon {
+  fill: red;
+}
+ 
 
 .sketch-content {
   display: flex;
@@ -63,7 +76,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  background-color: rgba(81, 81, 81, 0.557);
   color: #ffffff;
   padding: 10px;
   border-radius: 6px;

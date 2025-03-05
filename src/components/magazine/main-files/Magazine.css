@@ -1,49 +1,35 @@
-.magazine {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.magazine-container {
+  position: relative;
 }
-.animated {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 15vh;
+
+.carousel-navigation {
+  position: absolute;
+  top: 50%;
   width: 100%;
-  justify-content: center;
-  gap: 100px;
-  width: 100;
-}
-.text-animation {
-  color: #040311;;
-  font-size: 16px;
-  font-family: "IBM Plex Sans", sans-serif;
-  width: 650px;
-  font-weight: 400;
-  letter-spacing: 1.5px;
-}
-
-.particle {
   display: flex;
-  justify-content: center;
-  margin-top: 3vw;
-}
-
-@media only screen and (max-width: 1268px) {
-  .animated {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .text-animation {
-    width: 80%;
-    align-items: center;
-  }
-}
-
-@media only screen and (max-width: 568px) {
-.text-animation {
-  width: 90%;
+  justify-content: space-between;
   align-items: center;
+  transform: translateY(-50%);
+  z-index: 1;
 }
+
+.carousel-prev,
+.carousel-next {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 32px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-prev:disabled,
+.carousel-next:disabled {
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: not-allowed;
 }

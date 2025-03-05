@@ -18,7 +18,9 @@ import downloadIcon from "../../../../../assets/icons/download_icon.svg";
 import chooseImage from "../../../../../assets/icons/choose_image.svg";
 import fullScreanIcon from "../../../../../assets/icons/full_screan.svg";
 import undoIcon from "../../../../../assets/icons/undo.svg";
-import plusIcon from "../../../../../assets/icons/plus-symbol.svg";
+import plusIcon from "../../../../../assets/icons/plus-icon.svg";
+import minorIcon from "../../../../../assets/icons/minor-icon.svg";
+
 import "./PrintImages.css";
 import { getPhotoByArchive } from "../../../../../services/ArchiveAPI";
 import "slick-carousel/slick/slick.css";
@@ -199,18 +201,22 @@ const PrintImagesJsx = ({
   };
 
   const renderSizeButtons = () => {
-    const sizeButtons = [50, 150, 250, 500, 1050].map((s) => (
-      <button
-        key={s}
-        className={`control-button ${selectedSize === s ? "selected" : ""}`}
-        onClick={() => handleSizeChangeButton(s)}
-      >
-        <img className="icon-image" src={sizeIconMap[s]} alt={`Size ${s}`} />
+    return (
+      <div className="size-controls">
+      <button className="control-button tooltip" onClick={() => handleSizeChangeButton(selectedSize - 50)} disabled={selectedSize <= 50}>
+        <img src={minorIcon}/>
+        <span className="tooltip-text">{selectedSize}px</span>
       </button>
-    ));
-
-    return <div className="button-row">{sizeButtons}</div>;
+    
+      <button className="control-button tooltip" onClick={() => handleSizeChangeButton(selectedSize + 50)} disabled={selectedSize >= 1050}>
+      <img src={plusIcon}/>
+        <span className="tooltip-text">{selectedSize}px</span>
+      </button>
+    </div>
+    
+    );
   };
+  
 
   const settings = {
     dots: false,
@@ -242,13 +248,15 @@ const PrintImagesJsx = ({
         <div className="image-sizes">
           {renderSizeButtons()}
           <button
-            className="control-button"
+            className="control-button tooltip"
             onClick={() => handleButtonClickWithIgnore(openFullscreen)}
           >
             <img className="icon-image" src={fullScreanIcon} alt="Fullscreen" />
+            <span className="tooltip-text">Full Screan</span>
           </button>
-          <button className="control-button" onClick={handleClearCanvas}>
+          <button className="control-button tooltip" onClick={handleClearCanvas}>
             <img src={refresh} />
+            <span className="tooltip-text">Reset</span>
           </button>
           {/*
          <button
@@ -262,8 +270,9 @@ const PrintImagesJsx = ({
             <img className="icon-image" src={undoIcon} alt="Undo" />
           </button>
           */}
-          <button className="control-button" onClick={handleDownload}>
+          <button className="control-button tooltip" onClick={handleDownload}>
             <img className="icon-image" src={downloadIcon} alt="Download" />
+            <span className="tooltip-text">Save</span>
           </button>
         </div>
         <div className="canvas-controls-desktop-row">
@@ -345,12 +354,13 @@ const PrintImagesJsx = ({
               />
             ))}
             <div
-              className="control-button-add-photo"
+              className="control-button-add-photo tooltip"
               onClick={() =>
                 document.getElementById("dynamicImageInput").click()
               }
             >
               <img src={plusIcon} alt="Upload" />
+              <span className="tooltip-text">Add Images</span>
             </div>
 
             <input

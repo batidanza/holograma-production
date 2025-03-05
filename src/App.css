@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-color: rgb(187, 196, 202);
+  background-color: rgb(84, 108, 121);
 }
 
 *::-webkit-scrollbar {
@@ -65,6 +65,20 @@ body {
 
 .custom-range::-webkit-slider-thumb:hover {
   transform: scale(1.2);
+}
+
+.sketch-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  width: 100vw;
+  height: 100vh;
+  pad: 40px;
+  gap: 100px;
+  margin-top: 20px;
 }
 
 .sketch-container {
