@@ -14,7 +14,7 @@ const PrintImages = () => {
   const [printedFirstImage, setPrintedFirstImage] = useState(false);
 
   const [size, setSize] = useState(() => {
-    return window.innerWidth < 710 ? 50 : 100;
+    return window.innerWidth < 710 ? 50 : 400;
   });
 
   const imgRef = useRef(null);

@@ -22,19 +22,17 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 20px;
-}
-
-.image-row {
-  display: flex;
-  flex-direction: column;
+  gap: 45px;
 }
 
 .image-column {
   display: flex;
   flex-direction: column-reverse;
-  gap: 8px;
+  gap: 20px;
+  align-items: center;
+  position: relative; /* This makes the button position relative to the image container */
 }
+
 .our-image {
   margin-bottom: 10px;
   cursor: pointer;
@@ -44,13 +42,17 @@
   justify-content: center;
   object-fit: contain;
   overflow: hidden;
-  border: 1.5px dashed whitesmoke; /* Borde dashed */
-  width: 70px;
-  height: 70px;
-  padding: 10px; /* Agregar padding para dejar espacio entre el borde y el contenido */
-  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
-}
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  background-color: rgb(245, 245, 245);
+  box-sizing: border-box;
 
+  /* Agregar outline separado del fondo */
+  border: none;
+  outline: 1.5px dashed whitesmoke;
+  outline-offset: 5px; /* Controla la distancia del borde al fondo */
+}
 
 .our-image img {
   max-width: 100%;
@@ -88,13 +90,34 @@
   justify-content: center;
   object-fit: contain;
   border: dashed 1.5px whitesmoke;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
+}
+
+.close-button {
+  display: none; /* Hide by default */
+  position: absolute;
+  top: -15px;
+  left: 67px;
+  background-color: rgba(126, 10, 10, 0.5);
+  color: rgb(255, 0, 0);
+  border: none;
+  font-size: 16px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 1500;
+}
+
+.image-column:hover .our-image + .close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .our-image.selected {
-  opacity: 0.6;
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(222, 234, 243, 0.789);
 }
 .image-sizes {
   display: flex;
@@ -122,6 +145,12 @@
   width: 72%;
   color: rgb(255, 255, 255);
   font-size: 1vw;
+}
+
+.image-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .image-size-title {
@@ -173,24 +202,19 @@
   opacity: 1;
 }
 
-
 @media (min-width: 300px) and (max-width: 1000px) {
   .canvas-images-container {
     gap: 2vw;
     margin-top: 10vh;
     flex-direction: column;
   }
-
-  .image-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-  }
 }
 
-.image-row {
-  gap: 20px;
+@media (max-height: 820px) {
+  .our-image {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 .all-images-container {
@@ -216,6 +240,12 @@
 @media (min-width: 200px) and (max-width: 1200px) {
   .canvas-controls-desktop-row {
     flex-direction: column;
+  }
+
+  .image-items {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
   }
 
   .canvas-images-container {
@@ -246,24 +276,13 @@
     width: 50px;
     height: auto;
   }
-
-  .image-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
 }
 
-@media (min-width: 1201px) and (max-height: 1065px) {
-  .image-row {
-    gap: 7px;
-  }
-
+@media (min-width: 1201px) and (max-height: 1025px) {
   .canvas-images-container {
     margin-top: 150px;
   }
 }
-
 
 @media (max-width: 900px) {
   .our-image {
@@ -305,11 +324,5 @@
     text-orientation: upright;
     width: 35px;
     height: auto;
-  }
-
-  .image-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
   }
 }

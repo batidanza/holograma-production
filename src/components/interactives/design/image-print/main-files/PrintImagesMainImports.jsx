@@ -11,7 +11,7 @@ import extraSmallSizeIcon from "../../../../../assets/icons/extra_small.svg";
 import smallSizeIcon from "../../../../../assets/icons/picture_small.svg";
 import mediumSizeIcon from "../../../../../assets/icons/picture_medium.svg";
 import largeSizeIcon from "../../../../../assets/icons/picture_large.svg";
-import backgroundSizeIcon from "../../../../../assets/icons/wallpaper.svg";
+import wallpaper from "../../../../../assets/icons/wallpaper.svg";
 import refresh from "../../../../../assets/icons/refresh2.svg";
 
 import downloadIcon from "../../../../../assets/icons/download_icon.svg";
@@ -54,7 +54,7 @@ const PrintImagesJsx = ({
   mouseDragged,
   setup,
   draw,
-  windowResized
+  windowResized,
 }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedSize, setSelectedSize] = useState(size);
@@ -105,15 +105,13 @@ const PrintImagesJsx = ({
     imagesHistory.current = []; // Vaciar historial de imágenes
     setSelectedImage(null); // Asegurar que no quede imagen seleccionada
     setIgnoreCanvasClicks(true);
-  
+
     if (p5) {
       p5.background(255); // Limpia el canvas manualmente
     }
-  
+
     setTimeout(() => setIgnoreCanvasClicks(false), 300); // Reactivar clics después de un momento
   };
-
-  
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -140,6 +138,12 @@ const PrintImagesJsx = ({
       }
     }
     setDrawImage((prev) => !prev); // Toggle to refresh
+  };
+
+  const removeImage = (imageToRemove) => {
+    setUploadedImages((prevImages) =>
+      prevImages.filter((image) => image !== imageToRemove)
+    );
   };
 
   const handleImageSelect = (image) => {
@@ -173,15 +177,6 @@ const PrintImagesJsx = ({
     return () => window.removeEventListener("resize", handleResize);
   }, [getP5Instance]);
 
-
-  const sizeIconMap = {
-    50: extraSmallSizeIcon,
-    150: smallSizeIcon,
-    250: mediumSizeIcon,
-    500: largeSizeIcon,
-    1050: backgroundSizeIcon,
-  };
-
   const handleImageUploadDynamic = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -203,20 +198,26 @@ const PrintImagesJsx = ({
   const renderSizeButtons = () => {
     return (
       <div className="size-controls">
-      <button className="control-button tooltip" onClick={() => handleSizeChangeButton(selectedSize - 50)} disabled={selectedSize <= 50}>
-        <img src={minorIcon}/>
-        <span className="tooltip-text">{selectedSize}px</span>
-      </button>
-    
-      <button className="control-button tooltip" onClick={() => handleSizeChangeButton(selectedSize + 50)} disabled={selectedSize >= 1050}>
-      <img src={plusIcon}/>
-        <span className="tooltip-text">{selectedSize}px</span>
-      </button>
-    </div>
-    
+        <button
+          className="control-button tooltip"
+          onClick={() => handleSizeChangeButton(selectedSize - 50)}
+          disabled={selectedSize <= 50}
+        >
+          <img src={minorIcon} />
+          <span className="tooltip-text">{selectedSize}px</span>
+        </button>
+
+        <button
+          className="control-button tooltip"
+          onClick={() => handleSizeChangeButton(selectedSize + 50)}
+          disabled={selectedSize >= 1050}
+        >
+          <img src={plusIcon} />
+          <span className="tooltip-text">{selectedSize}px</span>
+        </button>
+      </div>
     );
   };
-  
 
   const settings = {
     dots: false,
@@ -254,7 +255,10 @@ const PrintImagesJsx = ({
             <img className="icon-image" src={fullScreanIcon} alt="Fullscreen" />
             <span className="tooltip-text">Full Screan</span>
           </button>
-          <button className="control-button tooltip" onClick={handleClearCanvas}>
+          <button
+            className="control-button tooltip"
+            onClick={handleClearCanvas}
+          >
             <img src={refresh} />
             <span className="tooltip-text">Reset</span>
           </button>
@@ -272,11 +276,11 @@ const PrintImagesJsx = ({
           */}
           <button className="control-button tooltip" onClick={handleDownload}>
             <img className="icon-image" src={downloadIcon} alt="Download" />
-            <span className="tooltip-text">Save</span>
+            <span className="tooltip-text">Download</span>
           </button>
         </div>
         <div className="canvas-controls-desktop-row">
-          <div className="image-row">
+          <div className="image-items">
             {[horseImage, image1, image2, image3, image4, image5].map(
               (image) => (
                 <img
@@ -294,7 +298,7 @@ const PrintImagesJsx = ({
           <div className="canvas-content">
             <Sketch
               setup={(p5, canvasParentRef) => setup(p5, canvasParentRef)}
-              windowResized={(p5) => windowResized(p5)} 
+              windowResized={(p5) => windowResized(p5)}
               draw={(p5) => {
                 if (!ignoreCanvasClicks) {
                   draw(
@@ -343,23 +347,34 @@ const PrintImagesJsx = ({
 
           <div className="image-column">
             {uploadedImages.map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt="uploaded-image"
-                className={`our-image ${
-                  selectedImage === image ? "selected" : ""
-                }`}
-                onClick={() => handleImageSelect(image)}
-              />
+              <div key={index} className="image-column">
+                <img
+                  src={image}
+                  alt="uploaded-image"
+                  className={`our-image ${
+                    selectedImage === image ? "selected" : ""
+                  }`}
+                  onClick={() => handleImageSelect(image)}
+                />
+                <button
+                  className="close-button"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Evita que el clic afecte la selección de la imagen
+                    removeImage(image);
+                  }}
+                >
+                  <img src={minorIcon}/>
+                </button>
+              </div>
             ))}
+
             <div
               className="control-button-add-photo tooltip"
               onClick={() =>
                 document.getElementById("dynamicImageInput").click()
               }
             >
-              <img src={plusIcon} alt="Upload" />
+              <img src={wallpaper} alt="Upload" />
               <span className="tooltip-text">Add Images</span>
             </div>
 

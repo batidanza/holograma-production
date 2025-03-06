@@ -78,22 +78,8 @@ body {
   height: 100vh;
   pad: 40px;
   gap: 100px;
-  margin-top: 20px;
-}
+   }
 
-.sketch-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  width: 100vw;
-  height: 100vh;
-  pad: 40px;
-  gap: 100px;
-  margin-top: 20px;
-}
 
 .image-size-range {
   display: flex;
