@@ -43,7 +43,7 @@
   opacity: 0.9;
 }
 .navbar-open {
-  background-color: #3b2f2a;
+  background-color:#DA002B;
   z-index: 1100;
   align-items: center;
 }
@@ -127,7 +127,7 @@
 }
 
 .art-options {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 550;
   color: #f6f6f6;
   align-items: center;
@@ -259,7 +259,7 @@
     justify-content: space-around;
     align-items: center;
     border-right: none;
-    border-bottom: 1.5px solid#040311;
+    border-bottom: 1.5px dashed whitesmoke;
     flex-direction: row;
     align-items: center;
   }

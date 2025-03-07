@@ -13,6 +13,8 @@ import mediumSizeIcon from "../../../../../assets/icons/picture_medium.svg";
 import largeSizeIcon from "../../../../../assets/icons/picture_large.svg";
 import wallpaper from "../../../../../assets/icons/wallpaper.svg";
 import refresh from "../../../../../assets/icons/refresh2.svg";
+import eraserModeIcon from "../../../../../assets/icons/eraser.svg";
+import eraserOfIcon from "../../../../../assets/icons/eraser_of.svg";
 
 import downloadIcon from "../../../../../assets/icons/download_icon.svg";
 import chooseImage from "../../../../../assets/icons/choose_image.svg";
@@ -61,6 +63,7 @@ const PrintImagesJsx = ({
   const [ignoreCanvasClicks, setIgnoreCanvasClicks] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [uploadedImages, setUploadedImages] = useState([]);
+  const [eraserMode, setEraserMode] = useState(false);
   {
     /* 
   useEffect(() => {
@@ -257,6 +260,22 @@ const PrintImagesJsx = ({
           </button>
           <button
             className="control-button tooltip"
+            onClick={() => setEraserMode(!eraserMode)}
+          >
+            {eraserMode ? (
+              <img src={eraserOfIcon} />
+            ) : (
+              <img src={eraserModeIcon} />
+            )}
+            <span className="tooltip-text">
+              {eraserMode
+                ? "Eraser Of"
+                : "Eraser On"}
+            </span>
+          </button>
+
+          <button
+            className="control-button tooltip"
             onClick={handleClearCanvas}
           >
             <img src={refresh} />
@@ -311,7 +330,8 @@ const PrintImagesJsx = ({
                     userImage,
                     setShowSecondInstruction,
                     setPrintedFirstImage,
-                    size
+                    size,
+                    eraserMode
                   );
                 }
               }}
@@ -363,7 +383,7 @@ const PrintImagesJsx = ({
                     removeImage(image);
                   }}
                 >
-                  <img src={minorIcon}/>
+                  <img src={minorIcon} />
                 </button>
               </div>
             ))}

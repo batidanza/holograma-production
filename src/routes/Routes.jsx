@@ -67,7 +67,6 @@ const AppRoutes = () => {
         <Route path="/chaotic" element={<BackgroundSketch />} />
         <Route path="/sketch" element={<Pad />} />
         <Route path="/alma" element={<Alma />} />
-
         <Route
           path="/collection-archive-photos-upload"
           element={<UploadArchivePhotos />}

@@ -1,4 +1,5 @@
 import { setP5Instance } from "./P5Instance";
+import pencilIcon from "../../../../../assets/icons/pencil_icon.svg"
 
 
 export const setup = (p5, canvasParentRef) => {
@@ -83,49 +84,44 @@ export const draw = (
   eraserMode
 ) => {
   p5.background(245, 245, 245);
-  p5Instance = p5;
-
-  // Cambia el cursor según el modo borrador
+  
   p5.cursor(eraserMode ? "crosshair" : "default");
-
-  // Suavizamos el efecto de opacidad con un cambio gradual
-  const alpha = p5.map(Math.sin(p5.frameCount * 0.05), -1, 1, 50, 255); // La velocidad de parpadeo es más baja
 
   if (showInstructions) {
     p5.textAlign(p5.CENTER, p5.CENTER);
     p5.textSize(30);
     p5.textFont("IBM Plex Sans");
-  
+
     const fadeInDuration = 120;
     const fadeOutDuration = 120;
     const totalDuration = fadeInDuration + fadeOutDuration;
-  
+
     let alpha = 255;
     const cyclePosition = p5.frameCount % totalDuration;
     if (cyclePosition < fadeInDuration) {
       alpha = p5.lerp(0, 255, cyclePosition / fadeInDuration);
-    } else if (cyclePosition < totalDuration) {
+    } else {
       const fadeOutPosition = cyclePosition - fadeInDuration;
       alpha = p5.lerp(255, 0, fadeOutPosition / fadeOutDuration);
     }
-  
+
     const instructionText =
       "✨ Choose an image, press and hold the mouse to drag and paint the image over the canvas ✨";
-  
+
     const wrappedText = wrapText(instructionText, p5.width - 40, p5);
-  
+
     p5.fill(4, 3, 17, alpha);
     const lineHeight = 40;
     wrappedText.forEach((line, index) => {
       p5.text(line, p5.width / 2, p5.height / 2 + index * lineHeight);
     });
   }
-  
+
   function wrapText(text, maxWidth, p5) {
     const words = text.split(" ");
     let lines = [];
     let currentLine = words[0];
-  
+
     for (let i = 1; i < words.length; i++) {
       const word = words[i];
       const width = p5.textWidth(currentLine + " " + word);
@@ -136,10 +132,18 @@ export const draw = (
         currentLine = word;
       }
     }
-    lines.push(currentLine); // Añadir la última línea
+    lines.push(currentLine);
     return lines;
   }
-  
+
+  // Si está en modo borrador y el mouse está presionado, eliminar imágenes cercanas
+if (eraserMode && p5.mouseIsPressed) {
+  // Elimina imágenes cercanas al mouse
+  imagesHistory.current = imagesHistory.current.filter(({ x, y, width, height }) => {
+    const d = p5.dist(p5.mouseX, p5.mouseY, x, y);
+    return d > Math.max(width, height) * 0.3; // Borra si está cerca
+  });
+}
 
   // Dibuja las imágenes históricas
   for (let i = 0; i < imagesHistory.current.length; i++) {
@@ -148,7 +152,7 @@ export const draw = (
   }
 
   // Dibuja la imagen del usuario si está habilitado
-  if (drawImage && userImage && p5.mouseIsPressed) {
+  if (!eraserMode && drawImage && userImage && p5.mouseIsPressed) {
     const currentImage = {
       img: userImage,
       x: p5.mouseX,
@@ -163,6 +167,7 @@ export const draw = (
     }
   }
 };
+
 
 
 export const saveSketch = () => {

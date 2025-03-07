@@ -17,13 +17,15 @@
   font-weight: 700;
   font-style: normal;
   font-size: 20px;
-  color: #040311;
+  color: whitesmoke;
   width: 100%;
   max-width: 520px;
   box-sizing: border-box;
   border-radius: 6px;
-  padding: 5%;
-  background-color: rgb(183, 206, 255);
+  padding: 50px; /* Espacio interno entre el borde y el contenido */
+  background-color: rgb(28, 38, 59);
+  border: dashed 2px whitesmoke;
+  background-clip: padding-box; /* Evita que el fondo se meta en el borde */
   opacity: 0.8;
   height: fit-content;
 }
@@ -42,15 +44,14 @@
 
 .dropdown-header {
   padding: 10px;
-  border: 1px solid #040311;
+  border: 1.5px dashed whitesmoke;
   border-radius: 4px;
-  color: #040311;
+  color: whitesmoke;
   cursor: pointer;
   margin-bottom: 10px;
 }
 
 .dropdown-header:focus {
-  border-color: #040311;
   outline: none;
 }
 
@@ -59,11 +60,14 @@
   top: 100%;
   left: 0;
   width: 100%;
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solidwhitesmoke;
   border-top: none;
   border-radius: 0 0 4px 4px;
-  color: rgb(255, 255, 255);
+  color: whitesmoke;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgb(0, 0, 255);
+  border: dashed 1.5px whitesmoke;
+  border-radius: 6px;
 }
 
 .dropdown-option {
@@ -72,31 +76,30 @@
 }
 
 .dropdown-option:hover {
-  background-color: #f0f0f0;
+  background-color: #333472;
 }
 
 .custom-text-input {
   width: 100%;
   height: 50px;
   padding: 8px;
-  font-size: 14px;
-  border: 1px solid #040311;
+  font-size: 16px;
+  border: 1.5px dashed whitesmoke;
   border-radius: 6px;
   box-sizing: border-box;
-  color: #040311;
+  color: whitesmoke;
   transition: none;
   background-color: transparent;
 }
 
 .custom-text-input:focus {
   outline: none;
-  border: 1.3px solid #040311; 
-  box-shadow: 0 0 6px #040311;
+  box-shadow: 0 0 6px whitesmoke;
   transition: box-shadow 0.2s ease, border 0.2s ease;
 }
 
 .custom-text-input::placeholder {
-  color: #040311;
+  color: whitesmoke;
 }
 
 .uploader-container {
@@ -104,15 +107,15 @@
   flex-direction: column;
   justify-content: center;
   margin: 2vh auto;
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(255, 255, 255);
+  color: whitesmoke;
+  border: 1px dashed whitesmoke;
   width: 100%;
   max-width: 600px;
   box-sizing: border-box;
   border-radius: 4px;
   gap: 27px;
   padding: 5%;
-  background-color: rgb(255, 255, 255);
+  background-color: whitesmoke;
   opacity: 0.8;
   height: 80vh;
 }
@@ -120,7 +123,7 @@
 .drop-zone {
   width: 95%;
   height: 160px;
-  border: 3px dashed rgb(255, 255, 255);
+  border: 3px dashed whitesmoke;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,15 +140,15 @@
 }
 
 .my-form-title {
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
 
 .my-label-form,
 .form-title {
   display: block;
   margin-bottom: 5px;
-  color: #040311;
-  font-size: 1em;
+  color: whitesmoke;
+  font-size: 0.9em;
   white-space: nowrap;
 }
 
@@ -153,27 +156,27 @@
 .my-textarea-form {
   width: 100%;
   max-width: 100%;
-  border: 1.5px solid rgb(255, 255, 255);
+  border: 1.5px dashed whitesmoke;
   padding: 5px;
   outline: none;
   margin-bottom: 15px;
   border-radius: 4px;
   box-sizing: border-box;
-  background-color: rgb(255, 255, 255);
+  background-color: whitesmoke;
 }
 
 .my-select-form {
   width: 100%;
   max-width: 100%;
-  background-color: rgb(255, 255, 255);
-  border: 1.5px solid rgb(255, 255, 255);
+  background-color: whitesmoke;
+  border: 1.5px solidwhitesmoke;
   padding: 5px;
   border-radius: 4px;
   outline: none;
   border-radius: 2px;
   margin-bottom: 15px;
   box-sizing: border-box;
-  color: rgb(255, 255, 255);
+  color: whitesmoke;
 }
 
 .my-select-container {
@@ -187,7 +190,7 @@
   right: 0;
   bottom: 0;
   padding: 5px;
-  color: #040311;
+  color: whitesmoke;
   pointer-events: none;
   z-index: 1;
 }
@@ -201,43 +204,29 @@
   background-color: transparent;
   padding: 10px;
   color: #3c4043;
-  background-color: rgb(255, 255, 255);
+  background-color: whitesmoke;
   justify-content: center;
   gap: 10px;
   font-weight: 600;
   font-size: 1em;
-  border: solid 1px#040311;
+  border: dashed 1px  whitesmoke;
 }
 
 .my-button-form,
 .my-link-form {
   margin-top: 2vw;
-  color: #040311;
-  background-color: rgb(255, 255, 255);
+  color: whitesmoke;
   text-decoration: none;
   text-align: center;
   padding: 10px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1em;
-  border: solid 1px#040311;
+  border: dashed 1.5px whitesmoke;
 }
 
 .my-button-form:hover {
-  background-color: rgb(145, 231, 255);
-}
-
-.management-button {
-  background-color: rgba(159, 187, 252, 0.678);
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  border: solid 1.5px #00965e;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 1.7rem;
-  color: #00965e;
-  width: 350px;
+  background-color: rgb(39, 49, 52);
 }
 
 .my-form-form {
@@ -266,14 +255,14 @@
   margin: 2vh auto;
   font-size: 20px;
   margin-bottom: 20px;
-  color: rgb(255, 255, 255);
-  border: solid 1.5px rgb(255, 255, 255);
+  color: whitesmoke;
+  border: solid 1.5pxwhitesmoke;
   width: 100%;
   max-width: 800px;
   box-sizing: border-box;
   border-radius: 4px;
   padding: 5%;
-  background-color: rgb(255, 255, 255);
+  background-color: whitesmoke;
   opacity: 0.8;
   height: 80vh;
 }

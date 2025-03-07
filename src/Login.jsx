@@ -52,7 +52,7 @@ const Login = () => {
       <div className="my-container-form">
         {isLoading && <LoadingSketch />}
         {error && <div className="error-message">{error}</div>}
-        <h2 className="my-form-title">Login</h2>
+        <h2 className="my-form-title">LOGIN</h2>
         <form
           className="my-form-form"
           onSubmit={handleSubmit}
