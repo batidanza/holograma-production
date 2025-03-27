@@ -8,7 +8,15 @@
   width: 100vw;
   height: 100vh;
   pad: 40px;
-  gap: 60px;
+  flex-direction: column;
+}
+
+.sketch-draw-image-figure-container-column {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+gap: 20px;
+align-items: center;
 }
 
 .sketch-draw-image-figure-content {
@@ -24,8 +32,9 @@
   appearance: none;
   width: 50%;
   height: 6px;
-  background: linear-gradient(to right, #c2c2c2, #180d46);
+  background-color: whitesmoke;
   border-radius: 5px;
+  border: dashed 2px whitesmoke;
   outline: none;
   opacity: 0.9;
   transition: opacity 0.2s;
@@ -44,7 +53,7 @@
   width: 18px;
   height: 18px;
   background: rgb(150, 144, 44);
-  border: 2px solid #000000;
+  border: 2px dashed whitesmoke;
   border-radius: 50%;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;

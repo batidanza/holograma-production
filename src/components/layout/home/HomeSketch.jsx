@@ -161,16 +161,8 @@ export default function HomeSketch() {
     }
   }
   // Get background color based on time
-  const getBackgroundColor = (p5) => {
-    // Base color: rgb(94, 79, 63)
-    const time = p5.frameCount * 0.005
-
-    // Subtle variations around the base color
-    const r = 94 + Math.sin(time) * 10
-    const g = 79 + Math.sin(time * 0.7) * 8
-    const b = 63 + Math.sin(time * 1.3) * 6
-
-    return [r, g, b]
+  const getBackgroundColor = () => {
+    return [45, 30, 20] // Marrón oscuro profundo y sofisticado
   }
 
   // Add a water ripple at the given position

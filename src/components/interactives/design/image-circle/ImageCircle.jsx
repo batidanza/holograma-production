@@ -10,6 +10,8 @@ import sideSquareIcon from "../../../../assets/icons/side_square.svg";
 import circleIcon from "../../../../assets/icons/circle.svg";
 import blur from "../../../../assets/icons/blur.svg";
 import chart from "../../../../assets/icons/chart.svg";
+import wallpaper from "../../../../assets/icons/wallpaper.svg";
+
 
 const ImageCircle = () => {
   const [aureolaColor, setAureolaColor] = useState("#91A0DC");
@@ -95,13 +97,16 @@ const ImageCircle = () => {
     canvas.style("user-select", "none");
     canvas.style("touch-action", "none");
     p5.textFont("Array");
+    canvas.style("border", "1.5px dashed whitesmoke");  // Aumentar el grosor del borde
+    canvas.style("border-spacing", "10px");  canvas.style("padding", "10px");
+    canvas.style("border-radius", "6px");  canvas.style("padding", "10px");
 
     p5.frameRate(60);
   };
 
   const draw = (p5) => {
     if (!userImage) {
-      p5.background(255);
+      p5.background(245, 245, 245);
     }
 
     if (showInstructions) {
@@ -242,9 +247,8 @@ const ImageCircle = () => {
 
   return (
     <div className="sketch-draw-image-figure-container">
-      <div className="sketch-draw-image-figure-content">
-        <div className="sketch-controls">
-          <input
+      <div className="sketch-draw-image-figure-container-column">
+      <input
             type="color"
             id="aureolaColor"
             value={aureolaColor}
@@ -260,7 +264,7 @@ const ImageCircle = () => {
             onMouseDown={() => setIsControlPressed(true)}
             onMouseUp={() => setIsControlPressed(false)}
           >
-            <img className="shape-button" src={chooseImageIcon} alt="Choose" />
+            <img className="shape-button" src={wallpaper} alt="Choose" />
           </label>
           <input
             id="imageUpload"
@@ -279,7 +283,9 @@ const ImageCircle = () => {
             onMouseDown={() => setIsControlPressed(true)}
             onMouseUp={() => setIsControlPressed(false)}
           />
-
+      </div>
+      <div className="sketch-draw-image-figure-content">
+        <div className="sketch-controls">
           {/* Botones de figuras con clase "selected" cuando están activos */}
           <button
             className={`control-button ${
