@@ -15,12 +15,15 @@ import dynamic from "../../../assets/interactiveList/dynamic2.jpeg";
 import pad from "../../../assets/interactiveList/pad.jpeg";
 
 const InteractivesList = () => {
-  const [hoveredDescription, setHoveredDescription] = useState("");
+  const [hoveredDescription, setHoveredDescription] = useState("Geometric shapes, patterns, or structured art.");
   const [visibleSketches, setVisibleSketches] = useState([]);
   const [linePosition, setLinePosition] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [sketchCount, setSketchCount] = useState(visibleSketches.length);
-  const [activeSection, setActiveSection] = useState(null);
+  const [activeSection, setActiveSection] = useState({
+    name: "DESIGN",
+    description: "Geometric shapes, patterns, or structured art.",
+  });
 
   useEffect(() => {
     setSketchCount(visibleSketches.length);
@@ -146,8 +149,8 @@ const InteractivesList = () => {
       {
         id: 2,
         src: printImg2,
-        title: "SOLO BRILLABA",
-        path: "particle-component",
+        title: "Nature Abstract Sketch",
+        path: "nature",
       },
     ],
     EXPERIMENTAL: [

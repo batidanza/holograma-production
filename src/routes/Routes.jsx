@@ -24,6 +24,7 @@ import Signin from "../Signin";
 import ProtectedRoute from "../ProtectedRoute";
 import PhotoSwirlSketch from "../components/interactives/experimental/PhotoSwirlSketch";
 import Alma from "../components/interactives/artwork/Ismael.jsx";
+import NatureAbstractSketch from "../components/interactives/nature/NatureAbstractSketch.jsx";
 
 const AppRoutes = () => {
   return (
@@ -67,6 +68,8 @@ const AppRoutes = () => {
         <Route path="/chaotic" element={<BackgroundSketch />} />
         <Route path="/sketch" element={<Pad />} />
         <Route path="/alma" element={<Alma />} />
+        <Route path="/nature" element={<NatureAbstractSketch />} />
+
         <Route
           path="/collection-archive-photos-upload"
           element={<UploadArchivePhotos />}

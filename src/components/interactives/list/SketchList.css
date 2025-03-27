@@ -57,7 +57,7 @@
 
 .section-button.active,
 .section-button:hover {
-  color: #dfbaff;
+  text-shadow: 0 0 8px rgba(245, 245, 245, 0.8);
 }
 
 .sketch-random-container {

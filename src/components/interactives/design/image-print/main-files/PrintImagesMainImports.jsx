@@ -268,9 +268,7 @@ const PrintImagesJsx = ({
               <img src={eraserModeIcon} />
             )}
             <span className="tooltip-text">
-              {eraserMode
-                ? "Eraser Of"
-                : "Eraser On"}
+              {eraserMode ? "Eraser Of" : "Eraser On"}
             </span>
           </button>
 
@@ -299,21 +297,23 @@ const PrintImagesJsx = ({
           </button>
         </div>
         <div className="canvas-controls-desktop-row">
-          <div className="image-items">
-            {[horseImage, image1, image2, image3, image4, image5].map(
-              (image) => (
-                <img
-                  key={image}
-                  src={image}
-                  alt="our-image"
-                  className={`our-image ${
-                    selectedImage === image ? "selected" : ""
-                  }`}
-                  onClick={() => handleImageSelect(image)}
-                />
-              )
-            )}
-          </div>
+          {!isMobile && 
+                    <div className="image-items">
+                    {[horseImage, image1, image2, image3, image4, image5].map(
+                      (image) => (
+                        <img
+                          key={image}
+                          src={image}
+                          alt="our-image"
+                          className={`our-image ${
+                            selectedImage === image ? "selected" : ""
+                          }`}
+                          onClick={() => handleImageSelect(image)}
+                        />
+                      )
+                    )}
+                  </div>
+          }
           <div className="canvas-content">
             <Sketch
               setup={(p5, canvasParentRef) => setup(p5, canvasParentRef)}
@@ -364,7 +364,23 @@ const PrintImagesJsx = ({
               }}
             />
           </div>
-
+          {isMobile && (
+            <div className="image-items">
+              {[horseImage, image1, image2, image3, image4, image5].map(
+                (image) => (
+                  <img
+                    key={image}
+                    src={image}
+                    alt="our-image"
+                    className={`our-image ${
+                      selectedImage === image ? "selected" : ""
+                    }`}
+                    onClick={() => handleImageSelect(image)}
+                  />
+                )
+              )}
+            </div>
+          )}
           <div className="image-column">
             {uploadedImages.map((image, index) => (
               <div key={index} className="image-column">

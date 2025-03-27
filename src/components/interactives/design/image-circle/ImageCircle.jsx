@@ -254,7 +254,7 @@ const ImageCircle = () => {
             onMouseUp={() => setIsControlPressed(false)}
           />
           <label
-            style={{ backgroundColor: "#fff66e" }}
+            style={{ backgroundColor: "#96902c" }}
             htmlFor="imageUpload"
             className="control-button"
             onMouseDown={() => setIsControlPressed(true)}

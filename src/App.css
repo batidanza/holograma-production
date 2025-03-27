@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-color:#005B8A;
+  background-color:rgb(94, 79, 63);
 }
 
 *::-webkit-scrollbar {
@@ -96,7 +96,7 @@ body {
 
 .color-button {
   background-color: transparent;
-  border: solid 1px #040311;
+  border: dashed 1px whitesmoke;
   cursor: pointer;
   border-radius: 5px;
 }
