@@ -15,6 +15,22 @@ const FluidComponent = () => {
   const numParticles = 1700;
   const p5Ref = useRef(null);
   const containerRef = useRef(null);
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    let timeout;
+
+    const handleMouseMove = (event) => {
+      if (event.clientY > window.innerHeight - 100) { 
+        setShowButton(true);
+        clearTimeout(timeout);
+        timeout = setTimeout(() => setShowButton(false), 2000); // Ocultar después de 2 segundos
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   useEffect(() => {
     sound = new Audio(audio);
@@ -116,7 +132,7 @@ const FluidComponent = () => {
         const dx = p5.mouseX - particle.x;
         const dy = p5.mouseY - particle.y;
         const distance = p5.dist(p5.mouseX, p5.mouseY, particle.x, particle.y);
-      
+
         if (distance < 10) {
           particle.reachedMouse = true;
           particle.speed = p5.random(1, 3); // Asignar una nueva velocidad
@@ -128,7 +144,7 @@ const FluidComponent = () => {
           particle.y += directionY * particle.speed;
         }
       }
-      
+
       // Si la partícula ya alcanzó el mouse, que siga en movimiento
       if (particle.reachedMouse) {
         particle.x += particle.speed * p5.cos(particle.angle);
@@ -158,7 +174,7 @@ const FluidComponent = () => {
         "CRY",
         "interactive from batidanza - musician based in Buenos Aires.",
         "this experience represents a void and how crying eventually fills the void",
-        "turning it into completeness"
+        "turning it into completeness",
       ];
 
       lines.forEach((line, index) => {
@@ -166,6 +182,26 @@ const FluidComponent = () => {
       });
     }
   };
+  const togglePausePlay = () => {
+    if (paused) {
+      sound.play();
+      setAudioPlaying(true);
+    } else {
+      sound.pause();
+      setAudioPlaying(false);
+    }
+    setPaused((prev) => !prev);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (sound) {
+        sound.pause();
+        sound.currentTime = 0;
+        setAudioPlaying(false);
+      }
+    };
+  }, []);
 
   const windowResized = (p5) => {
     if (document.fullscreenElement) {
@@ -223,16 +259,15 @@ const FluidComponent = () => {
         }
       }
     };
-  
+
     // Escuchar el evento de la tecla space
     window.addEventListener("keydown", handleSpacebar);
-  
+
     // Limpiar el event listener cuando el componente se desmonta
     return () => {
       window.removeEventListener("keydown", handleSpacebar);
     };
   }, [audioPlaying]);
-  
 
   return (
     <div
@@ -254,6 +289,26 @@ const FluidComponent = () => {
           </button>
         )}
       </div>
+      {showButton && (
+        <button
+          onClick={togglePausePlay}
+          style={{
+            position: "absolute",
+            bottom: "20px",
+            right: "20px",
+            padding: "10px 15px",
+            background: "rgba(0, 0, 0, 0.7)",
+            color: "white",
+            border: "none",
+            borderRadius: "8px",
+            cursor: "pointer",
+            fontSize: "16px",
+            transition: "opacity 0.3s ease-in-out",
+          }}
+        >
+          {paused ? "Play" : "Pause"}
+        </button>
+      )}
     </div>
   );
 };

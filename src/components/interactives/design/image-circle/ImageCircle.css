@@ -15,8 +15,8 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-gap: 20px;
-align-items: center;
+  gap: 20px;
+  align-items: center;
 }
 
 .sketch-draw-image-figure-content {
@@ -96,7 +96,7 @@ align-items: center;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border:1.5px dashed whitesmoke;
+  border: 1.5px dashed whitesmoke;
 }
 
 .sketch-controls {
@@ -121,3 +121,10 @@ align-items: center;
   position: absolute;
   margin-top: 310px;
 }
+
+@media screen and (max-width: 700px) {
+  .sketch-draw-image-figure-container-column {
+    margin-top: 200px;
+  }
+}
+

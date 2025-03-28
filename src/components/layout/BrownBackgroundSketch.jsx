@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from "react"
 import Sketch from "react-p5"
-import "./HomeSketch.css"
 
-export default function HomeSketch() {
+export default function BrownBackgroundSketch() {
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
@@ -18,25 +17,25 @@ export default function HomeSketch() {
     p5.frameRate(30)
     initGridPoints(p5)
   }
-  
-  const initGridPoints = (p5) => {
-    gridPoints = []
-    const spacing = 40 // antes era 80, ahora es la mitad (doble de puntos)
-  
-    // Aquí ajustamos para que el último punto cubra todo el ancho y alto
-    for (let x = 0; x <= p5.width; x += spacing) {
-      for (let y = 0; y <= p5.height; y += spacing) {
-        gridPoints.push({
-          x: x,
-          y: y,
-          baseX: x,
-          baseY: y,
-          size: p5.random(1, 3),
-        })
-      }
+
+const initGridPoints = (p5) => {
+  gridPoints = []
+  const spacing = 40 // antes era 80, ahora es la mitad (doble de puntos)
+
+  // Aquí ajustamos para que el último punto cubra todo el ancho y alto
+  for (let x = 0; x <= p5.width; x += spacing) {
+    for (let y = 0; y <= p5.height; y += spacing) {
+      gridPoints.push({
+        x: x,
+        y: y,
+        baseX: x,
+        baseY: y,
+        size: p5.random(1, 3),
+      })
     }
   }
-  
+}
+
 
   const getBackgroundColor = () => {
     return [45, 30, 20]
@@ -56,14 +55,6 @@ export default function HomeSketch() {
       const dy = p5.mouseY - point.baseY
       const distance = Math.sqrt(dx * dx + dy * dy)
 
-      if (distance < mouseInfluenceRadius) {
-        const influence = 1 - distance / mouseInfluenceRadius
-        point.x = point.baseX + dx * influence * 0.1
-        point.y = point.baseY + dy * influence * 0.1
-      } else {
-        point.x = point.baseX
-        point.y = point.baseY
-      }
 
       p5.noStroke()
       p5.fill(245, 245, 245, 100)

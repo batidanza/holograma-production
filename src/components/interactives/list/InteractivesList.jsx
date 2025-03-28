@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./SketchList.css";
+import { Spoiler } from "spoiled";
 
-import calm from "../../../assets/interactiveList/calm.jpeg";
+import calm from "../../../assets/interactiveList/calm.png";
 import calm2 from "../../../assets/interactiveList/calm2.jpeg";
 import printImg from "../../../assets/interactiveList/print-images.jpeg";
 import printImg2 from "../../../assets/interactiveList/print-images-2.jpeg";
@@ -15,7 +16,9 @@ import dynamic from "../../../assets/interactiveList/dynamic2.jpeg";
 import pad from "../../../assets/interactiveList/pad.jpeg";
 
 const InteractivesList = () => {
-  const [hoveredDescription, setHoveredDescription] = useState("Geometric shapes, patterns, or structured art.");
+  const [hoveredDescription, setHoveredDescription] = useState(
+    "Geometric shapes, patterns, or structured art."
+  );
   const [visibleSketches, setVisibleSketches] = useState([]);
   const [linePosition, setLinePosition] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -47,7 +50,7 @@ const InteractivesList = () => {
 
       const rect = button.getBoundingClientRect();
       const startX = rect.left + rect.width / 2;
-      const startY = rect.bottom + 50;
+      const startY = rect.bottom + (isMobile ? 120 : 50);
       let endY = startY + 150;
 
       const sketches = sketchesBySection[activeSection.name] || [];
@@ -123,7 +126,7 @@ const InteractivesList = () => {
         src: calm2,
         title: "calm 2",
         path: "particle-component",
-      },     
+      },
     ],
     PSYCHEDELIC: [
       {
@@ -133,9 +136,7 @@ const InteractivesList = () => {
         path: "alma",
       },
     ],
-    CHAOTIC: [
-      { id: 4, src: chaotic , title: "chaotic", path: "chaotic" },
-    ],
+    CHAOTIC: [{ id: 4, src: chaotic, title: "chaotic", path: "chaotic" }],
     DESIGN: [
       { id: 5, src: printImg, title: "PRINT IMAGES", path: "print-images" },
       {
@@ -169,40 +170,38 @@ const InteractivesList = () => {
 
   return (
     <div className="sketch-list-view-container">
-      {!isMobile ? (
-        <div className="sketch-carousel">
-          <div className="section-description-container">
-            <div className="sections-container">
-              {sections.map((section) => (
-                <button
-                  key={section.name}
-                  className="section-button"
-                  data-section={section.name}
-                  onMouseEnter={() => handleHover(section)}
-                >
-                  {section.name}
-                </button>
-              ))}
-            </div>
-            {hoveredDescription && (
-              <div className="description-container">{hoveredDescription}</div>
-            )}
+      <div className="sketch-carousel">
+        <div className="section-description-container">
+          <div className="sections-container">
+            {sections.map((section) => (
+              <button
+                key={section.name}
+                className="section-button"
+                data-section={section.name}
+                onMouseEnter={() => handleHover(section)}
+              >
+                {section.name}
+              </button>
+            ))}
           </div>
+          {hoveredDescription && (
+            <div className="description-container">{hoveredDescription}</div>
+          )}
         </div>
-      ) : (
-        <div className="desktop-content">MOBILE CONTENT</div>
-      )}
+      </div>
 
       <div className="sketch-container" data-count={sketchCount}>
         {visibleSketches.map((sketch, index) => (
-          <Link
-            to={`/${sketch.path}`}
-            key={`${sketch.id}-${index}`}
-            className="sketch-image-container"
-            style={{ top: sketch.y, left: sketch.x }}
-          >
-            <img src={sketch.src} alt={sketch.title} />
-          </Link>
+          <>
+            <Link
+              to={`/${sketch.path}`}
+              key={`${sketch.id}-${index}`}
+              className="sketch-image-container"
+              style={{ top: sketch.y, left: sketch.x }}
+            >
+              <img src={sketch.src} alt={sketch.title} />
+            </Link>
+          </>
         ))}
       </div>
 
