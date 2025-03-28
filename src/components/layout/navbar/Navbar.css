@@ -13,95 +13,66 @@
   font-style: normal;
 }
 
-.sketch-random-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.sketch-random-image {
-  position: absolute;
-  width: 150px;
-  height: auto;
-  pointer-events: auto;
-}
-
-.sketch-random-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.sketch-random-image:hover img {
-  transform: scale(1.1);
-  opacity: 0.9;
-}
-.navbar-open {
-  background-color: rgb(107, 139, 141);
-  z-index: 1100;
-  align-items: center;
-}
-
-.navbar-open::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 1.5px;
-  background: repeating-linear-gradient(
-    to bottom,
-    white,
-    white 5px,
-    transparent 5px,
-    transparent 10px
-  );
-}
-
-.navbar-logo-container {
-  display: flex;
-  align-items: center;
-  width: 20px;
-}
-
-.navbar-closed {
+.sidebar-closed-main-container {
   width: fit-content;
   height: fit-content;
 }
 
-.vertical-logo {
+.sidebar-closed-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: start;
+}
+
+.sidebar-closed-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.sidebar-closed-column {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-left: 30px;
+  height: 100vh;
+  justify-content: space-between;
+}
+
+.sidebar-closed-column-links {
+  display: flex;
+  flex-direction: column;
+  gap: 33px;
+  align-items: center;
+  height: 200px;
+  width: 20px;
+  flex: 1;
+}
+
+.sidebar-closed-icon {
+  color: whitesmoke;
+}
+
+.horizontal-logo {
   font-family: "Array", sans-serif;
-  font-size: 45px;
+  font-size: 40px;
   align-items: center;
   text-decoration: none;
   font-style: normal;
   cursor: pointer;
   letter-spacing: 10px;
-  padding-left: 14px;
   color: #f6f6f6;
 }
 
 .text-logo {
   font-family: "Array", sans-serif;
   color: #f6f6f6;
-  font-size: 45px;
+  font-size: 40px;
   align-items: center;
   text-decoration: none;
   letter-spacing: 10px;
   font-style: normal;
-}
-
-.image-button {
-  width: 40px;
-  height: auto;
-  margin-bottom: 15px;
-  cursor: pointer;
 }
 
 .expand-icon {
@@ -109,24 +80,33 @@
   transition: opacity 0.3s ease-in-out;
 }
 
-.logo-class:hover .expand-icon {
+.sidebar-closed:hover .expand-icon {
   opacity: 1;
-}
-
-.image-button-open {
-  width: 60px;
-  cursor: pointer;
-  height: auto;
-  margin-bottom: 15px;
-  transform: rotate(180deg);
-  transition: transform 0.3s ease-in-out;
 }
 
 .button-close-container {
   margin-bottom: 10px;
 }
 
-.art-options {
+.sidebar-open {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.sidebar-open-main-container {
+  background-color: rgb(227, 123, 139);
+  z-index: 1100;
+  align-items: center;
+}
+
+.sidebar-open-logo-container {
+  flex: 1;
+}
+
+.sidebar-open-options-container {
   font-size: 26px;
   font-weight: 550;
   color: #f6f6f6;
@@ -136,6 +116,16 @@
   flex-direction: column;
   gap: 6vh;
   cursor: pointer;
+  flex: 1;
+}
+
+.sidebar-open-language-and-close-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+  flex: 1;
+  justify-content: end;
 }
 
 .nav-link {
@@ -146,26 +136,17 @@
 
 .nav-link:hover {
   text-decoration: underline;
-  text-decoration-style: dashed; /* Esto cambia el estilo del subrayado a dashed */
+  text-decoration-style: dashed;
   text-decoration-color: whitesmoke;
   text-underline-offset: 5px;
   text-shadow: 0 0 8px rgba(245, 245, 245, 0.8);
-
 }
 
 .nav-link.selected {
   text-decoration: underline;
-  text-decoration-style: dashed; /* Esto cambia el estilo del subrayado a dashed */
+  text-decoration-style: dashed;
   text-decoration-color: whitesmoke;
   text-underline-offset: 5px;
-}
-
-.art-options-closed {
-  font-size: 0px;
-  font-weight: bold;
-  color: #f6f6f6;
-  margin-top: 2vw;
-  cursor: pointer;
 }
 
 .nav-lang {
@@ -175,6 +156,7 @@
   width: 100px;
   align-items: center;
   gap: 5px;
+  justify-content: space-between;
 }
 
 .sidebar .class-lang {
@@ -196,36 +178,16 @@
 
 .language-button:hover {
   text-decoration: underline;
-  text-decoration-style: dashed; /* Esto cambia el estilo del subrayado a dashed */
+  text-decoration-style: dashed;
   text-decoration-color: whitesmoke;
-  text-underline-offset: 5px; }
+  text-underline-offset: 5px;
+}
 
 .language-button.selected {
   text-decoration: underline;
-  text-decoration-style: dashed; /* Esto cambia el estilo del subrayado a dashed */
+  text-decoration-style: dashed;
   text-decoration-color: whitesmoke;
-  text-underline-offset: 5px; }
-
-.navbar-brand {
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  background-color: rgb(187, 196, 202);
-}
-
-.logo-class {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-class-closed {
-  position: relative;
-  display: flex;
-  align-items: center;
+  text-underline-offset: 5px;
 }
 
 .language-separator {
@@ -250,7 +212,7 @@
     height: 100vh;
   }
 
-  .navbar-closed {
+  .sidebar-closed-main-container {
     width: 100%;
     height: 7%;
     max-width: none;
@@ -267,34 +229,12 @@
     background-color: rgb(107, 139, 141);
   }
 
-  .logo2 {
-    width: 55%;
-    height: auto;
-    position: absolute;
-    left: 50%;
-    top: 20px;
-    transform: translateX(-50%);
-  }
-
-  .art-options {
-    display: flex;
-    align-items: center;
-    font-size: 3vw;
-  }
-
   .language-separator {
     width: 85%;
     height: 2px;
     background-color: #040311;
     margin: 1vw 0;
     display: block;
-  }
-
-  .art-options-closed {
-    font-size: 0px;
-    margin-top: 20px;
-    margin-left: 10px;
-    display: none;
   }
 
   .language-button {
@@ -314,7 +254,7 @@
     font-size: 5vw;
   }
 
-  .vertical-logo {
+  .horizontal-logo {
     font-size: 32px;
     writing-mode: horizontal-tb;
     text-orientation: initial;

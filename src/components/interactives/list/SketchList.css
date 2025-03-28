@@ -18,6 +18,7 @@
   min-height: 300px;
   width: 100%;
   margin-top: 150px;
+
 }
 
 .sections-container {
@@ -57,7 +58,7 @@
 
 .section-button.active,
 .section-button:hover {
-  text-shadow: 0 0 8px rgba(245, 245, 245, 0.8);
+  text-shadow: 0 0 10px rgba(225, 255, 26, 1), 0 0 20px rgba(225, 255, 26, 0.8), 0 0 30px rgba(225, 255, 26, 0.6);  /* Sombra intensa pero cercana */
 }
 
 .sketch-random-container {
