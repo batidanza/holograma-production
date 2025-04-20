@@ -7,15 +7,10 @@ import Home from "../components/layout/home/Home";
 import InteractivesList from "../components/interactives/list/InteractivesList";
 import Magazine from "../components/magazine/main-files/Magazine";
 import Login from "../Login";
-import Profile from "../components/user/profile/Profile";
 import DrawComponent from "../components/interactives/design/shape-draw/DrawComponent";
-import Fan from "../components/interactives/artwork/Fan";
+import Fan from "../components/interactives/dynamic/RollingPhotoSketch.jsx";
 import BackgroundSketch from "../components/interactives/artwork/BackgroundSketch";
-
 import ImageCircle from "../components/interactives/design/image-circle/ImageCircle";
-import Register from "../components/user/signin/Register";
-import Creatives from "../components/user/creatives/Creatives";
-import CreativeDetail from "../components/user/creatives/CreativeDetail";
 import CreateArchive from "../components/management/archive/CreateArchive";
 import UploadArchivePhotos from "../components/management/archive/UploadArchivePhotos";
 import Pad2 from "../components/interactives/audio/audio-visualizer/Pad2";
@@ -25,6 +20,7 @@ import ProtectedRoute from "../ProtectedRoute";
 import PhotoSwirlSketch from "../components/interactives/experimental/PhotoSwirlSketch";
 import Alma from "../components/interactives/artwork/Ismael.jsx";
 import NatureAbstractSketch from "../components/interactives/nature/NatureAbstractSketch.jsx";
+import RollingInteractiveSpiralSketch from "../components/interactives/dynamic/RollingInteractiveSpiralSketch.jsx";
 
 const AppRoutes = () => {
   return (
@@ -46,7 +42,7 @@ const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<InteractivesList />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/login" element={<Login />} />
         <Route path="/magazine" element={<Magazine />} />
@@ -56,14 +52,11 @@ const AppRoutes = () => {
         <Route path="/particle-component" element={<ParticleComponent />} />
         <Route path="/fluid-component" element={<FluidComponent />} />
         <Route path="/swirl-sketch" element={<PhotoSwirlSketch />} />
+        <Route path="/rolling_interactive_spiral" element={<RollingInteractiveSpiralSketch />} />
         <Route path="/fan-sketch" element={<Fan />} />
         <Route path="/september" element={<Pad2 />} />
         <Route path="/pad" element={<Pad />} />
         <Route path="/image-circle" element={<ImageCircle />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/creatives" element={<Creatives />} />
-        <Route path="/creatives/:userId" element={<CreativeDetail />} />
         <Route path="/collection-archive-create" element={<CreateArchive />} />
         <Route path="/chaotic" element={<BackgroundSketch />} />
         <Route path="/sketch" element={<Pad />} />

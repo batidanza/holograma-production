@@ -19,19 +19,21 @@ export const handleImageUpload = (p5, e, setUserImage, setShowInstructions, setD
   
   
   export const openFullscreen = () => {
-    const canvas = document.querySelector(".p5Canvas");
+    const canvas = document.getElementById("drawingCanvas");
+    if (!canvas) {
+      console.error("No se encontró el canvas de dibujo");
+      return;
+    }
     try {
       if (canvas.requestFullscreen) {
         canvas.requestFullscreen();
       } else if (canvas.webkitRequestFullscreen) {
-        /* Safari */
         canvas.webkitRequestFullscreen();
       } else if (canvas.msRequestFullscreen) {
-        /* IE11 */
         canvas.msRequestFullscreen();
       }
     } catch (error) {
       console.error("Error requesting fullscreen:", error);
     }
-  };
+};
 

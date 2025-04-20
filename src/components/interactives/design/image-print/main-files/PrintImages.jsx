@@ -12,6 +12,7 @@ const PrintImages = () => {
   const [showInstructions, setShowInstructions] = useState(true);
   const [showSecondInstruction, setShowSecondInstruction] = useState(false);
   const [printedFirstImage, setPrintedFirstImage] = useState(false);
+  const [particleMode, setParticleMode] = useState(false);
 
   const [size, setSize] = useState(() => {
     return window.innerWidth < 710 ? 50 : 400;
@@ -62,6 +63,8 @@ const PrintImages = () => {
       setup={setup}
       draw={draw}
       windowResized={windowResized}
+      particleMode={particleMode}
+      setParticleMode={setParticleMode}
     />
   );
 };

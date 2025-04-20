@@ -6,13 +6,11 @@ import NavbarLanguage from "./NavbarLanguage";
 import { MdExpandMore } from "../../../../node_modules/react-icons/md";
 import { RiCloseFill } from "react-icons/ri";
 import { UserAuth } from "../../../AuthContext";
-import {
-  FaCompass,
-  FaPen,
-  FaSignInAlt,
-  FaBook,
-  FaAdjust,
-} from "react-icons/fa";
+import { FaCompass, FaPen, FaBook, FaAdjust } from "react-icons/fa";
+import { AiFillSkin } from "react-icons/ai";
+import { IoBookSharp } from "react-icons/io5";
+import { FiLogIn } from "react-icons/fi";
+import { IoIosCreate } from "react-icons/io";
 
 const Navbar = ({ setSkin, skin }) => {
   const { t, i18n } = useTranslation();
@@ -155,36 +153,52 @@ const Navbar = ({ setSkin, skin }) => {
                       )}
                     </div>
                   </div>
-                  <div className="sidebar-closed-column-links">
-                    {showIcons && (
+                  {showIcons && (
+                    <div className="sidebar-closed-column-links">
                       <>
-                        <Link to="/explore">
+                        <Link
+                          className="sidebar-closed-link tooltip"
+                          to="/explore"
+                        >
                           <FaCompass
                             size={24}
                             className="sidebar-closed-icon"
                           />
+                          <span className="tooltip-text-row">Explore</span>
                         </Link>
-                        <Link to="/interactives-list">
-                          <FaPen size={24} className="sidebar-closed-icon" />
-                        </Link>
-                        <Link to="/login">
-                          <FaSignInAlt
+                        <Link
+                          className="sidebar-closed-link tooltip"
+                          to="/interactives-list"
+                        >
+                          <IoIosCreate
                             size={24}
                             className="sidebar-closed-icon"
                           />
+                          <span className="tooltip-text-row">Interactives</span>
                         </Link>
-                        <Link to="/magazine">
-                          <FaBook size={24} className="sidebar-closed-icon" />
+                        <Link
+                          className="sidebar-closed-link tooltip"
+                          to="/magazine"
+                        >
+                          <IoBookSharp
+                            size={24}
+                            className="sidebar-closed-icon"
+                          />
+                          <span className="tooltip-text-row">Magazine</span>
                         </Link>
                         <button
                           onClick={() => setSkin((prevState) => !prevState)}
+                          className="sidebar-closed-link tooltip"
                         >
-                          <FaAdjust size={24} className="sidebar-closed-icon" />
+                          <AiFillSkin
+                            size={24}
+                            className="sidebar-closed-icon"
+                          />
+                          <span className="tooltip-text-row">Change Skin</span>
                         </button>
                       </>
-                    )}
-                  </div>
-                  <div className="invisible-item" style={{ flex: 1 }} />
+                    </div>
+                  )}
                 </div>
               )}
             </>

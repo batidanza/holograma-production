@@ -58,12 +58,14 @@ const PrintImagesJsx = ({
   draw,
   windowResized,
 }) => {
+  // Add particleMode state near other states
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedSize, setSelectedSize] = useState(size);
   const [ignoreCanvasClicks, setIgnoreCanvasClicks] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [uploadedImages, setUploadedImages] = useState([]);
   const [eraserMode, setEraserMode] = useState(false);
+  const [particleMode, setParticleMode] = useState(false);
   {
     /* 
   useEffect(() => {
@@ -273,6 +275,18 @@ const PrintImagesJsx = ({
           </button>
 
           <button
+            className={`control-button tooltip ${particleMode ? 'selected' : ''}`}
+            onClick={() => setParticleMode(!particleMode)}
+          >
+            <div style={{ width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: 12, height: 12, background: 'black', borderRadius: '50%' }} />
+            </div>
+            <span className="tooltip-text">
+              {particleMode ? "Normal Mode" : "Particle Mode"}
+            </span>
+          </button>
+
+          <button
             className="control-button tooltip"
             onClick={handleClearCanvas}
           >
@@ -331,7 +345,8 @@ const PrintImagesJsx = ({
                     setShowSecondInstruction,
                     setPrintedFirstImage,
                     size,
-                    eraserMode
+                    eraserMode,
+                    particleMode
                   );
                 }
               }}

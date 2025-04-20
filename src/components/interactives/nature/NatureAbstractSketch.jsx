@@ -3,9 +3,9 @@ import Sketch from "react-p5";
 // Importar las imágenes de flores
 
 import flower5 from "../../../assets/caracol.png";
-import pes1 from "../../../assets/pes-1.png";
-import pes2 from "../../../assets/pes-2.png";
-import pes3 from "../../../assets/ballena.png";
+import pes1 from "../../../assets/caracol.png";
+import pes2 from "../../../assets/caracol.png";
+import pes3 from "../../../assets/caracol.png";
 import { useRef } from "react";
 
 export default function NatureAbstractSketch() {
@@ -22,7 +22,7 @@ export default function NatureAbstractSketch() {
       this.vy = p5.random(-2, 2); // Velocidad vertical
       this.alpha = 255; // Transparencia inicial
       this.image = image;
-      this.size = p5.random(60, 240); // Tamaño aleatorio
+      this.size = p5.random(2, 8); // Tamaño aleatorio
     }
 
     update() {
@@ -52,30 +52,48 @@ export default function NatureAbstractSketch() {
     reset(p5) {
       this.x = p5.random(p5.width);
       this.y = p5.random(p5.height);
-      this.vx = p5.random(-2, 2);
-      this.vy = p5.random(-2, 2);
-      this.alpha = p5.random(60, 200);
-      this.size = p5.random(2, 10);
-      this.color = p5.color(p5.random(40, 150), p5.random(100, 230), p5.random(40, 120), this.alpha);
+      this.vx = p5.random(-8, 8);  // Duplicada la velocidad inicial
+      this.vy = p5.random(-8, 8);  // Duplicada la velocidad inicial
+      this.alpha = p5.random(150, 255);
+      this.size = p5.random(2, 6);
+      this.color = p5.color(
+        p5.random(0, 100),
+        p5.random(150, 255),
+        p5.random(200, 255),
+        this.alpha
+      );
+      this.fadeSpeed = p5.random(1, 3);  // Más lento el desvanecimiento
+      this.noiseOffset = p5.random(1000);  // Para movimiento más caótico
     }
 
     update(p5) {
-      let centerX = p5.width / 2;
-      let centerY = p5.height / 2;
+      let centerX = p5.width / 2 + Math.sin(p5.frameCount * 0.02) * 200;  // Centro móvil
+      let centerY = p5.height / 2 + Math.cos(p5.frameCount * 0.02) * 200;  // Centro móvil
+      
       let dx = centerX - this.x;
       let dy = centerY - this.y;
       let distance = p5.dist(this.x, this.y, centerX, centerY);
-      let force = p5.map(distance, 0, p5.width / 2, 0.05, 0.2);
+      
+      // Fuerza caótica adicional
+      let noiseForceX = p5.map(p5.noise(this.noiseOffset + p5.frameCount * 0.01), 0, 1, -2, 2);
+      let noiseForceY = p5.map(p5.noise(this.noiseOffset + 500 + p5.frameCount * 0.01), 0, 1, -2, 2);
+      
+      let force = p5.map(distance, 0, p5.width / 2, 0.2, 0.6);
 
-      this.vx += force * (dx / distance);
-      this.vy += force * (dy / distance);
-      this.vx *= 0.96;
-      this.vy *= 0.96;
+      this.vx += force * (dx / distance) + noiseForceX;
+      this.vy += force * (dy / distance) + noiseForceY;
+      this.vx *= 0.99;
+      this.vy *= 0.99;
 
       this.x += this.vx;
       this.y += this.vy;
+      this.alpha -= this.fadeSpeed;
 
-      if (distance < 10) {
+      // Rebote en los bordes
+      if (this.x < 0 || this.x > p5.width) this.vx *= -1;
+      if (this.y < 0 || this.y > p5.height) this.vy *= -1;
+
+      if (distance < 5) {
         this.reset(p5);
       }
     }
@@ -103,16 +121,21 @@ export default function NatureAbstractSketch() {
   };
 
   const draw = (p5) => {
-    p5.background(30, 60, 40, 120);
+    p5.background(10, 20, 40, 0);  // Más transparente para crear trails
 
     // Crear flores cuando el mouse está presionado
     if (p5.mouseIsPressed) {
       flowers.push(new Flower(p5, p5.mouseX, p5.mouseY, flowerImages[Math.floor(p5.random(flowerImages.length))]));
     }
 
-    // Crear partículas que se mueven hacia el centro
-    if (p5.frameCount % 3 === 0) { // Añadimos partículas de forma constante
+    // Crear más partículas por frame
+    for(let i = 0; i < 5; i++) {  // Aumentado a 5 partículas por frame
       particles.push(new Particle(p5));
+    }
+
+    // Limitar el número máximo de partículas
+    if (particles.length > 1000) {
+      particles.splice(0, 5);
     }
 
     // Actualizar y mostrar las flores

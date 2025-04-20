@@ -21,7 +21,6 @@
 .sidebar-closed-container {
   display: flex;
   flex-direction: column;
-  flex: 1;
   align-items: start;
 }
 
@@ -36,7 +35,6 @@
   flex-direction: column;
   align-items: start;
   padding-left: 30px;
-  height: 100vh;
   justify-content: space-between;
 }
 
@@ -45,9 +43,21 @@
   flex-direction: column;
   gap: 33px;
   align-items: center;
-  height: 200px;
+  position: fixed; 
+  top: 50%;
+  left: 20px; 
+  transform: translateY(-50%);
+  height: auto;
   width: 20px;
-  flex: 1;
+  z-index: 900000;
+  pointer-events: auto; 
+}
+
+.sidebar-closed-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
 }
 
 .sidebar-closed-icon {

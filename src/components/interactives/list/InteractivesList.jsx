@@ -155,7 +155,7 @@ const InteractivesList = () => {
       },
     ],
     EXPERIMENTAL: [
-      { id: 3, src: dynamic3, title: "SHAPE", path: "swirl-sketch" },
+      { id: 3, src: dynamic3, title: "SHAPE", path: "rolling_interactive_spiral" },
     ],
     DYNAMIC: [
       { id: 6, src: dynamic, title: "FAN SKETCH", path: "fan-sketch" },

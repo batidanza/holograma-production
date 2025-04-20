@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Sketch from "react-p5";
 import chooseImageIcon from "../../../../assets/icons/choose_image.svg";
 import "./ImageCircle.css";
@@ -12,7 +12,6 @@ import blur from "../../../../assets/icons/blur.svg";
 import chart from "../../../../assets/icons/chart.svg";
 import wallpaper from "../../../../assets/icons/wallpaper.svg";
 
-
 const ImageCircle = () => {
   const [aureolaColor, setAureolaColor] = useState("#91A0DC");
   const [userImage, setUserImage] = useState(null);
@@ -23,6 +22,8 @@ const ImageCircle = () => {
   const [isControlPressed, setIsControlPressed] = useState(false);
 
   const imgRef = useRef(null);
+  const p5Instance = useRef(null);
+
   const aureolas = [];
 
   const handleColorChange = (event) => {
@@ -80,88 +81,90 @@ const ImageCircle = () => {
     });
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (p5Instance.current) {
+        windowResized(p5Instance.current);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const setup = (p5, canvasParentRef) => {
-    let canvasWidth = Math.min(window.innerWidth * 0.8, 1024);
-    let canvasHeight = canvasWidth * (1.9 / 3);
+    p5Instance.current = p5; // Guardamos la instancia para usarla fuera
 
-    if (window.innerWidth < 780) {
-      canvasWidth = window.innerWidth * 0.65;
-      canvasHeight = window.innerHeight * 0.9;
-    }
+    const updateCanvasSize = () => {
+      let canvasWidth = Math.min(window.innerWidth * 0.8, 1024); // 80% del ancho, máximo 1024px
+      let canvasHeight = canvasWidth * (1.9 / 3); // Mantiene la relación de aspecto 1.9:3
 
-    const canvas = p5.createCanvas(canvasWidth, canvasHeight);
+      if (window.innerHeight < 1060) {
+        let canvasWidth = Math.min(window.innerWidth * 0.8, 1024); // 80% del ancho, máximo 1024px
+        canvasHeight = window.innerHeight * 0.75; // 7.5% of the window height
+      }
+      // En pantallas pequeñas
+      if (window.innerWidth < 980) {
+        canvasWidth = window.innerWidth;
+        canvasHeight = window.innerHeight * 0.7;
+      }
+
+      p5.resizeCanvas(canvasWidth, canvasHeight);
+    };
+
+    const canvas = p5.createCanvas(1, 1);
     canvas.parent(canvasParentRef);
+
+    canvas.id("drawingCanvas");
+
+    updateCanvasSize();
 
     canvas.style("display", "block");
     canvas.style("margin", "auto");
     canvas.style("user-select", "none");
     canvas.style("touch-action", "none");
-    p5.textFont("Array");
-    canvas.style("border", "1.5px dashed whitesmoke");  // Aumentar el grosor del borde
-    canvas.style("border-spacing", "10px");  canvas.style("padding", "10px");
-    canvas.style("border-radius", "6px");  canvas.style("padding", "10px");
+    p5.textFont("IBM Plex Sans");
+    canvas.style("border", "1.5px dashed whitesmoke");
+    canvas.style("border-spacing", "10px");
+    canvas.style("padding", "10px");
+    canvas.style("border-radius", "6px");
+    canvas.style("padding", "10px");
 
     p5.frameRate(60);
   };
+
+  const windowResized = (p5) => {
+    let canvasWidth = Math.min(window.innerWidth * 0.8, 1024);
+    let canvasHeight = canvasWidth * (1.9 / 3);
+
+    if (window.innerWidth < 780) {
+      canvasWidth = window.innerWidth;
+      canvasHeight = window.innerHeight * 0.9;
+    }
+
+    p5.resizeCanvas(canvasWidth, canvasHeight);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (p5) {
+        windowResized(p5); // Llamamos a la función para redimensionar el canvas
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const draw = (p5) => {
     if (!userImage) {
       p5.background(245, 245, 245);
     }
 
-    if (showInstructions) {
-      p5.textAlign(p5.CENTER, p5.CENTER);
-      p5.textSize(30);
-      p5.textFont("Array");
-
-      const fadeInDuration = 120;
-      const fadeOutDuration = 120;
-      const totalDuration = fadeInDuration + fadeOutDuration;
-
-      let alpha = 255;
-      const cyclePosition = p5.frameCount % totalDuration;
-      if (cyclePosition < fadeInDuration) {
-        alpha = p5.lerp(0, 255, cyclePosition / fadeInDuration);
-      } else if (cyclePosition < totalDuration) {
-        const fadeOutPosition = cyclePosition - fadeInDuration;
-        alpha = p5.lerp(255, 0, fadeOutPosition / fadeOutDuration);
-      }
-
-      const instructionText =
-        "✨First, select a photo using the yellow button. Then, choose a shape from the shape buttons. To print both the image and the shape, hold down the mouse button inside the canvas✨";
-
-      const wrappedText = wrapText(instructionText, p5.width - 40, p5);
-
-      p5.fill(0, 0, 0, alpha);
-      const lineHeight = 40;
-      wrappedText.forEach((line, index) => {
-        p5.text(line, p5.width / 2, p5.height / 2 + index * lineHeight);
-      });
-    }
-
-    function wrapText(text, maxWidth, p5) {
-      const words = text.split(" ");
-      let lines = [];
-      let currentLine = words[0];
-
-      for (let i = 1; i < words.length; i++) {
-        const word = words[i];
-        const width = p5.textWidth(currentLine + " " + word);
-        if (width < maxWidth) {
-          currentLine += " " + word;
-        } else {
-          lines.push(currentLine);
-          currentLine = word;
-        }
-      }
-      lines.push(currentLine); // Add the last line
-      return lines;
-    }
     if (userImage && !imgRef.current) {
       imgRef.current = {
         user: p5.loadImage(userImage, () => {
           setShowInstructions(false);
-          p5.background(255); // Configura el fondo después de cargar la imagen
         }),
       };
     }
@@ -248,7 +251,35 @@ const ImageCircle = () => {
   return (
     <div className="sketch-draw-image-figure-container">
       <div className="sketch-draw-image-figure-container-column">
-      <input
+        <label
+          htmlFor="imageUpload"
+          className="control-button-add-photo tooltip"
+          onMouseDown={() => setIsControlPressed(true)}
+          onMouseUp={() => setIsControlPressed(false)}
+        >
+          <img className="shape-button" src={wallpaper} alt="Choose" />
+        </label>
+        <input
+          id="imageUpload"
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          style={{ display: "none" }}
+        />
+        <input
+          type="range"
+          min="100"
+          max="300"
+          value={imageSize}
+          onChange={(e) => setImageSize(e.target.value)}
+          className="control-button-slide"
+          onMouseDown={() => setIsControlPressed(true)}
+          onMouseUp={() => setIsControlPressed(false)}
+        />
+      </div>
+      <div className="sketch-draw-image-figure-content">
+        <div className="sketch-controls">
+          <input
             type="color"
             id="aureolaColor"
             value={aureolaColor}
@@ -257,36 +288,6 @@ const ImageCircle = () => {
             onMouseDown={() => setIsControlPressed(true)}
             onMouseUp={() => setIsControlPressed(false)}
           />
-          <label
-            style={{ backgroundColor: "#96902c" }}
-            htmlFor="imageUpload"
-            className="control-button"
-            onMouseDown={() => setIsControlPressed(true)}
-            onMouseUp={() => setIsControlPressed(false)}
-          >
-            <img className="shape-button" src={wallpaper} alt="Choose" />
-          </label>
-          <input
-            id="imageUpload"
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            style={{ display: "none" }}
-          />
-          <input
-            type="range"
-            min="100"
-            max="300"
-            value={imageSize}
-            onChange={(e) => setImageSize(e.target.value)}
-            className="control-button-slide"
-            onMouseDown={() => setIsControlPressed(true)}
-            onMouseUp={() => setIsControlPressed(false)}
-          />
-      </div>
-      <div className="sketch-draw-image-figure-content">
-        <div className="sketch-controls">
-          {/* Botones de figuras con clase "selected" cuando están activos */}
           <button
             className={`control-button ${
               selectedShape === "ellipse" ? "selected" : ""
@@ -370,6 +371,7 @@ const ImageCircle = () => {
         </div>
 
         <Sketch
+          windowResized={(p5) => windowResized(p5)}
           className="fluid"
           setup={setup}
           draw={draw}

@@ -26,6 +26,8 @@ export const setup = (p5, canvasParentRef) => {
   const canvas = p5.createCanvas(1, 1); 
   canvas.parent(canvasParentRef);
 
+  canvas.id("drawingCanvas");
+  
   updateCanvasSize(); 
 
   // Estilos para el canvas
@@ -81,7 +83,8 @@ export const draw = (
   setShowSecondInstruction,
   setPrintedFirstImage,
   size,
-  eraserMode
+  eraserMode,
+  particleMode
 ) => {
   p5.background(245, 245, 245);
   
@@ -145,10 +148,29 @@ if (eraserMode && p5.mouseIsPressed) {
   });
 }
 
-  // Dibuja las imágenes históricas
+  // Dibuja las imágenes históricas con efecto de partículas si está activado
   for (let i = 0; i < imagesHistory.current.length; i++) {
     const { img, x, y, width, height } = imagesHistory.current[i];
-    p5.image(img, x - width / 2, y - height / 2, width, height);
+    if (particleMode) {
+      // Dibuja la imagen como partículas lineales
+      for (let px = 0; px < width; px += 4) {
+        for (let py = 0; py < height; py += 4) {
+          let pixelColor = img.get(px * (img.width/width), py * (img.height/height));
+          if (pixelColor[0] + pixelColor[1] + pixelColor[2] > 200) { // Si el pixel es claro
+            p5.stroke(0);
+            p5.strokeWeight(1);
+            p5.line(
+              x - width/2 + px, 
+              y - height/2 + py,
+              x - width/2 + px, 
+              y - height/2 + py + 3
+            );
+          }
+        }
+      }
+    } else {
+      p5.image(img, x - width/2, y - height/2, width, height);
+    }
   }
 
   // Dibuja la imagen del usuario si está habilitado

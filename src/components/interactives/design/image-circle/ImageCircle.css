@@ -11,16 +11,38 @@
   flex-direction: column;
 }
 
+.image-preview-container {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.preview-thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.preview-thumbnail.selected {
+  border-color: #91A0DC;
+}
+
 .sketch-draw-image-figure-container-column {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 20px;
   align-items: center;
+  width: 100%;
+  gap: 25px;
 }
 
 .sketch-draw-image-figure-content {
-  margin-top: 50px;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -30,7 +52,7 @@
 .control-button-slide {
   -webkit-appearance: none; /* Quita los estilos por defecto en WebKit */
   appearance: none;
-  width: 50%;
+  width: 200px;
   height: 6px;
   background-color: whitesmoke;
   border-radius: 5px;
