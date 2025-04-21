@@ -8,7 +8,7 @@ import pes2 from "../../../assets/caracol.png";
 import pes3 from "../../../assets/caracol.png";
 import { useRef } from "react";
 
-export default function NatureAbstractSketch() {
+export default function ChaoticParticles() {
   let flowers = [];
   let particles = [];
   let flowerImages = [];
@@ -52,55 +52,73 @@ export default function NatureAbstractSketch() {
     reset(p5) {
       this.x = p5.random(p5.width);
       this.y = p5.random(p5.height);
-      this.vx = p5.random(-8, 8);  // Duplicada la velocidad inicial
-      this.vy = p5.random(-8, 8);  // Duplicada la velocidad inicial
-      this.alpha = p5.random(150, 255);
-      this.size = p5.random(2, 6);
+      this.vx = p5.random(-12, 12);
+      this.vy = p5.random(-12, 12);
+      this.alpha = p5.random(50, 150);
+      this.size = p5.random(0.5, 2);
       this.color = p5.color(
-        p5.random(0, 100),
         p5.random(150, 255),
         p5.random(200, 255),
-        this.alpha
+        p5.random(230, 255),
+        this.alpha * 0.6
       );
-      this.fadeSpeed = p5.random(1, 3);  // Más lento el desvanecimiento
-      this.noiseOffset = p5.random(1000);  // Para movimiento más caótico
+      this.fadeSpeed = p5.random(0.3, 1);
+      this.noiseOffset = p5.random(1000);
     }
 
     update(p5) {
-      let centerX = p5.width / 2 + Math.sin(p5.frameCount * 0.02) * 200;  // Centro móvil
-      let centerY = p5.height / 2 + Math.cos(p5.frameCount * 0.02) * 200;  // Centro móvil
+      let time = p5.frameCount * 0.01;
+      let centerX = p5.width / 2;
+      let centerY = p5.height / 2;
       
-      let dx = centerX - this.x;
-      let dy = centerY - this.y;
-      let distance = p5.dist(this.x, this.y, centerX, centerY);
+      // Multiple attraction points for better coverage
+      let points = [
+        { x: centerX + p5.width * 0.4 * Math.cos(time), y: centerY + p5.height * 0.4 * Math.sin(time) },
+        { x: centerX + p5.width * 0.4 * Math.cos(time + 2), y: centerY + p5.height * 0.4 * Math.sin(time * 1.5) },
+        { x: centerX + p5.width * 0.3 * Math.sin(time * 1.2), y: centerY + p5.height * 0.3 * Math.cos(time * 0.8) }
+      ];
       
-      // Fuerza caótica adicional
-      let noiseForceX = p5.map(p5.noise(this.noiseOffset + p5.frameCount * 0.01), 0, 1, -2, 2);
-      let noiseForceY = p5.map(p5.noise(this.noiseOffset + 500 + p5.frameCount * 0.01), 0, 1, -2, 2);
+      // Find closest attraction point
+      let closestPoint = points.reduce((closest, point) => {
+        let d = p5.dist(this.x, this.y, point.x, point.y);
+        return d < closest.dist ? { point, dist: d } : closest;
+      }, { point: points[0], dist: Infinity }).point;
       
-      let force = p5.map(distance, 0, p5.width / 2, 0.2, 0.6);
-
-      this.vx += force * (dx / distance) + noiseForceX;
-      this.vy += force * (dy / distance) + noiseForceY;
-      this.vx *= 0.99;
-      this.vy *= 0.99;
-
+      let dx = closestPoint.x - this.x;
+      let dy = closestPoint.y - this.y;
+      let distance = p5.dist(this.x, this.y, closestPoint.x, closestPoint.y);
+      
+      let force = p5.map(distance, 0, p5.width / 2, 0.15, 0.35);
+      
+      // Enhanced boundary control
+      if (this.x < p5.width * 0.02) this.vx += 0.8;
+      if (this.x > p5.width * 0.98) this.vx -= 0.8;
+      if (this.y < p5.height * 0.02) this.vy += 0.8;
+      if (this.y > p5.height * 0.98) this.vy -= 0.8;
+      
+      // Add some noise for organic movement
+      let noiseForce = p5.noise(this.x * 0.005, this.y * 0.005, time) * 0.5;
+      
+      this.vx += (force * dx / distance) + (Math.cos(time * 2) * noiseForce);
+      this.vy += (force * dy / distance) + (Math.sin(time * 2) * noiseForce);
+      
       this.x += this.vx;
       this.y += this.vy;
-      this.alpha -= this.fadeSpeed;
-
-      // Rebote en los bordes
-      if (this.x < 0 || this.x > p5.width) this.vx *= -1;
-      if (this.y < 0 || this.y > p5.height) this.vy *= -1;
-
-      if (distance < 5) {
-        this.reset(p5);
-      }
+      
+      this.vx *= 0.96;
+      this.vy *= 0.96;
+      
+      this.alpha -= this.fadeSpeed * 0.4;
     }
 
     show(p5) {
       p5.noStroke();
-      p5.fill(this.color);
+      let glowSize = this.size * 1;
+      
+      p5.fill(this.color[0], this.color[1], this.color[2], this.alpha * 0.1);
+      p5.ellipse(this.x, this.y, glowSize * p5.noise(this.x * 0.01));
+      
+      p5.fill(this.color[0], this.color[1], this.color[2], this.alpha * 0.1);
       p5.ellipse(this.x, this.y, this.size * p5.noise(this.x * 0.01));
     }
   }
@@ -121,21 +139,16 @@ export default function NatureAbstractSketch() {
   };
 
   const draw = (p5) => {
-    p5.background(10, 20, 40, 0);  // Más transparente para crear trails
+    p5.background(10, 20, 40, 2);
 
-    // Crear flores cuando el mouse está presionado
-    if (p5.mouseIsPressed) {
-      flowers.push(new Flower(p5, p5.mouseX, p5.mouseY, flowerImages[Math.floor(p5.random(flowerImages.length))]));
-    }
-
-    // Crear más partículas por frame
-    for(let i = 0; i < 5; i++) {  // Aumentado a 5 partículas por frame
+    // Create more particles per frame for better coverage
+    for(let i = 0; i < 35; i++) {
       particles.push(new Particle(p5));
     }
 
-    // Limitar el número máximo de partículas
-    if (particles.length > 1000) {
-      particles.splice(0, 5);
+    // Increased maximum particles
+    if (particles.length > 25200) {
+      particles.splice(0, 35);
     }
 
     // Actualizar y mostrar las flores

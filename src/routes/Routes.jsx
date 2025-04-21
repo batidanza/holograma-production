@@ -9,7 +9,7 @@ import Magazine from "../components/magazine/main-files/Magazine";
 import Login from "../Login";
 import DrawComponent from "../components/interactives/design/shape-draw/DrawComponent";
 import Fan from "../components/interactives/dynamic/RollingPhotoSketch.jsx";
-import BackgroundSketch from "../components/interactives/artwork/BackgroundSketch";
+import Chaotic from "../components/interactives/chaotic/Chaotic.jsx";
 import ImageCircle from "../components/interactives/design/image-circle/ImageCircle";
 import CreateArchive from "../components/management/archive/CreateArchive";
 import UploadArchivePhotos from "../components/management/archive/UploadArchivePhotos";
@@ -19,7 +19,7 @@ import Signin from "../Signin";
 import ProtectedRoute from "../ProtectedRoute";
 import PhotoSwirlSketch from "../components/interactives/experimental/PhotoSwirlSketch";
 import Alma from "../components/interactives/artwork/Ismael.jsx";
-import NatureAbstractSketch from "../components/interactives/nature/NatureAbstractSketch.jsx";
+import ChaoticParticles from "../components/interactives/chaotic/ChaoticParticles.jsx";
 import RollingInteractiveSpiralSketch from "../components/interactives/dynamic/RollingInteractiveSpiralSketch.jsx";
 
 const AppRoutes = () => {
@@ -58,10 +58,10 @@ const AppRoutes = () => {
         <Route path="/pad" element={<Pad />} />
         <Route path="/image-circle" element={<ImageCircle />} />
         <Route path="/collection-archive-create" element={<CreateArchive />} />
-        <Route path="/chaotic" element={<BackgroundSketch />} />
+        <Route path="/chaotic" element={<Chaotic/>} />
         <Route path="/sketch" element={<Pad />} />
         <Route path="/alma" element={<Alma />} />
-        <Route path="/nature" element={<NatureAbstractSketch />} />
+        <Route path="/chaotic_particles" element={<ChaoticParticles />} />
 
         <Route
           path="/collection-archive-photos-upload"

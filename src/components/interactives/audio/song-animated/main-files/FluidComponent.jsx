@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Sketch from "react-p5";
 import audio from "../../../../../assets/audioVisualizer/llanto.wav";
 import fullScreanIcon from "../../../../../assets/icons/full_screan.svg";
+import { FaPlay } from "react-icons/fa";
+
 
 let sound;
 
@@ -285,8 +287,7 @@ const FluidComponent = () => {
             className="button-permission"
             onClick={requestAudioPermission}
           >
-            Allow audio
-          </button>
+<FaPlay/>          </button>
         )}
       </div>
       {showButton && (

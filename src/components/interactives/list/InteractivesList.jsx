@@ -136,7 +136,15 @@ const InteractivesList = () => {
         path: "alma",
       },
     ],
-    CHAOTIC: [{ id: 4, src: chaotic, title: "chaotic", path: "chaotic" }],
+    CHAOTIC: [
+      { id: 4, src: chaotic, title: "chaotic", path: "chaotic" },
+      {
+        id: 5,
+        src: printImg2,
+        title: "Nature Abstract Sketch",
+        path: "chaotic_particles",
+      },
+    ],
     DESIGN: [
       { id: 5, src: printImg, title: "PRINT IMAGES", path: "print-images" },
       {
@@ -151,11 +159,16 @@ const InteractivesList = () => {
         id: 2,
         src: printImg2,
         title: "Nature Abstract Sketch",
-        path: "nature",
+        path: "chaotic",
       },
     ],
     EXPERIMENTAL: [
-      { id: 3, src: dynamic3, title: "SHAPE", path: "rolling_interactive_spiral" },
+      {
+        id: 3,
+        src: dynamic3,
+        title: "SHAPE",
+        path: "rolling_interactive_spiral",
+      },
     ],
     DYNAMIC: [
       { id: 6, src: dynamic, title: "FAN SKETCH", path: "fan-sketch" },

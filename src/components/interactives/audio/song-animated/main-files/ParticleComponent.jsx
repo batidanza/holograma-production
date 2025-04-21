@@ -4,6 +4,8 @@ import audio from "../../../../../assets/audioVisualizer/crema.mp3";
 import fullScreanIcon from "../../../../../assets/icons/full_screan.svg";
 import { playAudio, stopAudio, requestAudioPermission } from "../helpers/AudioControls";
 import Star from "../helpers/Star"; 
+import { FaPlay } from "react-icons/fa";
+
 
 let sound;
 
@@ -170,8 +172,7 @@ const FluidComponent = () => {
             className="button-permission"
             onClick={handleRequestAudioPermission}
           >
-            Allow audio
-          </button>
+<FaPlay/>               </button>
         )}
       </div>
     </div>

@@ -156,7 +156,7 @@ if (eraserMode && p5.mouseIsPressed) {
       for (let px = 0; px < width; px += 4) {
         for (let py = 0; py < height; py += 4) {
           let pixelColor = img.get(px * (img.width/width), py * (img.height/height));
-          if (pixelColor[0] + pixelColor[1] + pixelColor[2] > 200) { // Si el pixel es claro
+          if (pixelColor[0] + pixelColor[1] + pixelColor[2] > 50) { // Si el pixel es claro
             p5.stroke(0);
             p5.strokeWeight(1);
             p5.line(
